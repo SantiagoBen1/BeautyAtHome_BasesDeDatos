@@ -1,0 +1,18 @@
+{
+    "java.configuration.updateBuildConfiguration": "interactive",
+    "java.compile.nullAnalysis.mode": "automatic",
+    "java.project.sourcePaths": [
+        "backend/beautyathome/src/main/java",
+        "backend/beautyathome/src/test/java"
+    ],
+    "java.test.config": [
+        {
+            "name": "BeautyAtHome",
+            "workingDirectory": "${workspaceFolder}/backend/beautyathome",
+            "args": [],
+            "vmArgs": [],
+            "env": {},
+            "projectName": "beautyathome"
+        }
+    ]
+}

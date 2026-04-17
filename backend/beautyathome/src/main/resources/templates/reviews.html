@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>BeautyAtHome · Reseñas</title>
+    <link rel="stylesheet" th:href="@{/css/app.css}" href="/css/app.css" />
+</head>
+<body class="app-body">
+<div class="shell">
+    <header class="top-nav">
+        <div class="brand">
+            <span class="brand__glyph">BAH</span>
+            <div>
+                <p class="brand__title">BeautyAtHome</p>
+                <small class="brand__tagline">Confianza social</small>
+            </div>
+        </div>
+        <nav class="nav-links">
+            <a th:href="@{/home}">Inicio</a>
+            <a th:href="@{/clients}">Clientes</a>
+            <a th:href="@{/professionals}">Profesionales</a>
+            <a th:href="@{/bookings}">Reservas</a>
+            <a th:href="@{/reviews}" class="is-active">Reseñas</a>
+        </nav>
+    </header>
+
+    <main class="content">
+        <section class="hero hero--sub">
+            <div>
+                <p class="eyebrow">Prueba social</p>
+                <h1>Escucha a tus clientes y potencia la calidad de tu red</h1>
+                <p>Todas las reseñas pasan por el proxy anti-spam antes de publicarse. Administra cada comentario desde aquí.</p>
+            </div>
+            <div class="hero__badge">
+                <p class="hero__kpi" th:text="${#numbers.formatDecimal(averageRating, 1, 1)}">0.0</p>
+                <p class="hero__label">Promedio general</p>
+                <span th:text="${#lists.size(reviews)} + ' reseñas'">0 reseñas</span>
+            </div>
+        </section>
+
+        <section class="glass-panel">
+            <div class="section-header">
+                <h2>Nueva reseña</h2>
+                <p>Vincula una reserva confirmada para habilitar la publicación.</p>
+            </div>
+            <div th:if="${message}" class="alert alert-success" th:text="${message}"></div>
+            <div th:if="${error}" class="alert alert-error" th:text="${error}"></div>
+            <form th:action="@{/reviews}" th:object="${reviewForm}" method="post" class="form-grid">
+                <label>ID de reserva<input type="text" th:field="*{bookingId}" placeholder="booking-id" required /></label>
+                <label>Calificación (1-5)<input type="number" min="1" max="5" th:field="*{rating}" placeholder="5" required /></label>
+                <label class="grid-span">Comentario<textarea th:field="*{text}" placeholder="Detalle la experiencia" rows="3"></textarea></label>
+                <button type="submit" class="btn primary">Publicar</button>
+            </form>
+        </section>
+
+        <section class="glass-panel">
+            <div class="section-header">
+                <h2>Historias recientes</h2>
+                <span th:text="${#lists.size(reviews)} + ' opiniones'">0 opiniones</span>
+            </div>
+            <div class="card-grid three">
+                <article class="review-card" th:each="reviewCard : ${reviewCards}">
+                    <div class="review-card__media" th:if="${reviewCard.coverPhoto != null}">
+                        <img th:src="${reviewCard.coverPhoto}" alt="Resultado reseña" />
+                    </div>
+                    <div class="review-card__gallery" th:if="${!#lists.isEmpty(reviewCard.supportingPhotos)}">
+                        <img th:each="photo : ${reviewCard.supportingPhotos}" th:src="${photo}" alt="Detalle reseña" />
+                    </div>
+                    <div class="review-card__head">
+                        <div class="stars" th:with="rating=${reviewCard.review.rating.value}">
+                            <span th:each="star : ${#numbers.sequence(1,5)}"
+                                  th:classappend="${star <= rating} ? 'star--active' : ''">★</span>
+                        </div>
+                        <span class="chip ghost" th:text="${#temporals.format(reviewCard.review.createdAt, 'dd MMM yyyy')}">07 Dic</span>
+                    </div>
+                    <p class="review-card__text" th:text="${reviewCard.review.text}">Comentario</p>
+                    <div class="review-card__meta">
+                        <strong th:text="${reviewCard.review.client != null ? reviewCard.review.client.name : 'Cliente'}">Cliente</strong>
+                        <span th:text="${reviewCard.review.professional != null ? reviewCard.review.professional.name : 'Profesional'}">Profesional</span>
+                        <small th:text="${reviewCard.review.booking != null ? reviewCard.review.booking.id : 'N/A'}">booking-id</small>
+                    </div>
+                </article>
+                <p class="empty" th:if="${#lists.isEmpty(reviews)}">Aún no hay reseñas registradas.</p>
+            </div>
+        </section>
+    </main>
+</div>
+</body>
+</html>

@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>BeautyAtHome · Profesionales</title>
+    <link rel="stylesheet" th:href="@{/css/app.css}" href="/css/app.css" />
+</head>
+<body class="app-body">
+<div class="shell">
+    <header class="top-nav">
+        <div class="brand">
+            <span class="brand__glyph">BAH</span>
+            <div>
+                <p class="brand__title">BeautyAtHome</p>
+                <small class="brand__tagline">Talento en ruta</small>
+            </div>
+        </div>
+        <nav class="nav-links">
+            <a th:href="@{/home}">Inicio</a>
+            <a th:href="@{/clients}">Clientes</a>
+            <a th:href="@{/professionals}" class="is-active">Profesionales</a>
+            <a th:href="@{/bookings}">Reservas</a>
+            <a th:href="@{/reviews}">Reseñas</a>
+        </nav>
+    </header>
+
+    <main class="content">
+        <section class="hero hero--sub">
+            <div>
+                <p class="eyebrow">Red de especialistas</p>
+                <h1>Curamos estilistas con cobertura urbana y calificaciones reales</h1>
+                <p>Filtra por zona o categoría para asignar el talento perfecto a cada beauty moment.</p>
+            </div>
+            <div class="hero__badge">
+                <p class="hero__kpi" th:text="${#lists.size(professionals)}">0</p>
+                <p class="hero__label">Profesionales listos</p>
+                <span>Promedio <strong th:text="${#numbers.formatDecimal(networkAverageRating, 1, 1)}">0.0</strong> ★</span>
+            </div>
+        </section>
+
+        <section class="glass-panel">
+            <div class="section-header">
+                <h2>Filtrar cobertura</h2>
+                <p>Optimiza la asignación según zona o categoría.</p>
+            </div>
+            <form method="get" th:action="@{/professionals}" class="form-grid two">
+                <label>
+                    Zona
+                    <input type="text" name="zone" th:value="${selectedZone}" placeholder="Chapinero" />
+                </label>
+                <label>
+                    Categoría
+                    <input type="text" name="category" th:value="${selectedCategory}" placeholder="makeupartist" />
+                </label>
+                <div class="form-actions">
+                    <button type="submit" class="btn primary">Aplicar</button>
+                    <a th:href="@{/professionals}" class="btn ghost">Limpiar</a>
+                </div>
+            </form>
+        </section>
+
+        <section class="glass-panel">
+            <div class="section-header">
+                <h2>Registrar profesional</h2>
+                <p>Comparte marca, experiencia y coberturas.</p>
+            </div>
+            <div th:if="${message}" class="alert alert-success" th:text="${message}"></div>
+            <div th:if="${error}" class="alert alert-error" th:text="${error}"></div>
+            <form th:action="@{/professionals}" th:object="${professionalForm}" method="post" class="form-grid two">
+                <label>ID<input type="text" th:field="*{id}" required placeholder="pro-001" /></label>
+                <label>Tipo<input type="text" th:field="*{type}" required placeholder="makeupartist" /></label>
+                <label>Nombre<input type="text" th:field="*{name}" required placeholder="Nombre completo" /></label>
+                <label>Foto<input type="url" th:field="*{photoUrl}" placeholder="https://" /></label>
+                <label class="grid-span">Resumen<textarea th:field="*{experienceSummary}" placeholder="Más de 5 años en..." rows="3"></textarea></label>
+                <label>Coberturas<input type="text" th:field="*{coverageAreas}" placeholder="Chapinero, Usaquén" /></label>
+                <label>Marca<input type="text" th:field="*{brandName}" placeholder="Nombre marca" /></label>
+                <label>Logo<input type="text" th:field="*{brandLogo}" placeholder="https://" /></label>
+                <label class="grid-span">Productos patrocinados<input type="text" th:field="*{brandProducts}" placeholder="Producto 1, Producto 2" /></label>
+                <label class="grid-span">Catálogo Signature
+                    <textarea th:field="*{catalogSignature}" rows="4"
+                              placeholder="Glow Ritual | Descripción breve | 220000 | 120 | https://img1, https://img2"></textarea>
+                    <small class="muted">Formato: Nombre | Descripción | Precio | Minutos | URLs opcionales separadas por coma.</small>
+                </label>
+                <button type="submit" class="btn primary">Guardar profesional</button>
+            </form>
+        </section>
+
+        <section class="glass-panel" th:if="${!#lists.isEmpty(sponsoredShowcases)}">
+            <div class="section-header">
+                <div>
+                    <h2>Embajadores de marca</h2>
+                    <p>Aliadas con acuerdos estratégicos y experiencias insignia.</p>
+                </div>
+                <span th:text="${#lists.size(sponsoredShowcases)} + ' alianzas activas'">0 alianzas activas</span>
+            </div>
+            <div class="spotlight-row">
+                <article class="spotlight-card" th:each="spotlight : ${sponsoredShowcases}">
+                    <div class="spotlight-card__brand">
+                        <img th:if="${spotlight.professional.brand != null and spotlight.professional.brand.logoUrl != null}"
+                             th:src="${spotlight.professional.brand.logoUrl}" alt="Logo" />
+                        <div>
+                            <p class="eyebrow" th:text="${spotlight.professional.brand != null ? spotlight.professional.brand.name : 'Marca boutique'}">Marca</p>
+                            <h3 th:text="${spotlight.professional.name}">Nombre</h3>
+                        </div>
+                    </div>
+                    <p class="muted" th:text="${spotlight.professional.experienceSummary}">Resumen</p>
+                    <div class="spotlight-card__stats">
+                        <span><small>Rating</small><strong th:text="${#numbers.formatDecimal(spotlight.averageRating, 1, 1)}">0.0</strong></span>
+                        <span><small>Cobertura</small><strong th:text="${(spotlight.professional.coverageAreas != null ? spotlight.professional.coverageAreas.size() : 0)} + ' zonas'">0 zonas</strong></span>
+                        <span><small>Servicios</small><strong th:text="${spotlight.services.size()}">0</strong></span>
+                    </div>
+                    <div class="stack stack--chips">
+                        <span class="chip" th:each="service, iterStat : ${spotlight.services}" th:if="${iterStat.index < 3}" th:text="${service.name}">Servicio</span>
+                        <span class="chip" th:if="${#lists.isEmpty(spotlight.services)}">Publicación en curso</span>
+                    </div>
+                    <div class="product-stack" th:if="${spotlight.professional.brand != null and !#lists.isEmpty(spotlight.professional.brand.heroProducts)}">
+                        <small class="muted">Solo productos exclusivos</small>
+                        <div class="stack stack--chips">
+                            <span class="chip ghost" th:each="product : ${spotlight.professional.brand.heroProducts}" th:text="${product}">Producto</span>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <section class="glass-panel">
+            <div class="section-header">
+                <h2>Studio Capsules</h2>
+                <p>Portafolio completo: cobertura, historia y reputación en un vistazo.</p>
+            </div>
+            <div class="card-grid two">
+                <article class="card pro-card pro-card--xl" th:each="showcase : ${showcases}">
+                    <div class="pro-card__media" th:if="${showcase.professional.photoUrl != null}">
+                        <img th:src="${showcase.professional.photoUrl}" alt="Foto profesional" />
+                    </div>
+                    <div class="pro-card__body">
+                        <div class="pro-card__head">
+                            <span class="chip" th:text="${showcase.professional.brand != null ? showcase.professional.brand.name : 'Independiente'}">Marca</span>
+                            <span class="badge" th:text="${showcase.professional.class.simpleName}">Tipo</span>
+                            <small class="badge ghost" th:text="${#numbers.formatDecimal(showcase.averageRating, 1, 1)} + ' ★'">0.0 ★</small>
+                        </div>
+                        <h3 th:text="${showcase.professional.name}">Nombre</h3>
+                        <p class="muted" th:text="${showcase.professional.experienceSummary}">Resumen</p>
+                        <div class="pro-card__meta">
+                            <div>
+                                <small>Servicios</small>
+                                <strong th:text="${showcase.services.size()}">0</strong>
+                            </div>
+                            <div>
+                                <small>Historial</small>
+                                <strong th:text="${showcase.histories.size()}">0</strong>
+                            </div>
+                            <div>
+                                <small>Reviews</small>
+                                <strong th:text="${showcase.reviews.size()}">0</strong>
+                            </div>
+                        </div>
+                        <div class="stack stack--chips">
+                            <span class="chip" th:each="service, iter : ${showcase.services}" th:if="${iter.index < 3}" th:text="${service.name}">Servicio</span>
+                            <span class="chip" th:if="${#lists.isEmpty(showcase.services)}">Servicios en definición</span>
+                        </div>
+                        <div class="badges">
+                            <span class="badge" th:each="area : ${showcase.professional.coverageAreas}" th:text="${area.name}">Zona</span>
+                            <span class="badge" th:if="${#lists.isEmpty(showcase.professional.coverageAreas)}">Sin cobertura declarada</span>
+                        </div>
+                        <div class="product-stack" th:if="${showcase.professional.brand != null and !#lists.isEmpty(showcase.professional.brand.heroProducts)}">
+                            <small class="muted">Kit certificado</small>
+                            <div class="stack stack--chips">
+                                <span class="chip ghost" th:each="product : ${showcase.professional.brand.heroProducts}" th:text="${product}">Producto</span>
+                            </div>
+                        </div>
+                        <div class="service-catalog" th:if="${!#lists.isEmpty(showcase.serviceCards)}">
+                            <p class="eyebrow">Catálogo signature</p>
+                            <div class="service-grid">
+                                <article class="service-card" th:each="serviceCard : ${showcase.serviceCards}">
+                                    <header>
+                                        <div>
+                                            <h4 th:text="${serviceCard.name}">Servicio</h4>
+                                            <p class="muted" th:text="${serviceCard.description}">Descripción</p>
+                                        </div>
+                                        <div class="service-card__price">
+                                            <strong th:text="${serviceCard.price}">$0 COP</strong>
+                                            <small th:text="${serviceCard.durationLabel}">60 min</small>
+                                        </div>
+                                    </header>
+                                    <div class="service-card__gallery" th:if="${serviceCard.gallery != null}">
+                                        <img th:each="imageUrl, iter : ${serviceCard.gallery}" th:if="${iter.index < 3}" th:src="${imageUrl}" alt="Referencia servicio" />
+                                    </div>
+                                </article>
+                            </div>
+                        </div>
+                        <div class="history-grid" th:if="${!#lists.isEmpty(showcase.serviceSpotlights)}">
+                            <p class="eyebrow">Servicios entregados</p>
+                            <article class="history-card" th:each="story : ${showcase.serviceSpotlights}">
+                                <div class="history-card__info">
+                                    <strong th:text="${story.serviceName}">Servicio</strong>
+                                    <small class="muted" th:text="${#temporals.format(story.date, 'dd MMM yyyy HH:mm')}">Fecha</small>
+                                    <span class="badge" th:text="${story.clientName}">Cliente</span>
+                                </div>
+                                <div class="history-card__gallery">
+                                    <img th:each="photo, iter : ${story.photoUrls}" th:if="${iter.index < 3}" th:src="${photo}" alt="Resultado" />
+                                    <span class="gallery-placeholder" th:if="${#lists.isEmpty(story.photoUrls)}">Sin fotos públicas</span>
+                                </div>
+                            </article>
+                        </div>
+                        <div class="quote-grid" th:if="${!#lists.isEmpty(showcase.reviewSpotlights)}">
+                            <figure class="quote" th:each="reviewSpot : ${showcase.reviewSpotlights}">
+                                <div class="quote__media" th:if="${reviewSpot.coverPhotoUrl != null}">
+                                    <img th:src="${reviewSpot.coverPhotoUrl}" alt="Resultado reseña" />
+                                </div>
+                                <blockquote th:text="${reviewSpot.review.text}">Comentario</blockquote>
+                                <figcaption>
+                                    <span>★ <strong th:text="${reviewSpot.review.rating.value}">5</strong></span>
+                                    <span th:text="${reviewSpot.review.client.name}">Cliente</span>
+                                </figcaption>
+                            </figure>
+                        </div>
+                    </div>
+                </article>
+                <p class="empty" th:if="${#lists.isEmpty(showcases)}">Crea tu primera profesional para mostrarla aquí.</p>
+            </div>
+        </section>
+    </main>
+</div>
+</body>
+</html>

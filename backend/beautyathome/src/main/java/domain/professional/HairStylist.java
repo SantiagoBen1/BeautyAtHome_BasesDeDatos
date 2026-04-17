@@ -1,0 +1,77 @@
+package domain.professional;
+
+
+
+import java.util.List;
+
+import domain.service.ServiceComponent;
+
+/**
+ * Especialista en cortes y peinados disponible para atender reservas.
+ */
+public class HairStylist implements Professional {
+
+    private final String id;
+    private final String name;
+    private final String photoUrl;
+    private final String experienceSummary;
+    private final List<CoverageArea> coverageAreas;
+    private final Brand brand;
+    private final List<ServiceComponent> services;
+
+    /**
+     * Construye la profesional con todos los datos expuestos en la app.
+     *
+     * @param id                identificador único
+     * @param name              nombre comercial
+     * @param photoUrl          fotografía mostrada al cliente
+     * @param experienceSummary resumen de experiencia
+     * @param coverageAreas     zonas donde atiende
+     * @param brand             marca o salón asociado
+     * @param services          catálogo de servicios habilitados
+     */
+    public HairStylist(String id,
+                       String name,
+                       String photoUrl,
+                       String experienceSummary,
+                       List<CoverageArea> coverageAreas,
+                       Brand brand,
+                       List<ServiceComponent> services) {
+        this.id = id;
+        this.name = name;
+        this.photoUrl = photoUrl;
+        this.experienceSummary = experienceSummary;
+        this.coverageAreas = coverageAreas;
+        this.brand = brand;
+        this.services = services;
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    public String getId() { return id; }
+
+    /** {@inheritDoc} */
+    @Override
+    public String getName() { return name; }
+
+    /** {@inheritDoc} */
+    @Override
+    public String getPhotoUrl() { return photoUrl; }
+
+    /** {@inheritDoc} */
+    @Override
+    public String getExperienceSummary() { return experienceSummary; }
+
+    /** {@inheritDoc} */
+    @Override
+    public List<CoverageArea> getCoverageAreas() { return coverageAreas; }
+
+    /** {@inheritDoc} */
+    @Override
+    public Brand getBrand() { return brand; }
+
+    /** {@inheritDoc} */
+    @Override
+    public List<ServiceComponent> getServicesOffered() { return services; }
+}
+

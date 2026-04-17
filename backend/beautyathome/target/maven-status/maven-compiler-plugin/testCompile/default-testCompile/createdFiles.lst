@@ -1,0 +1,4 @@
+ui\viewmodel\ProfessionalShowcaseTest.class
+infrastructure\media\ConsentProxyTest$FakeBookingDAO.class
+infrastructure\media\ConsentProxyTest.class
+ui\controller\ReviewViewControllerTest.class
