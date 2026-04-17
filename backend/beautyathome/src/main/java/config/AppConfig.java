@@ -27,11 +27,11 @@ import infrastructure.persistence.dao.ClientDAO;
 import infrastructure.persistence.dao.ProfessionalDAO;
 import infrastructure.persistence.dao.ReviewDAO;
 import infrastructure.persistence.dao.ServiceDAO;
-import infrastructure.persistence.dao.memory.InMemoryBookingDAO;
-import infrastructure.persistence.dao.memory.InMemoryClientDAO;
-import infrastructure.persistence.dao.memory.InMemoryProfessionalDAO;
-import infrastructure.persistence.dao.memory.InMemoryReviewDAO;
-import infrastructure.persistence.dao.memory.InMemoryServiceDAO;
+import infrastructure.persistence.dao.postgres.PostgresBookingDAO;
+import infrastructure.persistence.dao.postgres.PostgresClientDAO;
+import infrastructure.persistence.dao.postgres.PostgresProfessionalDAO;
+import infrastructure.persistence.dao.postgres.PostgresReviewDAO;
+import infrastructure.persistence.dao.postgres.PostgresServiceDAO;
 import infrastructure.proxy.ReviewGuardProxy;
 import infrastructure.proxy.ReviewService;
 
@@ -39,28 +39,28 @@ import infrastructure.proxy.ReviewService;
 public class AppConfig {
 
     @Bean
-    public ClientDAO clientDAO() {
-        return new InMemoryClientDAO();
+    public ClientDAO clientDAO(PostgresClientDAO postgresClientDAO) {
+        return postgresClientDAO;
     }
 
     @Bean
-    public ProfessionalDAO professionalDAO() {
-        return new InMemoryProfessionalDAO();
+    public ProfessionalDAO professionalDAO(PostgresProfessionalDAO postgresProfessionalDAO) {
+        return postgresProfessionalDAO;
     }
 
     @Bean
-    public ServiceDAO serviceDAO() {
-        return new InMemoryServiceDAO();
+    public ServiceDAO serviceDAO(PostgresServiceDAO postgresServiceDAO) {
+        return postgresServiceDAO;
     }
 
     @Bean
-    public BookingDAO bookingDAO() {
-        return new InMemoryBookingDAO();
+    public BookingDAO bookingDAO(PostgresBookingDAO postgresBookingDAO) {
+        return postgresBookingDAO;
     }
 
     @Bean
-    public ReviewDAO reviewDAO() {
-        return new InMemoryReviewDAO();
+    public ReviewDAO reviewDAO(PostgresReviewDAO postgresReviewDAO) {
+        return postgresReviewDAO;
     }
 
     @Bean
