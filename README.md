@@ -17,7 +17,7 @@ Plataforma para conectar profesionales de la belleza con clientes a domicilio. P
 
 ```
 ProyectoModelos/
-├─ UML/                  # Diagrama(s) UML
+├─ UML/                  # Diagrama(s) UMLS
 │  └─ UML_BeautyAtHome.pdf   # UML principal
 └─ Doc/                  # Documentación y backlog
    ├─ Ingeniería_de_Requerimientos.pdf        # Reporte de Ingeniería de Requerimientos (PDF)
