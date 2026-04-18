@@ -1,4 +1,4 @@
-package api.controller;
+package com.beautyathome.infrastructure.adapter.in.web.controller;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -8,9 +8,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import api.dto.ClientRegistrationRequest;
-import application.facade.BeautyAtHomeFacade;
-import domain.client.Client;
+import com.beautyathome.infrastructure.adapter.in.web.dto.ClientRegistrationRequest;
+import com.beautyathome.application.facade.BeautyAtHomeFacade;
+import com.beautyathome.domain.client.Client;
 
 @RestController
 @RequestMapping("/api/clients")

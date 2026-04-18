@@ -1,10 +1,10 @@
-package ui.viewmodel;
+package com.beautyathome.infrastructure.adapter.in.ui.viewmodel;
 
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import domain.review.Review;
+import com.beautyathome.domain.review.Review;
 
 /**
  * View model that couples a review with the public gallery extracted from the executed service.

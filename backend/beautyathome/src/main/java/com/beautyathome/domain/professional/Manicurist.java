@@ -1,11 +1,11 @@
-package domain.professional;
+package com.beautyathome.domain.professional;
 
 import java.util.List;
 
-import domain.service.ServiceComponent;
+import com.beautyathome.domain.service.ServiceComponent;
 
 /**
- * Especialista en manicura y cuidado de uñas que atiende a domicilio.
+ * Especialista en manicura y cuidado de uÃ±as que atiende a domicilio.
  */
 public class Manicurist implements Professional {
 
@@ -20,13 +20,13 @@ public class Manicurist implements Professional {
 	/**
 	 * Construye a la manicurista con los metadatos necesarios para la agenda.
 	 *
-	 * @param id                identificador único
-	 * @param name              nombre de presentación
-	 * @param photoUrl          fotografía destacada
+	 * @param id                identificador Ãºnico
+	 * @param name              nombre de presentaciÃ³n
+	 * @param photoUrl          fotografÃ­a destacada
 	 * @param experienceSummary resumen de experiencia
 	 * @param coverageAreas     zonas de servicio
 	 * @param brand             marca aliada
-	 * @param servicesOffered   catálogo de servicios que presta
+	 * @param servicesOffered   catÃ¡logo de servicios que presta
 	 */
 	public Manicurist(String id,
 				  String name,

@@ -1,112 +1,121 @@
-C:\Users\PC\Desktop\ProyectoModelos\BeautyAtHome\backend\beautyathome\src\main\java\api\controller\BookingController.java
-C:\Users\PC\Desktop\ProyectoModelos\BeautyAtHome\backend\beautyathome\src\main\java\api\controller\ClientController.java
-C:\Users\PC\Desktop\ProyectoModelos\BeautyAtHome\backend\beautyathome\src\main\java\api\controller\PhotoController.java
-C:\Users\PC\Desktop\ProyectoModelos\BeautyAtHome\backend\beautyathome\src\main\java\api\controller\ProfessionalController.java
-C:\Users\PC\Desktop\ProyectoModelos\BeautyAtHome\backend\beautyathome\src\main\java\api\controller\ReviewController.java
-C:\Users\PC\Desktop\ProyectoModelos\BeautyAtHome\backend\beautyathome\src\main\java\api\controller\ServiceController.java
-C:\Users\PC\Desktop\ProyectoModelos\BeautyAtHome\backend\beautyathome\src\main\java\api\dto\BrandRequest.java
-C:\Users\PC\Desktop\ProyectoModelos\BeautyAtHome\backend\beautyathome\src\main\java\api\dto\ClientRegistrationRequest.java
-C:\Users\PC\Desktop\ProyectoModelos\BeautyAtHome\backend\beautyathome\src\main\java\api\dto\ConsentRequest.java
-C:\Users\PC\Desktop\ProyectoModelos\BeautyAtHome\backend\beautyathome\src\main\java\api\dto\PhotoUploadRequest.java
-C:\Users\PC\Desktop\ProyectoModelos\BeautyAtHome\backend\beautyathome\src\main\java\api\dto\ProfessionalRegistrationRequest.java
-C:\Users\PC\Desktop\ProyectoModelos\BeautyAtHome\backend\beautyathome\src\main\java\api\dto\ReviewRequest.java
-C:\Users\PC\Desktop\ProyectoModelos\BeautyAtHome\backend\beautyathome\src\main\java\api\dto\ServiceCreationRequest.java
-C:\Users\PC\Desktop\ProyectoModelos\BeautyAtHome\backend\beautyathome\src\main\java\application\booking\BookingRequest.java
-C:\Users\PC\Desktop\ProyectoModelos\BeautyAtHome\backend\beautyathome\src\main\java\application\booking\BookingService.java
-C:\Users\PC\Desktop\ProyectoModelos\BeautyAtHome\backend\beautyathome\src\main\java\application\booking\validation\AvailabilityValidationHandler.java
-C:\Users\PC\Desktop\ProyectoModelos\BeautyAtHome\backend\beautyathome\src\main\java\application\booking\validation\BookingRequestHandler.java
-C:\Users\PC\Desktop\ProyectoModelos\BeautyAtHome\backend\beautyathome\src\main\java\application\booking\validation\ConsentValidationHandler.java
-C:\Users\PC\Desktop\ProyectoModelos\BeautyAtHome\backend\beautyathome\src\main\java\application\booking\validation\CoverageValidationHandler.java
-C:\Users\PC\Desktop\ProyectoModelos\BeautyAtHome\backend\beautyathome\src\main\java\application\booking\validation\PaymentValidationHandler.java
-C:\Users\PC\Desktop\ProyectoModelos\BeautyAtHome\backend\beautyathome\src\main\java\application\facade\BeautyAtHomeFacade.java
-C:\Users\PC\Desktop\ProyectoModelos\BeautyAtHome\backend\beautyathome\src\main\java\application\review\ReviewServiceApplication.java
-C:\Users\PC\Desktop\ProyectoModelos\BeautyAtHome\backend\beautyathome\src\main\java\BeautyAtHomeApplication.java
-C:\Users\PC\Desktop\ProyectoModelos\BeautyAtHome\backend\beautyathome\src\main\java\config\AppConfig.java
-C:\Users\PC\Desktop\ProyectoModelos\BeautyAtHome\backend\beautyathome\src\main\java\config\SampleDataInitializer.java
-C:\Users\PC\Desktop\ProyectoModelos\BeautyAtHome\backend\beautyathome\src\main\java\config\SwaggerConfig.java
-C:\Users\PC\Desktop\ProyectoModelos\BeautyAtHome\backend\beautyathome\src\main\java\domain\booking\AgendaSingleton.java
-C:\Users\PC\Desktop\ProyectoModelos\BeautyAtHome\backend\beautyathome\src\main\java\domain\booking\Booking.java
-C:\Users\PC\Desktop\ProyectoModelos\BeautyAtHome\backend\beautyathome\src\main\java\domain\booking\BookingBuilder.java
-C:\Users\PC\Desktop\ProyectoModelos\BeautyAtHome\backend\beautyathome\src\main\java\domain\booking\command\BookServiceCommand.java
-C:\Users\PC\Desktop\ProyectoModelos\BeautyAtHome\backend\beautyathome\src\main\java\domain\booking\command\CancelBookingCommand.java
-C:\Users\PC\Desktop\ProyectoModelos\BeautyAtHome\backend\beautyathome\src\main\java\domain\booking\command\Command.java
-C:\Users\PC\Desktop\ProyectoModelos\BeautyAtHome\backend\beautyathome\src\main\java\domain\booking\command\CommandInvoker.java
-C:\Users\PC\Desktop\ProyectoModelos\BeautyAtHome\backend\beautyathome\src\main\java\domain\booking\history\ServiceHistory.java
-C:\Users\PC\Desktop\ProyectoModelos\BeautyAtHome\backend\beautyathome\src\main\java\domain\booking\observer\BookingSubject.java
-C:\Users\PC\Desktop\ProyectoModelos\BeautyAtHome\backend\beautyathome\src\main\java\domain\booking\observer\ClientNotificationObserver.java
-C:\Users\PC\Desktop\ProyectoModelos\BeautyAtHome\backend\beautyathome\src\main\java\domain\booking\observer\NotificationObserver.java
-C:\Users\PC\Desktop\ProyectoModelos\BeautyAtHome\backend\beautyathome\src\main\java\domain\booking\observer\ProfessionalNotificationObserver.java
-C:\Users\PC\Desktop\ProyectoModelos\BeautyAtHome\backend\beautyathome\src\main\java\domain\booking\state\BookingState.java
-C:\Users\PC\Desktop\ProyectoModelos\BeautyAtHome\backend\beautyathome\src\main\java\domain\booking\state\CancelledState.java
-C:\Users\PC\Desktop\ProyectoModelos\BeautyAtHome\backend\beautyathome\src\main\java\domain\booking\state\CompletedState.java
-C:\Users\PC\Desktop\ProyectoModelos\BeautyAtHome\backend\beautyathome\src\main\java\domain\booking\state\ConfirmedState.java
-C:\Users\PC\Desktop\ProyectoModelos\BeautyAtHome\backend\beautyathome\src\main\java\domain\booking\state\InProgressState.java
-C:\Users\PC\Desktop\ProyectoModelos\BeautyAtHome\backend\beautyathome\src\main\java\domain\booking\state\PendingState.java
-C:\Users\PC\Desktop\ProyectoModelos\BeautyAtHome\backend\beautyathome\src\main\java\domain\client\Client.java
-C:\Users\PC\Desktop\ProyectoModelos\BeautyAtHome\backend\beautyathome\src\main\java\domain\client\ClientProfile.java
-C:\Users\PC\Desktop\ProyectoModelos\BeautyAtHome\backend\beautyathome\src\main\java\domain\pricing\LoyalClientPricingStrategy.java
-C:\Users\PC\Desktop\ProyectoModelos\BeautyAtHome\backend\beautyathome\src\main\java\domain\pricing\PricingStrategy.java
-C:\Users\PC\Desktop\ProyectoModelos\BeautyAtHome\backend\beautyathome\src\main\java\domain\pricing\StandardPricingStrategy.java
-C:\Users\PC\Desktop\ProyectoModelos\BeautyAtHome\backend\beautyathome\src\main\java\domain\professional\Brand.java
-C:\Users\PC\Desktop\ProyectoModelos\BeautyAtHome\backend\beautyathome\src\main\java\domain\professional\CoverageArea.java
-C:\Users\PC\Desktop\ProyectoModelos\BeautyAtHome\backend\beautyathome\src\main\java\domain\professional\factory\ConcreteProfessionalFactory.java
-C:\Users\PC\Desktop\ProyectoModelos\BeautyAtHome\backend\beautyathome\src\main\java\domain\professional\factory\ProfessionalAbstractFactory.java
-C:\Users\PC\Desktop\ProyectoModelos\BeautyAtHome\backend\beautyathome\src\main\java\domain\professional\HairStylist.java
-C:\Users\PC\Desktop\ProyectoModelos\BeautyAtHome\backend\beautyathome\src\main\java\domain\professional\MakeupArtist.java
-C:\Users\PC\Desktop\ProyectoModelos\BeautyAtHome\backend\beautyathome\src\main\java\domain\professional\Manicurist.java
-C:\Users\PC\Desktop\ProyectoModelos\BeautyAtHome\backend\beautyathome\src\main\java\domain\professional\Professional.java
-C:\Users\PC\Desktop\ProyectoModelos\BeautyAtHome\backend\beautyathome\src\main\java\domain\review\rating\RatingValueObject.java
-C:\Users\PC\Desktop\ProyectoModelos\BeautyAtHome\backend\beautyathome\src\main\java\domain\review\Review.java
-C:\Users\PC\Desktop\ProyectoModelos\BeautyAtHome\backend\beautyathome\src\main\java\domain\review\ReviewBuilder.java
-C:\Users\PC\Desktop\ProyectoModelos\BeautyAtHome\backend\beautyathome\src\main\java\domain\service\builder\BasicServiceBuilder.java
-C:\Users\PC\Desktop\ProyectoModelos\BeautyAtHome\backend\beautyathome\src\main\java\domain\service\builder\ServiceBuilder.java
-C:\Users\PC\Desktop\ProyectoModelos\BeautyAtHome\backend\beautyathome\src\main\java\domain\service\builder\ServiceDirector.java
-C:\Users\PC\Desktop\ProyectoModelos\BeautyAtHome\backend\beautyathome\src\main\java\domain\service\Category.java
-C:\Users\PC\Desktop\ProyectoModelos\BeautyAtHome\backend\beautyathome\src\main\java\domain\service\composite\CompositeServiceIterator.java
-C:\Users\PC\Desktop\ProyectoModelos\BeautyAtHome\backend\beautyathome\src\main\java\domain\service\composite\ServiceIterator.java
-C:\Users\PC\Desktop\ProyectoModelos\BeautyAtHome\backend\beautyathome\src\main\java\domain\service\decorator\DiscountAddon.java
-C:\Users\PC\Desktop\ProyectoModelos\BeautyAtHome\backend\beautyathome\src\main\java\domain\service\decorator\PremiumAddon.java
-C:\Users\PC\Desktop\ProyectoModelos\BeautyAtHome\backend\beautyathome\src\main\java\domain\service\decorator\ServiceDecorator.java
-C:\Users\PC\Desktop\ProyectoModelos\BeautyAtHome\backend\beautyathome\src\main\java\domain\service\decorator\TravelFeeAddon.java
-C:\Users\PC\Desktop\ProyectoModelos\BeautyAtHome\backend\beautyathome\src\main\java\domain\service\factory\HaircutCreator.java
-C:\Users\PC\Desktop\ProyectoModelos\BeautyAtHome\backend\beautyathome\src\main\java\domain\service\factory\MakeupCreator.java
-C:\Users\PC\Desktop\ProyectoModelos\BeautyAtHome\backend\beautyathome\src\main\java\domain\service\factory\ServiceCreator.java
-C:\Users\PC\Desktop\ProyectoModelos\BeautyAtHome\backend\beautyathome\src\main\java\domain\service\HaircutService.java
-C:\Users\PC\Desktop\ProyectoModelos\BeautyAtHome\backend\beautyathome\src\main\java\domain\service\image\ImageReference.java
-C:\Users\PC\Desktop\ProyectoModelos\BeautyAtHome\backend\beautyathome\src\main\java\domain\service\image\Photo.java
-C:\Users\PC\Desktop\ProyectoModelos\BeautyAtHome\backend\beautyathome\src\main\java\domain\service\MakeupService.java
-C:\Users\PC\Desktop\ProyectoModelos\BeautyAtHome\backend\beautyathome\src\main\java\domain\service\ServiceComponent.java
-C:\Users\PC\Desktop\ProyectoModelos\BeautyAtHome\backend\beautyathome\src\main\java\domain\service\ServiceComposite.java
-C:\Users\PC\Desktop\ProyectoModelos\BeautyAtHome\backend\beautyathome\src\main\java\domain\service\ServiceLeaf.java
-C:\Users\PC\Desktop\ProyectoModelos\BeautyAtHome\backend\beautyathome\src\main\java\domain\service\visitor\DescriptionVisitor.java
-C:\Users\PC\Desktop\ProyectoModelos\BeautyAtHome\backend\beautyathome\src\main\java\domain\service\visitor\PricingVisitor.java
-C:\Users\PC\Desktop\ProyectoModelos\BeautyAtHome\backend\beautyathome\src\main\java\domain\service\visitor\ServiceVisitor.java
-C:\Users\PC\Desktop\ProyectoModelos\BeautyAtHome\backend\beautyathome\src\main\java\infrastructure\media\ConsentProxy.java
-C:\Users\PC\Desktop\ProyectoModelos\BeautyAtHome\backend\beautyathome\src\main\java\infrastructure\media\PhotoGallery.java
-C:\Users\PC\Desktop\ProyectoModelos\BeautyAtHome\backend\beautyathome\src\main\java\infrastructure\media\StorageAdapter.java
-C:\Users\PC\Desktop\ProyectoModelos\BeautyAtHome\backend\beautyathome\src\main\java\infrastructure\persistence\dao\BaseDAO.java
-C:\Users\PC\Desktop\ProyectoModelos\BeautyAtHome\backend\beautyathome\src\main\java\infrastructure\persistence\dao\BookingDAO.java
-C:\Users\PC\Desktop\ProyectoModelos\BeautyAtHome\backend\beautyathome\src\main\java\infrastructure\persistence\dao\ClientDAO.java
-C:\Users\PC\Desktop\ProyectoModelos\BeautyAtHome\backend\beautyathome\src\main\java\infrastructure\persistence\dao\memory\InMemoryBookingDAO.java
-C:\Users\PC\Desktop\ProyectoModelos\BeautyAtHome\backend\beautyathome\src\main\java\infrastructure\persistence\dao\memory\InMemoryClientDAO.java
-C:\Users\PC\Desktop\ProyectoModelos\BeautyAtHome\backend\beautyathome\src\main\java\infrastructure\persistence\dao\memory\InMemoryProfessionalDAO.java
-C:\Users\PC\Desktop\ProyectoModelos\BeautyAtHome\backend\beautyathome\src\main\java\infrastructure\persistence\dao\memory\InMemoryReviewDAO.java
-C:\Users\PC\Desktop\ProyectoModelos\BeautyAtHome\backend\beautyathome\src\main\java\infrastructure\persistence\dao\memory\InMemoryServiceDAO.java
-C:\Users\PC\Desktop\ProyectoModelos\BeautyAtHome\backend\beautyathome\src\main\java\infrastructure\persistence\dao\ProfessionalDAO.java
-C:\Users\PC\Desktop\ProyectoModelos\BeautyAtHome\backend\beautyathome\src\main\java\infrastructure\persistence\dao\ReviewDAO.java
-C:\Users\PC\Desktop\ProyectoModelos\BeautyAtHome\backend\beautyathome\src\main\java\infrastructure\persistence\dao\ServiceDAO.java
-C:\Users\PC\Desktop\ProyectoModelos\BeautyAtHome\backend\beautyathome\src\main\java\infrastructure\proxy\CoverageProxy.java
-C:\Users\PC\Desktop\ProyectoModelos\BeautyAtHome\backend\beautyathome\src\main\java\infrastructure\proxy\ReviewGuardProxy.java
-C:\Users\PC\Desktop\ProyectoModelos\BeautyAtHome\backend\beautyathome\src\main\java\infrastructure\proxy\ReviewService.java
-C:\Users\PC\Desktop\ProyectoModelos\BeautyAtHome\backend\beautyathome\src\main\java\ui\controller\BookingViewController.java
-C:\Users\PC\Desktop\ProyectoModelos\BeautyAtHome\backend\beautyathome\src\main\java\ui\controller\ClientViewController.java
-C:\Users\PC\Desktop\ProyectoModelos\BeautyAtHome\backend\beautyathome\src\main\java\ui\controller\HomeViewController.java
-C:\Users\PC\Desktop\ProyectoModelos\BeautyAtHome\backend\beautyathome\src\main\java\ui\controller\ProfessionalViewController.java
-C:\Users\PC\Desktop\ProyectoModelos\BeautyAtHome\backend\beautyathome\src\main\java\ui\controller\ReviewViewController.java
-C:\Users\PC\Desktop\ProyectoModelos\BeautyAtHome\backend\beautyathome\src\main\java\ui\viewmodel\BookingForm.java
-C:\Users\PC\Desktop\ProyectoModelos\BeautyAtHome\backend\beautyathome\src\main\java\ui\viewmodel\BookingLane.java
-C:\Users\PC\Desktop\ProyectoModelos\BeautyAtHome\backend\beautyathome\src\main\java\ui\viewmodel\ClientForm.java
-C:\Users\PC\Desktop\ProyectoModelos\BeautyAtHome\backend\beautyathome\src\main\java\ui\viewmodel\ProfessionalForm.java
-C:\Users\PC\Desktop\ProyectoModelos\BeautyAtHome\backend\beautyathome\src\main\java\ui\viewmodel\ProfessionalShowcase.java
-C:\Users\PC\Desktop\ProyectoModelos\BeautyAtHome\backend\beautyathome\src\main\java\ui\viewmodel\ReviewForm.java
-C:\Users\PC\Desktop\ProyectoModelos\BeautyAtHome\backend\beautyathome\src\main\java\ui\viewmodel\ReviewShowcase.java
+C:\Users\PC\Desktop\UNIVERSIDAD\SEXTO SEMESTRE\Bases de Datos\BeautyAtHome\backend\beautyathome\src\main\java\com\beautyathome\application\booking\BookingRequest.java
+C:\Users\PC\Desktop\UNIVERSIDAD\SEXTO SEMESTRE\Bases de Datos\BeautyAtHome\backend\beautyathome\src\main\java\com\beautyathome\application\booking\BookingService.java
+C:\Users\PC\Desktop\UNIVERSIDAD\SEXTO SEMESTRE\Bases de Datos\BeautyAtHome\backend\beautyathome\src\main\java\com\beautyathome\application\booking\validation\AvailabilityValidationHandler.java
+C:\Users\PC\Desktop\UNIVERSIDAD\SEXTO SEMESTRE\Bases de Datos\BeautyAtHome\backend\beautyathome\src\main\java\com\beautyathome\application\booking\validation\BookingRequestHandler.java
+C:\Users\PC\Desktop\UNIVERSIDAD\SEXTO SEMESTRE\Bases de Datos\BeautyAtHome\backend\beautyathome\src\main\java\com\beautyathome\application\booking\validation\ConsentValidationHandler.java
+C:\Users\PC\Desktop\UNIVERSIDAD\SEXTO SEMESTRE\Bases de Datos\BeautyAtHome\backend\beautyathome\src\main\java\com\beautyathome\application\booking\validation\CoverageValidationHandler.java
+C:\Users\PC\Desktop\UNIVERSIDAD\SEXTO SEMESTRE\Bases de Datos\BeautyAtHome\backend\beautyathome\src\main\java\com\beautyathome\application\booking\validation\PaymentValidationHandler.java
+C:\Users\PC\Desktop\UNIVERSIDAD\SEXTO SEMESTRE\Bases de Datos\BeautyAtHome\backend\beautyathome\src\main\java\com\beautyathome\application\facade\BeautyAtHomeFacade.java
+C:\Users\PC\Desktop\UNIVERSIDAD\SEXTO SEMESTRE\Bases de Datos\BeautyAtHome\backend\beautyathome\src\main\java\com\beautyathome\application\review\ReviewServiceApplication.java
+C:\Users\PC\Desktop\UNIVERSIDAD\SEXTO SEMESTRE\Bases de Datos\BeautyAtHome\backend\beautyathome\src\main\java\com\beautyathome\BeautyAtHomeApplication.java
+C:\Users\PC\Desktop\UNIVERSIDAD\SEXTO SEMESTRE\Bases de Datos\BeautyAtHome\backend\beautyathome\src\main\java\com\beautyathome\config\AppConfig.java
+C:\Users\PC\Desktop\UNIVERSIDAD\SEXTO SEMESTRE\Bases de Datos\BeautyAtHome\backend\beautyathome\src\main\java\com\beautyathome\config\SampleDataInitializer.java
+C:\Users\PC\Desktop\UNIVERSIDAD\SEXTO SEMESTRE\Bases de Datos\BeautyAtHome\backend\beautyathome\src\main\java\com\beautyathome\config\SwaggerConfig.java
+C:\Users\PC\Desktop\UNIVERSIDAD\SEXTO SEMESTRE\Bases de Datos\BeautyAtHome\backend\beautyathome\src\main\java\com\beautyathome\domain\booking\AgendaSingleton.java
+C:\Users\PC\Desktop\UNIVERSIDAD\SEXTO SEMESTRE\Bases de Datos\BeautyAtHome\backend\beautyathome\src\main\java\com\beautyathome\domain\booking\Booking.java
+C:\Users\PC\Desktop\UNIVERSIDAD\SEXTO SEMESTRE\Bases de Datos\BeautyAtHome\backend\beautyathome\src\main\java\com\beautyathome\domain\booking\BookingBuilder.java
+C:\Users\PC\Desktop\UNIVERSIDAD\SEXTO SEMESTRE\Bases de Datos\BeautyAtHome\backend\beautyathome\src\main\java\com\beautyathome\domain\booking\command\BookServiceCommand.java
+C:\Users\PC\Desktop\UNIVERSIDAD\SEXTO SEMESTRE\Bases de Datos\BeautyAtHome\backend\beautyathome\src\main\java\com\beautyathome\domain\booking\command\CancelBookingCommand.java
+C:\Users\PC\Desktop\UNIVERSIDAD\SEXTO SEMESTRE\Bases de Datos\BeautyAtHome\backend\beautyathome\src\main\java\com\beautyathome\domain\booking\command\Command.java
+C:\Users\PC\Desktop\UNIVERSIDAD\SEXTO SEMESTRE\Bases de Datos\BeautyAtHome\backend\beautyathome\src\main\java\com\beautyathome\domain\booking\command\CommandInvoker.java
+C:\Users\PC\Desktop\UNIVERSIDAD\SEXTO SEMESTRE\Bases de Datos\BeautyAtHome\backend\beautyathome\src\main\java\com\beautyathome\domain\booking\history\ServiceHistory.java
+C:\Users\PC\Desktop\UNIVERSIDAD\SEXTO SEMESTRE\Bases de Datos\BeautyAtHome\backend\beautyathome\src\main\java\com\beautyathome\domain\booking\observer\BookingSubject.java
+C:\Users\PC\Desktop\UNIVERSIDAD\SEXTO SEMESTRE\Bases de Datos\BeautyAtHome\backend\beautyathome\src\main\java\com\beautyathome\domain\booking\observer\ClientNotificationObserver.java
+C:\Users\PC\Desktop\UNIVERSIDAD\SEXTO SEMESTRE\Bases de Datos\BeautyAtHome\backend\beautyathome\src\main\java\com\beautyathome\domain\booking\observer\NotificationObserver.java
+C:\Users\PC\Desktop\UNIVERSIDAD\SEXTO SEMESTRE\Bases de Datos\BeautyAtHome\backend\beautyathome\src\main\java\com\beautyathome\domain\booking\observer\ProfessionalNotificationObserver.java
+C:\Users\PC\Desktop\UNIVERSIDAD\SEXTO SEMESTRE\Bases de Datos\BeautyAtHome\backend\beautyathome\src\main\java\com\beautyathome\domain\booking\port\out\BookingRepositoryPort.java
+C:\Users\PC\Desktop\UNIVERSIDAD\SEXTO SEMESTRE\Bases de Datos\BeautyAtHome\backend\beautyathome\src\main\java\com\beautyathome\domain\booking\state\BookingState.java
+C:\Users\PC\Desktop\UNIVERSIDAD\SEXTO SEMESTRE\Bases de Datos\BeautyAtHome\backend\beautyathome\src\main\java\com\beautyathome\domain\booking\state\CancelledState.java
+C:\Users\PC\Desktop\UNIVERSIDAD\SEXTO SEMESTRE\Bases de Datos\BeautyAtHome\backend\beautyathome\src\main\java\com\beautyathome\domain\booking\state\CompletedState.java
+C:\Users\PC\Desktop\UNIVERSIDAD\SEXTO SEMESTRE\Bases de Datos\BeautyAtHome\backend\beautyathome\src\main\java\com\beautyathome\domain\booking\state\ConfirmedState.java
+C:\Users\PC\Desktop\UNIVERSIDAD\SEXTO SEMESTRE\Bases de Datos\BeautyAtHome\backend\beautyathome\src\main\java\com\beautyathome\domain\booking\state\InProgressState.java
+C:\Users\PC\Desktop\UNIVERSIDAD\SEXTO SEMESTRE\Bases de Datos\BeautyAtHome\backend\beautyathome\src\main\java\com\beautyathome\domain\booking\state\PendingState.java
+C:\Users\PC\Desktop\UNIVERSIDAD\SEXTO SEMESTRE\Bases de Datos\BeautyAtHome\backend\beautyathome\src\main\java\com\beautyathome\domain\client\Client.java
+C:\Users\PC\Desktop\UNIVERSIDAD\SEXTO SEMESTRE\Bases de Datos\BeautyAtHome\backend\beautyathome\src\main\java\com\beautyathome\domain\client\ClientProfile.java
+C:\Users\PC\Desktop\UNIVERSIDAD\SEXTO SEMESTRE\Bases de Datos\BeautyAtHome\backend\beautyathome\src\main\java\com\beautyathome\domain\client\port\out\ClientRepositoryPort.java
+C:\Users\PC\Desktop\UNIVERSIDAD\SEXTO SEMESTRE\Bases de Datos\BeautyAtHome\backend\beautyathome\src\main\java\com\beautyathome\domain\pricing\LoyalClientPricingStrategy.java
+C:\Users\PC\Desktop\UNIVERSIDAD\SEXTO SEMESTRE\Bases de Datos\BeautyAtHome\backend\beautyathome\src\main\java\com\beautyathome\domain\pricing\PricingStrategy.java
+C:\Users\PC\Desktop\UNIVERSIDAD\SEXTO SEMESTRE\Bases de Datos\BeautyAtHome\backend\beautyathome\src\main\java\com\beautyathome\domain\pricing\StandardPricingStrategy.java
+C:\Users\PC\Desktop\UNIVERSIDAD\SEXTO SEMESTRE\Bases de Datos\BeautyAtHome\backend\beautyathome\src\main\java\com\beautyathome\domain\professional\Brand.java
+C:\Users\PC\Desktop\UNIVERSIDAD\SEXTO SEMESTRE\Bases de Datos\BeautyAtHome\backend\beautyathome\src\main\java\com\beautyathome\domain\professional\CoverageArea.java
+C:\Users\PC\Desktop\UNIVERSIDAD\SEXTO SEMESTRE\Bases de Datos\BeautyAtHome\backend\beautyathome\src\main\java\com\beautyathome\domain\professional\factory\ConcreteProfessionalFactory.java
+C:\Users\PC\Desktop\UNIVERSIDAD\SEXTO SEMESTRE\Bases de Datos\BeautyAtHome\backend\beautyathome\src\main\java\com\beautyathome\domain\professional\factory\ProfessionalAbstractFactory.java
+C:\Users\PC\Desktop\UNIVERSIDAD\SEXTO SEMESTRE\Bases de Datos\BeautyAtHome\backend\beautyathome\src\main\java\com\beautyathome\domain\professional\HairStylist.java
+C:\Users\PC\Desktop\UNIVERSIDAD\SEXTO SEMESTRE\Bases de Datos\BeautyAtHome\backend\beautyathome\src\main\java\com\beautyathome\domain\professional\MakeupArtist.java
+C:\Users\PC\Desktop\UNIVERSIDAD\SEXTO SEMESTRE\Bases de Datos\BeautyAtHome\backend\beautyathome\src\main\java\com\beautyathome\domain\professional\Manicurist.java
+C:\Users\PC\Desktop\UNIVERSIDAD\SEXTO SEMESTRE\Bases de Datos\BeautyAtHome\backend\beautyathome\src\main\java\com\beautyathome\domain\professional\port\out\ProfessionalRepositoryPort.java
+C:\Users\PC\Desktop\UNIVERSIDAD\SEXTO SEMESTRE\Bases de Datos\BeautyAtHome\backend\beautyathome\src\main\java\com\beautyathome\domain\professional\Professional.java
+C:\Users\PC\Desktop\UNIVERSIDAD\SEXTO SEMESTRE\Bases de Datos\BeautyAtHome\backend\beautyathome\src\main\java\com\beautyathome\domain\review\port\out\ReviewRepositoryPort.java
+C:\Users\PC\Desktop\UNIVERSIDAD\SEXTO SEMESTRE\Bases de Datos\BeautyAtHome\backend\beautyathome\src\main\java\com\beautyathome\domain\review\rating\RatingValueObject.java
+C:\Users\PC\Desktop\UNIVERSIDAD\SEXTO SEMESTRE\Bases de Datos\BeautyAtHome\backend\beautyathome\src\main\java\com\beautyathome\domain\review\Review.java
+C:\Users\PC\Desktop\UNIVERSIDAD\SEXTO SEMESTRE\Bases de Datos\BeautyAtHome\backend\beautyathome\src\main\java\com\beautyathome\domain\review\ReviewBuilder.java
+C:\Users\PC\Desktop\UNIVERSIDAD\SEXTO SEMESTRE\Bases de Datos\BeautyAtHome\backend\beautyathome\src\main\java\com\beautyathome\domain\service\builder\BasicServiceBuilder.java
+C:\Users\PC\Desktop\UNIVERSIDAD\SEXTO SEMESTRE\Bases de Datos\BeautyAtHome\backend\beautyathome\src\main\java\com\beautyathome\domain\service\builder\ServiceBuilder.java
+C:\Users\PC\Desktop\UNIVERSIDAD\SEXTO SEMESTRE\Bases de Datos\BeautyAtHome\backend\beautyathome\src\main\java\com\beautyathome\domain\service\builder\ServiceDirector.java
+C:\Users\PC\Desktop\UNIVERSIDAD\SEXTO SEMESTRE\Bases de Datos\BeautyAtHome\backend\beautyathome\src\main\java\com\beautyathome\domain\service\Category.java
+C:\Users\PC\Desktop\UNIVERSIDAD\SEXTO SEMESTRE\Bases de Datos\BeautyAtHome\backend\beautyathome\src\main\java\com\beautyathome\domain\service\composite\CompositeServiceIterator.java
+C:\Users\PC\Desktop\UNIVERSIDAD\SEXTO SEMESTRE\Bases de Datos\BeautyAtHome\backend\beautyathome\src\main\java\com\beautyathome\domain\service\composite\ServiceIterator.java
+C:\Users\PC\Desktop\UNIVERSIDAD\SEXTO SEMESTRE\Bases de Datos\BeautyAtHome\backend\beautyathome\src\main\java\com\beautyathome\domain\service\decorator\DiscountAddon.java
+C:\Users\PC\Desktop\UNIVERSIDAD\SEXTO SEMESTRE\Bases de Datos\BeautyAtHome\backend\beautyathome\src\main\java\com\beautyathome\domain\service\decorator\PremiumAddon.java
+C:\Users\PC\Desktop\UNIVERSIDAD\SEXTO SEMESTRE\Bases de Datos\BeautyAtHome\backend\beautyathome\src\main\java\com\beautyathome\domain\service\decorator\ServiceDecorator.java
+C:\Users\PC\Desktop\UNIVERSIDAD\SEXTO SEMESTRE\Bases de Datos\BeautyAtHome\backend\beautyathome\src\main\java\com\beautyathome\domain\service\decorator\TravelFeeAddon.java
+C:\Users\PC\Desktop\UNIVERSIDAD\SEXTO SEMESTRE\Bases de Datos\BeautyAtHome\backend\beautyathome\src\main\java\com\beautyathome\domain\service\factory\HaircutCreator.java
+C:\Users\PC\Desktop\UNIVERSIDAD\SEXTO SEMESTRE\Bases de Datos\BeautyAtHome\backend\beautyathome\src\main\java\com\beautyathome\domain\service\factory\MakeupCreator.java
+C:\Users\PC\Desktop\UNIVERSIDAD\SEXTO SEMESTRE\Bases de Datos\BeautyAtHome\backend\beautyathome\src\main\java\com\beautyathome\domain\service\factory\ServiceCreator.java
+C:\Users\PC\Desktop\UNIVERSIDAD\SEXTO SEMESTRE\Bases de Datos\BeautyAtHome\backend\beautyathome\src\main\java\com\beautyathome\domain\service\HaircutService.java
+C:\Users\PC\Desktop\UNIVERSIDAD\SEXTO SEMESTRE\Bases de Datos\BeautyAtHome\backend\beautyathome\src\main\java\com\beautyathome\domain\service\image\ImageReference.java
+C:\Users\PC\Desktop\UNIVERSIDAD\SEXTO SEMESTRE\Bases de Datos\BeautyAtHome\backend\beautyathome\src\main\java\com\beautyathome\domain\service\image\Photo.java
+C:\Users\PC\Desktop\UNIVERSIDAD\SEXTO SEMESTRE\Bases de Datos\BeautyAtHome\backend\beautyathome\src\main\java\com\beautyathome\domain\service\MakeupService.java
+C:\Users\PC\Desktop\UNIVERSIDAD\SEXTO SEMESTRE\Bases de Datos\BeautyAtHome\backend\beautyathome\src\main\java\com\beautyathome\domain\service\port\out\ServiceRepositoryPort.java
+C:\Users\PC\Desktop\UNIVERSIDAD\SEXTO SEMESTRE\Bases de Datos\BeautyAtHome\backend\beautyathome\src\main\java\com\beautyathome\domain\service\ServiceComponent.java
+C:\Users\PC\Desktop\UNIVERSIDAD\SEXTO SEMESTRE\Bases de Datos\BeautyAtHome\backend\beautyathome\src\main\java\com\beautyathome\domain\service\ServiceComposite.java
+C:\Users\PC\Desktop\UNIVERSIDAD\SEXTO SEMESTRE\Bases de Datos\BeautyAtHome\backend\beautyathome\src\main\java\com\beautyathome\domain\service\ServiceLeaf.java
+C:\Users\PC\Desktop\UNIVERSIDAD\SEXTO SEMESTRE\Bases de Datos\BeautyAtHome\backend\beautyathome\src\main\java\com\beautyathome\domain\service\visitor\DescriptionVisitor.java
+C:\Users\PC\Desktop\UNIVERSIDAD\SEXTO SEMESTRE\Bases de Datos\BeautyAtHome\backend\beautyathome\src\main\java\com\beautyathome\domain\service\visitor\PricingVisitor.java
+C:\Users\PC\Desktop\UNIVERSIDAD\SEXTO SEMESTRE\Bases de Datos\BeautyAtHome\backend\beautyathome\src\main\java\com\beautyathome\domain\service\visitor\ServiceVisitor.java
+C:\Users\PC\Desktop\UNIVERSIDAD\SEXTO SEMESTRE\Bases de Datos\BeautyAtHome\backend\beautyathome\src\main\java\com\beautyathome\infrastructure\adapter\in\ui\controller\BookingViewController.java
+C:\Users\PC\Desktop\UNIVERSIDAD\SEXTO SEMESTRE\Bases de Datos\BeautyAtHome\backend\beautyathome\src\main\java\com\beautyathome\infrastructure\adapter\in\ui\controller\ClientViewController.java
+C:\Users\PC\Desktop\UNIVERSIDAD\SEXTO SEMESTRE\Bases de Datos\BeautyAtHome\backend\beautyathome\src\main\java\com\beautyathome\infrastructure\adapter\in\ui\controller\HomeViewController.java
+C:\Users\PC\Desktop\UNIVERSIDAD\SEXTO SEMESTRE\Bases de Datos\BeautyAtHome\backend\beautyathome\src\main\java\com\beautyathome\infrastructure\adapter\in\ui\controller\ProfessionalViewController.java
+C:\Users\PC\Desktop\UNIVERSIDAD\SEXTO SEMESTRE\Bases de Datos\BeautyAtHome\backend\beautyathome\src\main\java\com\beautyathome\infrastructure\adapter\in\ui\controller\ReviewViewController.java
+C:\Users\PC\Desktop\UNIVERSIDAD\SEXTO SEMESTRE\Bases de Datos\BeautyAtHome\backend\beautyathome\src\main\java\com\beautyathome\infrastructure\adapter\in\ui\viewmodel\BookingForm.java
+C:\Users\PC\Desktop\UNIVERSIDAD\SEXTO SEMESTRE\Bases de Datos\BeautyAtHome\backend\beautyathome\src\main\java\com\beautyathome\infrastructure\adapter\in\ui\viewmodel\BookingLane.java
+C:\Users\PC\Desktop\UNIVERSIDAD\SEXTO SEMESTRE\Bases de Datos\BeautyAtHome\backend\beautyathome\src\main\java\com\beautyathome\infrastructure\adapter\in\ui\viewmodel\ClientForm.java
+C:\Users\PC\Desktop\UNIVERSIDAD\SEXTO SEMESTRE\Bases de Datos\BeautyAtHome\backend\beautyathome\src\main\java\com\beautyathome\infrastructure\adapter\in\ui\viewmodel\ProfessionalForm.java
+C:\Users\PC\Desktop\UNIVERSIDAD\SEXTO SEMESTRE\Bases de Datos\BeautyAtHome\backend\beautyathome\src\main\java\com\beautyathome\infrastructure\adapter\in\ui\viewmodel\ProfessionalShowcase.java
+C:\Users\PC\Desktop\UNIVERSIDAD\SEXTO SEMESTRE\Bases de Datos\BeautyAtHome\backend\beautyathome\src\main\java\com\beautyathome\infrastructure\adapter\in\ui\viewmodel\ReviewForm.java
+C:\Users\PC\Desktop\UNIVERSIDAD\SEXTO SEMESTRE\Bases de Datos\BeautyAtHome\backend\beautyathome\src\main\java\com\beautyathome\infrastructure\adapter\in\ui\viewmodel\ReviewShowcase.java
+C:\Users\PC\Desktop\UNIVERSIDAD\SEXTO SEMESTRE\Bases de Datos\BeautyAtHome\backend\beautyathome\src\main\java\com\beautyathome\infrastructure\adapter\in\web\controller\BookingController.java
+C:\Users\PC\Desktop\UNIVERSIDAD\SEXTO SEMESTRE\Bases de Datos\BeautyAtHome\backend\beautyathome\src\main\java\com\beautyathome\infrastructure\adapter\in\web\controller\ClientController.java
+C:\Users\PC\Desktop\UNIVERSIDAD\SEXTO SEMESTRE\Bases de Datos\BeautyAtHome\backend\beautyathome\src\main\java\com\beautyathome\infrastructure\adapter\in\web\controller\PhotoController.java
+C:\Users\PC\Desktop\UNIVERSIDAD\SEXTO SEMESTRE\Bases de Datos\BeautyAtHome\backend\beautyathome\src\main\java\com\beautyathome\infrastructure\adapter\in\web\controller\ProfessionalController.java
+C:\Users\PC\Desktop\UNIVERSIDAD\SEXTO SEMESTRE\Bases de Datos\BeautyAtHome\backend\beautyathome\src\main\java\com\beautyathome\infrastructure\adapter\in\web\controller\ReviewController.java
+C:\Users\PC\Desktop\UNIVERSIDAD\SEXTO SEMESTRE\Bases de Datos\BeautyAtHome\backend\beautyathome\src\main\java\com\beautyathome\infrastructure\adapter\in\web\controller\ServiceController.java
+C:\Users\PC\Desktop\UNIVERSIDAD\SEXTO SEMESTRE\Bases de Datos\BeautyAtHome\backend\beautyathome\src\main\java\com\beautyathome\infrastructure\adapter\in\web\dto\BrandRequest.java
+C:\Users\PC\Desktop\UNIVERSIDAD\SEXTO SEMESTRE\Bases de Datos\BeautyAtHome\backend\beautyathome\src\main\java\com\beautyathome\infrastructure\adapter\in\web\dto\ClientRegistrationRequest.java
+C:\Users\PC\Desktop\UNIVERSIDAD\SEXTO SEMESTRE\Bases de Datos\BeautyAtHome\backend\beautyathome\src\main\java\com\beautyathome\infrastructure\adapter\in\web\dto\ConsentRequest.java
+C:\Users\PC\Desktop\UNIVERSIDAD\SEXTO SEMESTRE\Bases de Datos\BeautyAtHome\backend\beautyathome\src\main\java\com\beautyathome\infrastructure\adapter\in\web\dto\PhotoUploadRequest.java
+C:\Users\PC\Desktop\UNIVERSIDAD\SEXTO SEMESTRE\Bases de Datos\BeautyAtHome\backend\beautyathome\src\main\java\com\beautyathome\infrastructure\adapter\in\web\dto\ProfessionalRegistrationRequest.java
+C:\Users\PC\Desktop\UNIVERSIDAD\SEXTO SEMESTRE\Bases de Datos\BeautyAtHome\backend\beautyathome\src\main\java\com\beautyathome\infrastructure\adapter\in\web\dto\ReviewRequest.java
+C:\Users\PC\Desktop\UNIVERSIDAD\SEXTO SEMESTRE\Bases de Datos\BeautyAtHome\backend\beautyathome\src\main\java\com\beautyathome\infrastructure\adapter\in\web\dto\ServiceCreationRequest.java
+C:\Users\PC\Desktop\UNIVERSIDAD\SEXTO SEMESTRE\Bases de Datos\BeautyAtHome\backend\beautyathome\src\main\java\com\beautyathome\infrastructure\adapter\out\media\ConsentProxy.java
+C:\Users\PC\Desktop\UNIVERSIDAD\SEXTO SEMESTRE\Bases de Datos\BeautyAtHome\backend\beautyathome\src\main\java\com\beautyathome\infrastructure\adapter\out\media\PhotoGallery.java
+C:\Users\PC\Desktop\UNIVERSIDAD\SEXTO SEMESTRE\Bases de Datos\BeautyAtHome\backend\beautyathome\src\main\java\com\beautyathome\infrastructure\adapter\out\media\StorageAdapter.java
+C:\Users\PC\Desktop\UNIVERSIDAD\SEXTO SEMESTRE\Bases de Datos\BeautyAtHome\backend\beautyathome\src\main\java\com\beautyathome\infrastructure\adapter\out\persistence\adapter\BookingPersistenceAdapter.java
+C:\Users\PC\Desktop\UNIVERSIDAD\SEXTO SEMESTRE\Bases de Datos\BeautyAtHome\backend\beautyathome\src\main\java\com\beautyathome\infrastructure\adapter\out\persistence\adapter\ClientPersistenceAdapter.java
+C:\Users\PC\Desktop\UNIVERSIDAD\SEXTO SEMESTRE\Bases de Datos\BeautyAtHome\backend\beautyathome\src\main\java\com\beautyathome\infrastructure\adapter\out\persistence\adapter\ProfessionalPersistenceAdapter.java
+C:\Users\PC\Desktop\UNIVERSIDAD\SEXTO SEMESTRE\Bases de Datos\BeautyAtHome\backend\beautyathome\src\main\java\com\beautyathome\infrastructure\adapter\out\persistence\adapter\ReviewPersistenceAdapter.java
+C:\Users\PC\Desktop\UNIVERSIDAD\SEXTO SEMESTRE\Bases de Datos\BeautyAtHome\backend\beautyathome\src\main\java\com\beautyathome\infrastructure\adapter\out\persistence\adapter\ServicePersistenceAdapter.java
+C:\Users\PC\Desktop\UNIVERSIDAD\SEXTO SEMESTRE\Bases de Datos\BeautyAtHome\backend\beautyathome\src\main\java\com\beautyathome\infrastructure\adapter\out\persistence\entity\BookingEntity.java
+C:\Users\PC\Desktop\UNIVERSIDAD\SEXTO SEMESTRE\Bases de Datos\BeautyAtHome\backend\beautyathome\src\main\java\com\beautyathome\infrastructure\adapter\out\persistence\entity\ClientEntity.java
+C:\Users\PC\Desktop\UNIVERSIDAD\SEXTO SEMESTRE\Bases de Datos\BeautyAtHome\backend\beautyathome\src\main\java\com\beautyathome\infrastructure\adapter\out\persistence\entity\ProfessionalEntity.java
+C:\Users\PC\Desktop\UNIVERSIDAD\SEXTO SEMESTRE\Bases de Datos\BeautyAtHome\backend\beautyathome\src\main\java\com\beautyathome\infrastructure\adapter\out\persistence\entity\ReviewEntity.java
+C:\Users\PC\Desktop\UNIVERSIDAD\SEXTO SEMESTRE\Bases de Datos\BeautyAtHome\backend\beautyathome\src\main\java\com\beautyathome\infrastructure\adapter\out\persistence\entity\ServiceEntity.java
+C:\Users\PC\Desktop\UNIVERSIDAD\SEXTO SEMESTRE\Bases de Datos\BeautyAtHome\backend\beautyathome\src\main\java\com\beautyathome\infrastructure\adapter\out\persistence\repository\JpaBookingRepository.java
+C:\Users\PC\Desktop\UNIVERSIDAD\SEXTO SEMESTRE\Bases de Datos\BeautyAtHome\backend\beautyathome\src\main\java\com\beautyathome\infrastructure\adapter\out\persistence\repository\JpaClientRepository.java
+C:\Users\PC\Desktop\UNIVERSIDAD\SEXTO SEMESTRE\Bases de Datos\BeautyAtHome\backend\beautyathome\src\main\java\com\beautyathome\infrastructure\adapter\out\persistence\repository\JpaProfessionalRepository.java
+C:\Users\PC\Desktop\UNIVERSIDAD\SEXTO SEMESTRE\Bases de Datos\BeautyAtHome\backend\beautyathome\src\main\java\com\beautyathome\infrastructure\adapter\out\persistence\repository\JpaReviewRepository.java
+C:\Users\PC\Desktop\UNIVERSIDAD\SEXTO SEMESTRE\Bases de Datos\BeautyAtHome\backend\beautyathome\src\main\java\com\beautyathome\infrastructure\adapter\out\persistence\repository\JpaServiceRepository.java
+C:\Users\PC\Desktop\UNIVERSIDAD\SEXTO SEMESTRE\Bases de Datos\BeautyAtHome\backend\beautyathome\src\main\java\com\beautyathome\infrastructure\proxy\CoverageProxy.java
+C:\Users\PC\Desktop\UNIVERSIDAD\SEXTO SEMESTRE\Bases de Datos\BeautyAtHome\backend\beautyathome\src\main\java\com\beautyathome\infrastructure\proxy\ReviewGuardProxy.java
+C:\Users\PC\Desktop\UNIVERSIDAD\SEXTO SEMESTRE\Bases de Datos\BeautyAtHome\backend\beautyathome\src\main\java\com\beautyathome\infrastructure\proxy\ReviewService.java

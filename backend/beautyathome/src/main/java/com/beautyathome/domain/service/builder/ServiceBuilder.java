@@ -1,6 +1,6 @@
-package domain.service.builder;
+package com.beautyathome.domain.service.builder;
 
-import domain.service.ServiceComponent;
+import com.beautyathome.domain.service.ServiceComponent;
 
 /**
  * Builder contract that constructs {@link ServiceComponent} instances step by

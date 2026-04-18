@@ -1,4 +1,4 @@
-package application.booking;
+package com.beautyathome.application.booking;
 
 import java.time.LocalDateTime;
 

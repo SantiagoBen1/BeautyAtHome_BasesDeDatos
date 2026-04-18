@@ -1,11 +1,11 @@
-package domain.service.visitor;
+package com.beautyathome.domain.service.visitor;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import domain.service.ServiceComposite;
-import domain.service.ServiceLeaf;
+import com.beautyathome.domain.service.ServiceComposite;
+import com.beautyathome.domain.service.ServiceLeaf;
 
 /**
  * Visitor that collects textual descriptions of each service visited.

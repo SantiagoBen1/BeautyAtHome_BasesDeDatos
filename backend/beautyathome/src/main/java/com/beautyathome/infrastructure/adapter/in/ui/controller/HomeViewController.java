@@ -1,4 +1,4 @@
-package ui.controller;
+package com.beautyathome.infrastructure.adapter.in.ui.controller;
 
 import java.util.Comparator;
 import java.util.List;
@@ -9,13 +9,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import application.facade.BeautyAtHomeFacade;
-import domain.booking.Booking;
-import domain.booking.history.ServiceHistory;
-import domain.client.Client;
-import domain.professional.Professional;
-import domain.review.Review;
-import domain.service.ServiceComponent;
+import com.beautyathome.application.facade.BeautyAtHomeFacade;
+import com.beautyathome.domain.booking.Booking;
+import com.beautyathome.domain.booking.history.ServiceHistory;
+import com.beautyathome.domain.client.Client;
+import com.beautyathome.domain.professional.Professional;
+import com.beautyathome.domain.review.Review;
+import com.beautyathome.domain.service.ServiceComponent;
 import infrastructure.persistence.dao.BookingDAO;
 import infrastructure.persistence.dao.ClientDAO;
 import infrastructure.persistence.dao.ProfessionalDAO;

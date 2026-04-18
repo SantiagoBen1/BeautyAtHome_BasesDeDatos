@@ -1,10 +1,10 @@
-package domain.service.factory;
+package com.beautyathome.domain.service.factory;
 
 import java.util.List;
 
-import domain.service.MakeupService;
-import domain.service.ServiceComponent;
-import domain.service.image.ImageReference;
+import com.beautyathome.domain.service.MakeupService;
+import com.beautyathome.domain.service.ServiceComponent;
+import com.beautyathome.domain.service.image.ImageReference;
 
 /**
  * Factory that produces {@link MakeupService} instances.

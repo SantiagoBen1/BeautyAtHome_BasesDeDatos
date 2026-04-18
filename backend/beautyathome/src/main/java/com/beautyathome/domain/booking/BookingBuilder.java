@@ -1,9 +1,9 @@
-package domain.booking;
+package com.beautyathome.domain.booking;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-import domain.service.ServiceComponent;
+import com.beautyathome.domain.service.ServiceComponent;
 
 /**
  * Fluent builder that simplifies the creation of {@link Booking} instances by

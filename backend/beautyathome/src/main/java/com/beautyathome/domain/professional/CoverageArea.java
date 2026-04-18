@@ -1,7 +1,7 @@
-package domain.professional;
+package com.beautyathome.domain.professional;
 
 /**
- * Describe una zona geográfica donde la profesional atiende a domicilio.
+ * Describe una zona geogrÃ¡fica donde la profesional atiende a domicilio.
  */
 public class CoverageArea {
 
@@ -17,7 +17,7 @@ public class CoverageArea {
     }
 
     /**
-     * Constructor por defecto para serialización.
+     * Constructor por defecto para serializaciÃ³n.
      */
     public CoverageArea() {}
 

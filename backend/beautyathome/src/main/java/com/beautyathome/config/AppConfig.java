@@ -1,27 +1,27 @@
-package config;
+package com.beautyathome.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import application.booking.BookingService;
-import application.booking.validation.AvailabilityValidationHandler;
-import application.booking.validation.BookingRequestHandler;
-import application.booking.validation.ConsentValidationHandler;
-import application.booking.validation.CoverageValidationHandler;
-import application.booking.validation.PaymentValidationHandler;
-import application.facade.BeautyAtHomeFacade;
-import domain.booking.AgendaSingleton;
-import domain.booking.command.CommandInvoker;
-import domain.pricing.PricingStrategy;
-import domain.pricing.StandardPricingStrategy;
-import domain.professional.factory.ConcreteProfessionalFactory;
-import domain.professional.factory.ProfessionalAbstractFactory;
-import domain.service.builder.BasicServiceBuilder;
-import domain.service.builder.ServiceBuilder;
-import domain.service.builder.ServiceDirector;
-import infrastructure.media.ConsentProxy;
-import infrastructure.media.PhotoGallery;
-import infrastructure.media.StorageAdapter;
+import com.beautyathome.application.booking.BookingService;
+import com.beautyathome.application.booking.validation.AvailabilityValidationHandler;
+import com.beautyathome.application.booking.validation.BookingRequestHandler;
+import com.beautyathome.application.booking.validation.ConsentValidationHandler;
+import com.beautyathome.application.booking.validation.CoverageValidationHandler;
+import com.beautyathome.application.booking.validation.PaymentValidationHandler;
+import com.beautyathome.application.facade.BeautyAtHomeFacade;
+import com.beautyathome.domain.booking.AgendaSingleton;
+import com.beautyathome.domain.booking.command.CommandInvoker;
+import com.beautyathome.domain.pricing.PricingStrategy;
+import com.beautyathome.domain.pricing.StandardPricingStrategy;
+import com.beautyathome.domain.professional.factory.ConcreteProfessionalFactory;
+import com.beautyathome.domain.professional.factory.ProfessionalAbstractFactory;
+import com.beautyathome.domain.service.builder.BasicServiceBuilder;
+import com.beautyathome.domain.service.builder.ServiceBuilder;
+import com.beautyathome.domain.service.builder.ServiceDirector;
+import com.beautyathome.infrastructure.adapter.out.media.ConsentProxy;
+import com.beautyathome.infrastructure.adapter.out.media.PhotoGallery;
+import com.beautyathome.infrastructure.adapter.out.media.StorageAdapter;
 import infrastructure.persistence.dao.BookingDAO;
 import infrastructure.persistence.dao.ClientDAO;
 import infrastructure.persistence.dao.ProfessionalDAO;
@@ -32,8 +32,8 @@ import infrastructure.persistence.dao.postgres.PostgresClientDAO;
 import infrastructure.persistence.dao.postgres.PostgresProfessionalDAO;
 import infrastructure.persistence.dao.postgres.PostgresReviewDAO;
 import infrastructure.persistence.dao.postgres.PostgresServiceDAO;
-import infrastructure.proxy.ReviewGuardProxy;
-import infrastructure.proxy.ReviewService;
+import com.beautyathome.infrastructure.proxy.ReviewGuardProxy;
+import com.beautyathome.infrastructure.proxy.ReviewService;
 
 @Configuration
 public class AppConfig {

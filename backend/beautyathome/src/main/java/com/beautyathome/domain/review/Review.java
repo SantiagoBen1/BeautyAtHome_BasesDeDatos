@@ -1,15 +1,15 @@
-package domain.review;
+package com.beautyathome.domain.review;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-import domain.booking.Booking;
-import domain.client.Client;
-import domain.professional.Professional;
-import domain.review.rating.RatingValueObject;
+import com.beautyathome.domain.booking.Booking;
+import com.beautyathome.domain.client.Client;
+import com.beautyathome.domain.professional.Professional;
+import com.beautyathome.domain.review.rating.RatingValueObject;
 
 /**
- * Opinión que un cliente deja sobre un {@link Booking} y su profesional.
+ * OpiniÃ³n que un cliente deja sobre un {@link Booking} y su profesional.
  */
 public class Review {
 
@@ -22,15 +22,15 @@ public class Review {
 	private final LocalDateTime createdAt;
 
 	/**
-	 * Crea la reseña con contenido libre y calificación en estrellas.
+	 * Crea la reseÃ±a con contenido libre y calificaciÃ³n en estrellas.
 	 *
 	 * @param id             identificador opcional; se autogenera si es nulo
 	 * @param booking        reserva evaluada
-	 * @param client         cliente que emite la reseña
+	 * @param client         cliente que emite la reseÃ±a
 	 * @param professional   profesional evaluada
-	 * @param rating         calificación (1 a 5)
+	 * @param rating         calificaciÃ³n (1 a 5)
 	 * @param text           comentario libre
-	 * @param createdAt      fecha de creación o ahora si es nulo
+	 * @param createdAt      fecha de creaciÃ³n o ahora si es nulo
 	 */
 	public Review(String id,
 			  Booking booking,
@@ -49,7 +49,7 @@ public class Review {
 	}
 
 	/**
-	 * @return identificador único de la reseña
+	 * @return identificador Ãºnico de la reseÃ±a
 	 */
 	public String getId() {
 		return id;
@@ -63,7 +63,7 @@ public class Review {
 	}
 
 	/**
-	 * @return cliente que emitió la opinión
+	 * @return cliente que emitiÃ³ la opiniÃ³n
 	 */
 	public Client getClient() {
 		return client;
@@ -77,7 +77,7 @@ public class Review {
 	}
 
 	/**
-	 * @return valor numérico encapsulado en {@link RatingValueObject}
+	 * @return valor numÃ©rico encapsulado en {@link RatingValueObject}
 	 */
 	public RatingValueObject getRating() {
 		return rating;
@@ -91,7 +91,7 @@ public class Review {
 	}
 
 	/**
-	 * @return fecha de publicación de la reseña
+	 * @return fecha de publicaciÃ³n de la reseÃ±a
 	 */
 	public LocalDateTime getCreatedAt() {
 		return createdAt;

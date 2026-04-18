@@ -1,4 +1,4 @@
-package api.dto;
+package com.beautyathome.infrastructure.adapter.in.web.dto;
 
 /**
  * DTO that captures brand metadata associated with a professional.

@@ -1,6 +1,6 @@
-package domain.service.decorator;
+package com.beautyathome.domain.service.decorator;
 
-import domain.service.ServiceComponent;
+import com.beautyathome.domain.service.ServiceComponent;
 
 /**
  * Decorator applying a percentage-based discount to the wrapped service.

@@ -1,9 +1,9 @@
-package domain.professional;
+package com.beautyathome.domain.professional;
 
 
 import java.util.List;
 
-import domain.service.ServiceComponent;
+import com.beautyathome.domain.service.ServiceComponent;
 
 /**
  * Contrato que toda profesional de belleza debe cumplir para ser ofertada.
@@ -11,7 +11,7 @@ import domain.service.ServiceComponent;
 public interface Professional {
 
     /**
-     * @return identificador único de la profesional
+     * @return identificador Ãºnico de la profesional
      */
     String getId();
 
@@ -21,7 +21,7 @@ public interface Professional {
     String getName();
 
     /**
-     * @return URL de la fotografía representativa
+     * @return URL de la fotografÃ­a representativa
      */
     String getPhotoUrl();
 
@@ -31,17 +31,17 @@ public interface Professional {
     String getExperienceSummary();
 
     /**
-     * @return lista de áreas donde ofrece servicio a domicilio
+     * @return lista de Ã¡reas donde ofrece servicio a domicilio
      */
     List<CoverageArea> getCoverageAreas();
 
     /**
-     * @return marca personal o salón con el que colabora
+     * @return marca personal o salÃ³n con el que colabora
      */
     Brand getBrand();
 
     /**
-     * @return catálogo de servicios que puede ejecutar
+     * @return catÃ¡logo de servicios que puede ejecutar
      */
     List<ServiceComponent> getServicesOffered();
 }

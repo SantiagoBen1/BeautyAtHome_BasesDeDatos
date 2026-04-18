@@ -1,12 +1,12 @@
-package infrastructure.media;
+package com.beautyathome.infrastructure.adapter.out.media;
 
 import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.stream.Collectors;
 
-import domain.booking.Booking;
-import domain.service.image.Photo;
+import com.beautyathome.domain.booking.Booking;
+import com.beautyathome.domain.service.image.Photo;
 import infrastructure.persistence.dao.BookingDAO;
 
 /**
@@ -19,7 +19,7 @@ public class PhotoGallery {
 	private final List<Photo> photos = new CopyOnWriteArrayList<>();
 
 	/**
-	 * @param storageAdapter adaptador que guarda físicamente la imagen
+	 * @param storageAdapter adaptador que guarda fÃ­sicamente la imagen
 	 * @param bookingDAO DAO para validar la existencia de la reserva
 	 */
 	public PhotoGallery(StorageAdapter storageAdapter, BookingDAO bookingDAO) {
@@ -44,7 +44,7 @@ public class PhotoGallery {
 	}
 
 	/**
-	 * Lista las fotos asociadas a una profesional específica.
+	 * Lista las fotos asociadas a una profesional especÃ­fica.
 	 *
 	 * @param professionalId profesional consultada
 	 * @return lista inmutable de fotos

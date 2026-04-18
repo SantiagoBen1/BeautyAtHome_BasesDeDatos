@@ -1,4 +1,4 @@
-package api.dto;
+package com.beautyathome.infrastructure.adapter.in.web.dto;
 
 /**
  * Simple DTO used to capture client registration payloads from the API layer.

@@ -1,10 +1,10 @@
-package domain.professional;
+package com.beautyathome.domain.professional;
 
 import java.util.Collections;
 import java.util.List;
 
 /**
- * Marca o salón que respalda a la profesional (branding, logo y kit de productos).
+ * Marca o salÃ³n que respalda a la profesional (branding, logo y kit de productos).
  */
 public class Brand {
 
@@ -15,8 +15,8 @@ public class Brand {
     /**
      * Crea una marca con nombre, logotipo y listado de productos insignia.
      *
-     * @param name nombre del salón o marca personal
-     * @param logoUrl URL pública del logotipo
+     * @param name nombre del salÃ³n o marca personal
+     * @param logoUrl URL pÃºblica del logotipo
      * @param heroProducts productos exclusivos utilizados por la profesional
      */
     public Brand(String name, String logoUrl, List<String> heroProducts) {
@@ -45,7 +45,7 @@ public class Brand {
     }
 
     /**
-     * @return URL del logo que se mostrará en la app
+     * @return URL del logo que se mostrarÃ¡ en la app
      */
     public String getLogoUrl() {
         return logoUrl;

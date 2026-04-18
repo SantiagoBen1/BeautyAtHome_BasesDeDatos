@@ -1,9 +1,9 @@
-package domain.service;
+package com.beautyathome.domain.service;
 
 import java.util.List;
 
-import domain.service.image.ImageReference;
-import domain.service.visitor.ServiceVisitor;
+import com.beautyathome.domain.service.image.ImageReference;
+import com.beautyathome.domain.service.visitor.ServiceVisitor;
 
     /**
      * Concrete leaf service that holds intrinsic service details such as
@@ -76,7 +76,7 @@ import domain.service.visitor.ServiceVisitor;
         /** {@inheritDoc} */
         @Override
         public void execute() {
-            // Lógica de ejecución de un servicio simple
+            // LÃ³gica de ejecuciÃ³n de un servicio simple
         }
 
         /** {@inheritDoc} */

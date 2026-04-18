@@ -1,4 +1,4 @@
-package api.dto;
+package com.beautyathome.infrastructure.adapter.in.web.dto;
 
 /**
  * DTO used to collect the payload required to create a review.

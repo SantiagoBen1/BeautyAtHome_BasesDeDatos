@@ -1,9 +1,9 @@
-package domain.service.composite;
+package com.beautyathome.domain.service.composite;
 
 import java.util.Iterator;
 import java.util.List;
 
-import domain.service.ServiceComponent;
+import com.beautyathome.domain.service.ServiceComponent;
 
 /**
  * Simple iterator implementation backed by the children list of a

@@ -1,4 +1,4 @@
-package application.facade;
+package com.beautyathome.application.facade;
 
 
 import java.time.LocalDateTime;
@@ -11,32 +11,32 @@ import java.util.Objects;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
-import application.booking.BookingRequest;
-import application.booking.BookingService;
-import domain.booking.AgendaSingleton;
-import domain.booking.Booking;
-import domain.booking.command.CancelBookingCommand;
-import domain.booking.command.CommandInvoker;
-import domain.booking.history.ServiceHistory;
-import domain.booking.observer.ClientNotificationObserver;
-import domain.booking.observer.ProfessionalNotificationObserver;
-import domain.client.Client;
-import domain.pricing.PricingStrategy;
-import domain.professional.Professional;
-import domain.professional.factory.ProfessionalAbstractFactory;
-import domain.review.Review;
-import domain.service.ServiceComponent;
-import domain.service.ServiceLeaf;
-import domain.service.builder.ServiceDirector;
-import domain.service.image.Photo;
-import infrastructure.media.ConsentProxy;
+import com.beautyathome.application.booking.BookingRequest;
+import com.beautyathome.application.booking.BookingService;
+import com.beautyathome.domain.booking.AgendaSingleton;
+import com.beautyathome.domain.booking.Booking;
+import com.beautyathome.domain.booking.command.CancelBookingCommand;
+import com.beautyathome.domain.booking.command.CommandInvoker;
+import com.beautyathome.domain.booking.history.ServiceHistory;
+import com.beautyathome.domain.booking.observer.ClientNotificationObserver;
+import com.beautyathome.domain.booking.observer.ProfessionalNotificationObserver;
+import com.beautyathome.domain.client.Client;
+import com.beautyathome.domain.pricing.PricingStrategy;
+import com.beautyathome.domain.professional.Professional;
+import com.beautyathome.domain.professional.factory.ProfessionalAbstractFactory;
+import com.beautyathome.domain.review.Review;
+import com.beautyathome.domain.service.ServiceComponent;
+import com.beautyathome.domain.service.ServiceLeaf;
+import com.beautyathome.domain.service.builder.ServiceDirector;
+import com.beautyathome.domain.service.image.Photo;
+import com.beautyathome.infrastructure.adapter.out.media.ConsentProxy;
 import infrastructure.persistence.dao.BookingDAO;
 import infrastructure.persistence.dao.ClientDAO;
 import infrastructure.persistence.dao.ProfessionalDAO;
 import infrastructure.persistence.dao.ReviewDAO;
 import infrastructure.persistence.dao.ServiceDAO;
-import infrastructure.proxy.CoverageProxy;
-import infrastructure.proxy.ReviewGuardProxy;
+import com.beautyathome.infrastructure.proxy.CoverageProxy;
+import com.beautyathome.infrastructure.proxy.ReviewGuardProxy;
 
 /**
  * Fachada que expone casos de uso de Beauty At Home hacia controladores o UI.
@@ -65,15 +65,15 @@ public class BeautyAtHomeFacade {
      * @param professionalDAO DAO de profesionales
      * @param serviceDAO DAO de servicios
      * @param bookingDAO DAO de reservas
-     * @param reviewDAO DAO de reseñas
-     * @param bookingService servicio de aplicación para reservas
+     * @param reviewDAO DAO de reseÃ±as
+     * @param bookingService servicio de aplicaciÃ³n para reservas
      * @param pricingStrategy estrategia de precios activa
-     * @param professionalFactory fábrica para crear profesionales
-     * @param serviceDirector director para construir servicios básicos
-     * @param reviewGuardProxy proxy que evita reseñas duplicadas
+     * @param professionalFactory fÃ¡brica para crear profesionales
+     * @param serviceDirector director para construir servicios bÃ¡sicos
+     * @param reviewGuardProxy proxy que evita reseÃ±as duplicadas
      * @param consentProxy proxy encargado de fotos y consentimientos
     * @param commandInvoker invocador que ejecuta los comandos de agenda
-    * @param agendaSingleton agenda compartida que actúa como receptor
+    * @param agendaSingleton agenda compartida que actÃºa como receptor
      */
     public BeautyAtHomeFacade(ClientDAO clientDAO,
                               ProfessionalDAO professionalDAO,
@@ -104,7 +104,7 @@ public class BeautyAtHomeFacade {
     }
 
     /**
-     * Registra un cliente a partir de datos dinámicos (p. ej. JSON de API).
+     * Registra un cliente a partir de datos dinÃ¡micos (p. ej. JSON de API).
      *
      * @param data mapa con id, nombre y correo
      * @return cliente persistido
@@ -122,7 +122,7 @@ public class BeautyAtHomeFacade {
      * Persiste un cliente asegurando que tenga identificador.
      *
      * @param client entidad a guardar
-     * @return cliente persistido con id válido
+     * @return cliente persistido con id vÃ¡lido
      */
     public Client registerClient(Client client) {
         Objects.requireNonNull(client, "client");
@@ -157,10 +157,10 @@ public class BeautyAtHomeFacade {
     }
 
     /**
-     * Busca profesionales filtrando por zona y categoría solicitadas.
+     * Busca profesionales filtrando por zona y categorÃ­a solicitadas.
      *
-     * @param zone zona geográfica deseada
-     * @param category categoría de servicio
+     * @param zone zona geogrÃ¡fica deseada
+     * @param category categorÃ­a de servicio
      * @return lista filtrada de profesionales
      */
     public List<Professional> searchProfessionals(String zone, String category) {
@@ -171,7 +171,7 @@ public class BeautyAtHomeFacade {
     }
 
     /**
-     * Lista los servicios publicados por una profesional específica.
+     * Lista los servicios publicados por una profesional especÃ­fica.
      *
      * @param professionalId identificador de la profesional
      * @return servicios registrados
@@ -185,10 +185,10 @@ public class BeautyAtHomeFacade {
      *
      * @param professionalId id de la profesional propietaria
      * @param name nombre del servicio
-     * @param description descripción comercial
+     * @param description descripciÃ³n comercial
      * @param price precio base
-     * @param duration duración estimada en minutos
-     * @param imageUrls galería de soporte
+     * @param duration duraciÃ³n estimada en minutos
+     * @param imageUrls galerÃ­a de soporte
      * @return servicio persistido
      */
     public ServiceComponent createBasicService(String professionalId,
@@ -205,7 +205,7 @@ public class BeautyAtHomeFacade {
     }
 
     /**
-     * Variante abreviada para reservar un servicio sin zona específica.
+     * Variante abreviada para reservar un servicio sin zona especÃ­fica.
      *
      * @param clientId cliente que agenda
      * @param professionalId profesional asignada
@@ -221,7 +221,7 @@ public class BeautyAtHomeFacade {
     }
 
     /**
-     * Reserva un servicio tras validar existencia de entidades y cálculo de precio.
+     * Reserva un servicio tras validar existencia de entidades y cÃ¡lculo de precio.
      *
      * @param clientId cliente que agenda
      * @param professionalId profesional asignada
@@ -262,12 +262,12 @@ public class BeautyAtHomeFacade {
         booking.attach(new ClientNotificationObserver(client));
         booking.attach(new ProfessionalNotificationObserver(professional));
         Booking persisted = bookingDAO.save(booking);
-        // El cálculo de precios se mantiene para integraciones futuras (facturación, etc.)
+        // El cÃ¡lculo de precios se mantiene para integraciones futuras (facturaciÃ³n, etc.)
         return persisted;
     }
 
     /**
-     * Cancela una reserva existente empleando el patrón Command.
+     * Cancela una reserva existente empleando el patrÃ³n Command.
      *
      * @param bookingId identificador de la reserva a cancelar
      */
@@ -282,30 +282,30 @@ public class BeautyAtHomeFacade {
     }
 
     /**
-     * Crea una reseña aplicando la protección del proxy anti-duplicados.
+     * Crea una reseÃ±a aplicando la protecciÃ³n del proxy anti-duplicados.
      *
      * @param bookingId reserva evaluada
-     * @param rating calificación de 1-5
+     * @param rating calificaciÃ³n de 1-5
      * @param text comentario opcional
-     * @return reseña persistida
+     * @return reseÃ±a persistida
      */
     public Review addReview(String bookingId, int rating, String text) {
         return reviewGuardProxy.createReview(bookingId, rating, text);
     }
 
     /**
-     * Registra una fotografía y la marca como pública únicamente con consentimiento.
+     * Registra una fotografÃ­a y la marca como pÃºblica Ãºnicamente con consentimiento.
      *
      * @param bookingId reserva asociada
-     * @param url ubicación de origen de la foto
-     * @param isPublic indicador de publicación solicitada
+     * @param url ubicaciÃ³n de origen de la foto
+     * @param isPublic indicador de publicaciÃ³n solicitada
      */
     public void uploadPhoto(String bookingId, String url, boolean isPublic) {
         consentProxy.addPhoto(bookingId, url, isPublic);
     }
 
     /**
-     * Concede el consentimiento que habilita la publicación de fotos.
+     * Concede el consentimiento que habilita la publicaciÃ³n de fotos.
      *
      * @param bookingId reserva autorizada
      */
@@ -317,7 +317,7 @@ public class BeautyAtHomeFacade {
      * Calcula el promedio de calificaciones de una profesional.
      *
      * @param professionalId profesional evaluada
-     * @return promedio numérico o 0.0 si no hay reseñas
+     * @return promedio numÃ©rico o 0.0 si no hay reseÃ±as
      */
     public double getProfessionalAverageRating(String professionalId) {
         return reviewDAO.findByProfessionalId(professionalId).stream()
@@ -357,7 +357,7 @@ public class BeautyAtHomeFacade {
     }
 
     /**
-     * Evalúa si la profesional ofrece la categoría solicitada.
+     * EvalÃºa si la profesional ofrece la categorÃ­a solicitada.
      */
     private boolean matchesCategory(Professional professional, String category) {
         if (category == null || category.isBlank()) {
@@ -385,7 +385,7 @@ public class BeautyAtHomeFacade {
     }
 
     /**
-     * Determina si la profesional cubre la zona indicada a través del proxy.
+     * Determina si la profesional cubre la zona indicada a travÃ©s del proxy.
      */
     private boolean matchesZone(Professional professional, String zone) {
         if (zone == null || zone.isBlank()) {

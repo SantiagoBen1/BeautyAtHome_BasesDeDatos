@@ -1,10 +1,10 @@
-package domain.booking.observer;
+package com.beautyathome.domain.booking.observer;
 
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 
-import domain.booking.Booking;
-import domain.client.Client;
+import com.beautyathome.domain.booking.Booking;
+import com.beautyathome.domain.client.Client;
 
 /**
  * Observer that represents the client as a notification target. It can later
@@ -29,7 +29,7 @@ public class ClientNotificationObserver implements NotificationObserver {
         if (booking == null || client == null) {
             return;
         }
-        String subject = "Actualización de tu reserva " + booking.getId();
+        String subject = "ActualizaciÃ³n de tu reserva " + booking.getId();
         StringBuilder body = new StringBuilder();
         body.append("Hola ").append(client.getName() == null ? "Cliente" : client.getName()).append(",");
         body.append(System.lineSeparator());

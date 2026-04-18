@@ -1,4 +1,4 @@
-package infrastructure.persistence.entity;
+package com.beautyathome.infrastructure.adapter.out.persistence.entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -11,7 +11,7 @@ public class ProfessionalEntity {
     @Id
     private String id;
     private String name;
-    // TODO: Añadir más campos (especialidad, etc.) cuando llegue el diagrama ER
+    // TODO: AÃ±adir mÃ¡s campos (especialidad, etc.) cuando llegue el diagrama ER
 
     public ProfessionalEntity() {}
 

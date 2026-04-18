@@ -1,9 +1,9 @@
-package infrastructure.persistence.dao.postgres;
+package com.beautyathome.infrastructure.adapter.out.persistence.adapter;
 
-import domain.service.ServiceComponent; // O la clase base que se use en ServiceDAO
+import com.beautyathome.domain.service.ServiceComponent;
 import infrastructure.persistence.dao.ServiceDAO;
-import infrastructure.persistence.entity.ServiceEntity;
-import infrastructure.persistence.repository.JpaServiceRepository;
+import com.beautyathome.infrastructure.adapter.out.persistence.entity.ServiceEntity;
+import com.beautyathome.infrastructure.adapter.out.persistence.repository.JpaServiceRepository;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -27,17 +27,17 @@ public class PostgresServiceDAO implements ServiceDAO {
                 ? UUID.randomUUID().toString() 
                 : entity.getId();
                 
-        // Mapeo inicial (ajustar getters según patrón Composite)
+        // Mapeo inicial (ajustar getters segÃºn patrÃ³n Composite)
         ServiceEntity serviceEntity = new ServiceEntity(id, entity.getName(), entity.getPrice());
         ServiceEntity saved = repository.save(serviceEntity);
         
         // TODO: Reconstruir tu ServiceComponent / ServiceLeaf a partir de la entidad
-        return null; // Cambiar por la instanciación del dominio
+        return null; // Cambiar por la instanciaciÃ³n del dominio
     }
 
     @Override
     public ServiceComponent findById(String id) {
-        // TODO: Implementar reconstrucción del dominio
+        // TODO: Implementar reconstrucciÃ³n del dominio
         return null; 
     }
 
@@ -48,7 +48,7 @@ public class PostgresServiceDAO implements ServiceDAO {
 
     @Override
     public List<ServiceComponent> findAll() {
-        // TODO: Implementar reconstrucción de la lista del dominio
+        // TODO: Implementar reconstrucciÃ³n de la lista del dominio
         return List.of();
     }
 }

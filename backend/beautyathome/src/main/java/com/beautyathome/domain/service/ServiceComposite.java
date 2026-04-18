@@ -1,13 +1,13 @@
-package domain.service;
+package com.beautyathome.domain.service;
 
 
 import java.util.ArrayList;
 import java.util.List;
 
-import domain.service.composite.CompositeServiceIterator;
-import domain.service.composite.ServiceIterator;
-import domain.service.image.ImageReference;
-import domain.service.visitor.ServiceVisitor;
+import com.beautyathome.domain.service.composite.CompositeServiceIterator;
+import com.beautyathome.domain.service.composite.ServiceIterator;
+import com.beautyathome.domain.service.image.ImageReference;
+import com.beautyathome.domain.service.visitor.ServiceVisitor;
 
         /**
          * Composite node that groups multiple services and aggregates their price,

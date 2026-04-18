@@ -1,4 +1,4 @@
-package api.controller;
+package com.beautyathome.infrastructure.adapter.in.web.controller;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -7,9 +7,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import api.dto.ReviewRequest;
-import application.facade.BeautyAtHomeFacade;
-import domain.review.Review;
+import com.beautyathome.infrastructure.adapter.in.web.dto.ReviewRequest;
+import com.beautyathome.application.facade.BeautyAtHomeFacade;
+import com.beautyathome.domain.review.Review;
 
 @RestController
 @RequestMapping("/api/reviews")

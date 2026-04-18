@@ -1,4 +1,4 @@
-package domain.service;
+package com.beautyathome.domain.service;
 
 /**
  * Value object that names a service category (Haircut, Makeup, etc.).

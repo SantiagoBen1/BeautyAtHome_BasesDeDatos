@@ -1,14 +1,14 @@
-package infrastructure.persistence.dao;
+package com.beautyathome.domain.service.port.out;
 
 import java.util.Collections;
 import java.util.List;
 
-import domain.service.ServiceComponent;
+import com.beautyathome.domain.service.ServiceComponent;
 
 /**
- * DAO encargado de almacenar servicios y su relación con profesionales.
+ * DAO encargado de almacenar servicios y su relaciÃ³n con profesionales.
  */
-public interface ServiceDAO extends BaseDAO<ServiceComponent, String> {
+public interface ServiceRepositoryPort extends BaseDAO<ServiceComponent, String> {
 
 	/**
 	 * Obtiene los servicios publicados por una profesional.

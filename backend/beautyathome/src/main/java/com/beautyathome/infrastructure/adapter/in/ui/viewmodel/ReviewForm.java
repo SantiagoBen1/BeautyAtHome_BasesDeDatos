@@ -1,4 +1,4 @@
-package ui.viewmodel;
+package com.beautyathome.infrastructure.adapter.in.ui.viewmodel;
 
 /**
  * Form to create reviews directly from the MVC screens.

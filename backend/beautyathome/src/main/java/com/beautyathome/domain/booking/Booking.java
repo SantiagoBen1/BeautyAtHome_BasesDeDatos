@@ -1,13 +1,13 @@
-package domain.booking;
+package com.beautyathome.domain.booking;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import domain.booking.observer.BookingSubject;
-import domain.booking.observer.NotificationObserver;
-import domain.booking.state.BookingState;
-import domain.booking.state.PendingState;
+import com.beautyathome.domain.booking.observer.BookingSubject;
+import com.beautyathome.domain.booking.observer.NotificationObserver;
+import com.beautyathome.domain.booking.state.BookingState;
+import com.beautyathome.domain.booking.state.PendingState;
 
 /**
  * Aggregate root that represents a scheduled service between a client and a

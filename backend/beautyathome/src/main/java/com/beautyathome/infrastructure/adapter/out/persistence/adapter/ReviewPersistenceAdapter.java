@@ -1,9 +1,9 @@
-package infrastructure.persistence.dao.postgres;
+package com.beautyathome.infrastructure.adapter.out.persistence.adapter;
 
-import domain.review.Review;
+import com.beautyathome.domain.review.Review;
 import infrastructure.persistence.dao.ReviewDAO;
-import infrastructure.persistence.entity.ReviewEntity;
-import infrastructure.persistence.repository.JpaReviewRepository;
+import com.beautyathome.infrastructure.adapter.out.persistence.entity.ReviewEntity;
+import com.beautyathome.infrastructure.adapter.out.persistence.repository.JpaReviewRepository;
 import org.springframework.stereotype.Component;
 
 import java.util.List;

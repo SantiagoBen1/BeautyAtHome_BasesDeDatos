@@ -1,4 +1,4 @@
-package domain.booking;
+package com.beautyathome.domain.booking;
 
 
 import java.time.LocalDateTime;
@@ -7,8 +7,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.UUID;
 
-import domain.professional.Professional;
-import domain.service.ServiceComponent;
+import com.beautyathome.domain.professional.Professional;
+import com.beautyathome.domain.service.ServiceComponent;
 
 /**
  * Singleton that centralizes booking availability checks and lifecycle actions

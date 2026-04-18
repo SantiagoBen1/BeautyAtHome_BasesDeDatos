@@ -1,5 +1,5 @@
 // Archivo: src/main/java/com/beautyathome/infrastructure/persistence/entity/BookingEntity.java
-package com.beautyathome.infrastructure.persistence.entity;
+package com.beautyathome.infrastructure.adapter.out.persistence.entity;
 
 import java.time.LocalDateTime;
 

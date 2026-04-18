@@ -1,13 +1,13 @@
-package infrastructure.media;
+package com.beautyathome.infrastructure.adapter.out.media;
 
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import domain.service.image.Photo;
+import com.beautyathome.domain.service.image.Photo;
 
 /**
- * Proxy que aplica las políticas de consentimiento antes de almacenar fotos.
+ * Proxy que aplica las polÃ­ticas de consentimiento antes de almacenar fotos.
  */
 public class ConsentProxy {
 
@@ -15,14 +15,14 @@ public class ConsentProxy {
 	private final Set<String> consentedBookings = new HashSet<>();
 
 	/**
-	 * @param gallery galería subyacente encargada del almacenamiento
+	 * @param gallery galerÃ­a subyacente encargada del almacenamiento
 	 */
 	public ConsentProxy(PhotoGallery gallery) {
 		this.gallery = gallery;
 	}
 
 	/**
-	 * Marca una reserva como autorizada para publicar fotografías públicas.
+	 * Marca una reserva como autorizada para publicar fotografÃ­as pÃºblicas.
 	 *
 	 * @param bookingId identificador de la reserva
 	 */
@@ -35,7 +35,7 @@ public class ConsentProxy {
 	 *
 	 * @param bookingId reserva de origen
 	 * @param url ruta de la foto
-	 * @param isPublic si el cliente desea publicación
+	 * @param isPublic si el cliente desea publicaciÃ³n
 	 */
 	public void addPhoto(String bookingId, String url, boolean isPublic) {
 		boolean allowed = isPublic && consentedBookings.contains(bookingId);

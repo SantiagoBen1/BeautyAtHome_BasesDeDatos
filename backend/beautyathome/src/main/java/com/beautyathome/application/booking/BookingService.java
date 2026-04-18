@@ -1,55 +1,41 @@
-package application.booking;
+package com.beautyathome.application.booking; // Paquete actualizado
 
-import application.booking.validation.BookingRequestHandler;
-import domain.booking.AgendaSingleton;
-import domain.booking.Booking;
-import domain.booking.BookingBuilder;
-import domain.booking.command.BookServiceCommand;
-import domain.booking.command.CommandInvoker;
+import com.beautyathome.application.booking.validation.BookingRequestHandler;
+import com.beautyathome.domain.booking.Booking;
+import com.beautyathome.domain.booking.BookingBuilder;
+import com.beautyathome.domain.booking.port.out.BookingRepositoryPort;
+import org.springframework.stereotype.Service;
 
 /**
  * Application service that orchestrates validation and booking persistence
- * through {@link AgendaSingleton}.
+ * through BookingRepositoryPort.
  */
+@Service // Obligatorio para que Spring inyecte esta clase
 public class BookingService {
 
     private final BookingRequestHandler validationChain;
-    private final AgendaSingleton agenda;
-    private final CommandInvoker commandInvoker;
+    private final BookingRepositoryPort bookingRepository; // Reemplazamos AgendaSingleton por el Puerto
 
-    /**
-     * @param validationChain head of the validation chain of responsibility
-     * @param agenda agenda singleton instance used for persistence
-     */
     public BookingService(BookingRequestHandler validationChain,
-                          AgendaSingleton agenda,
-                          CommandInvoker commandInvoker) {
+                          BookingRepositoryPort bookingRepository) {
         this.validationChain = validationChain;
-        this.agenda = agenda;
-        this.commandInvoker = commandInvoker;
+        this.bookingRepository = bookingRepository;
     }
 
-    /**
-     * Validates the booking request and stores it if successful.
-     *
-     * @param request booking request data
-     * @return stored booking
-     */
     public Booking book(BookingRequest request) {
         if (!validationChain.handle(request)) {
             throw new IllegalStateException("Booking validation failed");
         }
 
-        BookingBuilder builder = new BookingBuilder()
+        // Construimos la entidad de dominio pura
+        Booking booking = new BookingBuilder()
             .withClient(request.getClientId())
             .withProfessional(request.getProfessionalId())
             .withService(request.getServiceId())
-            .withDate(request.getDateTime());
+            .withDate(request.getDateTime())
+            .build(); // AsegÃºrate de llamar a build()
 
-        BookServiceCommand command = new BookServiceCommand(agenda, builder);
-        commandInvoker.setCommand(command);
-        commandInvoker.executeCommand();
-        return command.getResult();
+        // Delegamos la persistencia al puerto (Postgres o Memoria, al dominio no le importa)
+        return bookingRepository.save(booking);
     }
 }
-

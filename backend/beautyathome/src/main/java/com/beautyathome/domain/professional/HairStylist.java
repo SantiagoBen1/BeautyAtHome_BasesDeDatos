@@ -1,10 +1,10 @@
-package domain.professional;
+package com.beautyathome.domain.professional;
 
 
 
 import java.util.List;
 
-import domain.service.ServiceComponent;
+import com.beautyathome.domain.service.ServiceComponent;
 
 /**
  * Especialista en cortes y peinados disponible para atender reservas.
@@ -22,13 +22,13 @@ public class HairStylist implements Professional {
     /**
      * Construye la profesional con todos los datos expuestos en la app.
      *
-     * @param id                identificador único
+     * @param id                identificador Ãºnico
      * @param name              nombre comercial
-     * @param photoUrl          fotografía mostrada al cliente
+     * @param photoUrl          fotografÃ­a mostrada al cliente
      * @param experienceSummary resumen de experiencia
      * @param coverageAreas     zonas donde atiende
-     * @param brand             marca o salón asociado
-     * @param services          catálogo de servicios habilitados
+     * @param brand             marca o salÃ³n asociado
+     * @param services          catÃ¡logo de servicios habilitados
      */
     public HairStylist(String id,
                        String name,

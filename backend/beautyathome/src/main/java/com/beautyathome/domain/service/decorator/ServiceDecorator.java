@@ -1,10 +1,10 @@
-package domain.service.decorator;
+package com.beautyathome.domain.service.decorator;
 
 import java.util.List;
 
-import domain.service.ServiceComponent;
-import domain.service.image.ImageReference;
-import domain.service.visitor.ServiceVisitor;
+import com.beautyathome.domain.service.ServiceComponent;
+import com.beautyathome.domain.service.image.ImageReference;
+import com.beautyathome.domain.service.visitor.ServiceVisitor;
 
 /**
  * Base decorator that wraps another {@link ServiceComponent} and delegates all

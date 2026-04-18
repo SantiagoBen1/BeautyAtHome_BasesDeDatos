@@ -1,4 +1,4 @@
-package ui.controller;
+package com.beautyathome.infrastructure.adapter.in.ui.controller;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
@@ -12,11 +12,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import application.facade.BeautyAtHomeFacade;
-import domain.booking.Booking;
+import com.beautyathome.application.facade.BeautyAtHomeFacade;
+import com.beautyathome.domain.booking.Booking;
 import infrastructure.persistence.dao.BookingDAO;
-import ui.viewmodel.BookingForm;
-import ui.viewmodel.BookingLane;
+import com.beautyathome.infrastructure.adapter.in.ui.viewmodel.BookingForm;
+import com.beautyathome.infrastructure.adapter.in.ui.viewmodel.BookingLane;
 
 /**
  * MVC controller that renders booking lists and creation forms.
@@ -54,7 +54,7 @@ public class BookingViewController {
                     form.getZone());
             redirectAttributes.addFlashAttribute("message", "Reserva creada correctamente");
         } catch (DateTimeParseException ex) {
-            redirectAttributes.addFlashAttribute("error", "Formato de fecha inválido. Use ISO-8601");
+            redirectAttributes.addFlashAttribute("error", "Formato de fecha invÃ¡lido. Use ISO-8601");
         } catch (Exception ex) {
             redirectAttributes.addFlashAttribute("error", ex.getMessage());
         }

@@ -1,4 +1,4 @@
-package domain.booking.command;
+package com.beautyathome.domain.booking.command;
 
 /**
  * Command pattern contract encapsulating a reversible booking action that can

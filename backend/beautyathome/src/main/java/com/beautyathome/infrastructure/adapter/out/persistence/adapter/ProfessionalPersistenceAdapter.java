@@ -1,9 +1,9 @@
-package infrastructure.persistence.dao.postgres;
+package com.beautyathome.infrastructure.adapter.out.persistence.adapter;
 
-import domain.professional.Professional;
+import com.beautyathome.domain.professional.Professional;
 import infrastructure.persistence.dao.ProfessionalDAO;
-import infrastructure.persistence.entity.ProfessionalEntity;
-import infrastructure.persistence.repository.JpaProfessionalRepository;
+import com.beautyathome.infrastructure.adapter.out.persistence.entity.ProfessionalEntity;
+import com.beautyathome.infrastructure.adapter.out.persistence.repository.JpaProfessionalRepository;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -30,7 +30,7 @@ public class PostgresProfessionalDAO implements ProfessionalDAO {
         ProfessionalEntity profEntity = new ProfessionalEntity(id, entity.getName());
         ProfessionalEntity saved = repository.save(profEntity);
         
-        // Asumiendo un constructor básico en tu dominio. Ajustar según clase Professional.
+        // Asumiendo un constructor bÃ¡sico en tu dominio. Ajustar segÃºn clase Professional.
         return new Professional(saved.getId(), saved.getName());
     }
 

@@ -1,7 +1,7 @@
-package infrastructure.media;
+package com.beautyathome.infrastructure.adapter.out.media;
 
 /**
- * Adaptador mínimo que abstrae el almacenamiento físico de fotos.
+ * Adaptador mÃ­nimo que abstrae el almacenamiento fÃ­sico de fotos.
  */
 public class StorageAdapter {
 

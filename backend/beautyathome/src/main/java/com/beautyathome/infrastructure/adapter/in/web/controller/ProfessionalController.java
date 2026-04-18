@@ -1,4 +1,4 @@
-package api.controller;
+package com.beautyathome.infrastructure.adapter.in.web.controller;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -14,12 +14,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import api.dto.BrandRequest;
-import api.dto.ProfessionalRegistrationRequest;
-import application.facade.BeautyAtHomeFacade;
-import domain.booking.history.ServiceHistory;
-import domain.professional.Professional;
-import domain.service.ServiceComponent;
+import com.beautyathome.infrastructure.adapter.in.web.dto.BrandRequest;
+import com.beautyathome.infrastructure.adapter.in.web.dto.ProfessionalRegistrationRequest;
+import com.beautyathome.application.facade.BeautyAtHomeFacade;
+import com.beautyathome.domain.booking.history.ServiceHistory;
+import com.beautyathome.domain.professional.Professional;
+import com.beautyathome.domain.service.ServiceComponent;
 
 @RestController
 @RequestMapping("/api/professionals")

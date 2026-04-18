@@ -1,10 +1,10 @@
-package application.booking.validation;
+package com.beautyathome.application.booking.validation;
 
 
-import application.booking.BookingRequest;
-import domain.professional.Professional;
+import com.beautyathome.application.booking.BookingRequest;
+import com.beautyathome.domain.professional.Professional;
 import infrastructure.persistence.dao.ProfessionalDAO;
-import infrastructure.proxy.CoverageProxy;
+import com.beautyathome.infrastructure.proxy.CoverageProxy;
 
 /**
  * Ensures the selected professional provides coverage in the requested zone.

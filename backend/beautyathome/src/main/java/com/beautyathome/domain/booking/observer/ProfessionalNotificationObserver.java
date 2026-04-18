@@ -1,10 +1,10 @@
-package domain.booking.observer;
+package com.beautyathome.domain.booking.observer;
 
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 
-import domain.booking.Booking;
-import domain.professional.Professional;
+import com.beautyathome.domain.booking.Booking;
+import com.beautyathome.domain.professional.Professional;
 
 /**
  * Observer that allows the platform to notify professionals whenever booking
@@ -33,7 +33,7 @@ public class ProfessionalNotificationObserver implements NotificationObserver {
 		message.append("Reserva ").append(booking.getId()).append(" actualizada a ")
 			.append(resolveStateLabel(booking)).append('.');
 		if (booking.getDateTime() != null) {
-			message.append(" Próxima cita: ")
+			message.append(" PrÃ³xima cita: ")
 				.append(DATE_FORMATTER.format(booking.getDateTime()));
 		}
 		message.append(" Cliente: ").append(booking.getClientId());

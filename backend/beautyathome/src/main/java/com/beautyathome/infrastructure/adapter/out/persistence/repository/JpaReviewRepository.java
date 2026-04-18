@@ -1,6 +1,6 @@
-package infrastructure.persistence.repository;
+package com.beautyathome.infrastructure.adapter.out.persistence.repository;
 
-import infrastructure.persistence.entity.ReviewEntity;
+import com.beautyathome.infrastructure.adapter.out.persistence.entity.ReviewEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

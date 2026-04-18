@@ -1,8 +1,8 @@
-package domain.pricing;
+package com.beautyathome.domain.pricing;
 
 
-import domain.client.Client;
-import domain.service.ServiceComponent;
+import com.beautyathome.domain.client.Client;
+import com.beautyathome.domain.service.ServiceComponent;
 
 /**
  * Estrategia por defecto que mantiene el precio sin modificaciones.

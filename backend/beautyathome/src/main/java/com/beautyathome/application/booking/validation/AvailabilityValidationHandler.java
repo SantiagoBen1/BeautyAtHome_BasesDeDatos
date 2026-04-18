@@ -1,7 +1,7 @@
-package application.booking.validation;
+package com.beautyathome.application.booking.validation;
 
-import application.booking.BookingRequest;
-import domain.booking.AgendaSingleton;
+import com.beautyathome.application.booking.BookingRequest;
+import com.beautyathome.domain.booking.AgendaSingleton;
 
 /**
  * Handler that ensures the professional is available for the requested time

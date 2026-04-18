@@ -1,4 +1,4 @@
-package config;
+package com.beautyathome.config;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -11,11 +11,11 @@ import java.util.Queue;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
-import application.facade.BeautyAtHomeFacade;
-import domain.booking.Booking;
-import domain.client.Client;
-import domain.professional.Professional;
-import domain.service.ServiceComponent;
+import com.beautyathome.application.facade.BeautyAtHomeFacade;
+import com.beautyathome.domain.booking.Booking;
+import com.beautyathome.domain.client.Client;
+import com.beautyathome.domain.professional.Professional;
+import com.beautyathome.domain.service.ServiceComponent;
 import infrastructure.persistence.dao.ClientDAO;
 import infrastructure.persistence.dao.ProfessionalDAO;
 import infrastructure.persistence.dao.ServiceDAO;
@@ -32,12 +32,12 @@ public class SampleDataInitializer implements CommandLineRunner {
     private static final int[] RATING_PATTERN = new int[]{5, 4, 5, 3, 5, 4, 5, 4};
     private static final List<String> REVIEW_LIBRARY = List.of(
             "Color impecable, cuidan cada detalle desde la higiene hasta el styling final.",
-            "La experiencia se siente premium desde el kit de productos hasta la ambientación.",
-            "Puntualidad perfecta y resultados fotográficos listos para redes.",
-            "El maquillaje resistió una sesión completa de fotos sin retoques.",
-            "La manicura quedó impecable, muy cuidadosos con bioseguridad.",
-            "Excelente asesoría para elegir tonos y texturas, quedé fascinada.",
-            "El peinado aguantó toda la boda, recibí demasiados elogios.",
+            "La experiencia se siente premium desde el kit de productos hasta la ambientaciÃ³n.",
+            "Puntualidad perfecta y resultados fotogrÃ¡ficos listos para redes.",
+            "El maquillaje resistiÃ³ una sesiÃ³n completa de fotos sin retoques.",
+            "La manicura quedÃ³ impecable, muy cuidadosos con bioseguridad.",
+            "Excelente asesorÃ­a para elegir tonos y texturas, quedÃ© fascinada.",
+            "El peinado aguantÃ³ toda la boda, recibÃ­ demasiados elogios.",
             "Servicio a domicilio muy organizado, dejaron todo limpio al finalizar."
     );
 
@@ -85,11 +85,11 @@ public class SampleDataInitializer implements CommandLineRunner {
     private List<Professional> seedProfessionals() {
         return List.of(
             registerProfessional("pro-001", "hairstylist", "Diana Styling",
-                List.of("Chapinero", "Usaquén", "Rosales"), "LuxHair", "https://picsum.photos/seed/luxhairlogo/120/120",
-                List.of("Kérastase Blond Absolu", "Dyson Corrale Platinum"),
+                List.of("Chapinero", "UsaquÃ©n", "Rosales"), "LuxHair", "https://picsum.photos/seed/luxhairlogo/120/120",
+                List.of("KÃ©rastase Blond Absolu", "Dyson Corrale Platinum"),
                 "Colorista master especializada en rubios lived-in", "diana"),
             registerProfessional("pro-002", "makeupartist", "Aura Makeup",
-                List.of("Suba", "Engativá", "Cedritos"), "GlamPro", "https://picsum.photos/seed/glampro/120/120",
+                List.of("Suba", "EngativÃ¡", "Cedritos"), "GlamPro", "https://picsum.photos/seed/glampro/120/120",
                 List.of("Charlotte Tilbury Flawless Filter", "Dior Backstage Airflash"),
                 "Makeup artist certificada por academias internacionales", "aura"),
             registerProfessional("pro-003", "manicurist", "Nails by Sofi",
@@ -97,17 +97,17 @@ public class SampleDataInitializer implements CommandLineRunner {
                 List.of(),
                 "Manicurista especializada en nail art minimalista y k-beauty", "sofi"),
             registerProfessional("pro-004", "hairstylist", "Barber Max",
-                List.of("Kennedy", "Bosa", "Fontibón"), "UrbanCut", "https://picsum.photos/seed/urbancut/120/120",
+                List.of("Kennedy", "Bosa", "FontibÃ³n"), "UrbanCut", "https://picsum.photos/seed/urbancut/120/120",
                 List.of("American Crew Fiber", "GHD Oracle Styler"),
-                "Barbero de precisión con enfoque editorial", "max"),
+                "Barbero de precisiÃ³n con enfoque editorial", "max"),
             registerProfessional("pro-005", "makeupartist", "Luna Glam",
-                List.of("Fontibón", "Engativá", "Modelia"), "BellezaTotal", "https://picsum.photos/seed/belleza/120/120",
+                List.of("FontibÃ³n", "EngativÃ¡", "Modelia"), "BellezaTotal", "https://picsum.photos/seed/belleza/120/120",
                 List.of("NARS Light Reflecting", "Fenty Gloss Bomb Heat"),
                 "Experta en maquillaje luminoso para eventos de noche", "luna"),
             registerProfessional("pro-006", "manicurist", "Studio Lila",
-                List.of("Chía", "Cajicá", "Usaquén"), "PureHands", "https://picsum.photos/seed/purehands/120/120",
+                List.of("ChÃ­a", "CajicÃ¡", "UsaquÃ©n"), "PureHands", "https://picsum.photos/seed/purehands/120/120",
                 List.of("OPI GelColor Bio Shield", "Herbivore Coconut Milk Bath"),
-                "Spa móvil vegano para manos y pies", "lila")
+                "Spa mÃ³vil vegano para manos y pies", "lila")
         );
     }
 
@@ -204,12 +204,12 @@ public class SampleDataInitializer implements CommandLineRunner {
         if (simpleName.contains("hair")) {
             return List.of(
                     new ServiceSeed(professional.getName() + " Glow Ritual",
-                            "Baño de color, olaplex y styling brillante",
+                            "BaÃ±o de color, olaplex y styling brillante",
                             220_000,
                             120,
                             imageSet(professional.getId(), "glow")),
                     new ServiceSeed("Corte Visagismo Signature",
-                            "Diagnóstico facial + corte personalizado + texturizado",
+                            "DiagnÃ³stico facial + corte personalizado + texturizado",
                             160_000,
                             90,
                             imageSet(professional.getId(), "cut"))
@@ -218,7 +218,7 @@ public class SampleDataInitializer implements CommandLineRunner {
         if (simpleName.contains("makeup")) {
             return List.of(
                     new ServiceSeed("Editorial Skin Finish",
-                            "Maquillaje HD con aerógrafo, waterproof",
+                            "Maquillaje HD con aerÃ³grafo, waterproof",
                             190_000,
                             85,
                             imageSet(professional.getId(), "makeup")),
@@ -231,12 +231,12 @@ public class SampleDataInitializer implements CommandLineRunner {
         }
         return List.of(
                 new ServiceSeed("Manicure Biosegura",
-                        "Limpieza rusa, nivelación y esmaltado gel",
+                        "Limpieza rusa, nivelaciÃ³n y esmaltado gel",
                         130_000,
                         75,
                         imageSet(professional.getId(), "nails")),
                 new ServiceSeed("Spa Lila Deluxe",
-                        "Hidratación vegana con masaje relajante",
+                        "HidrataciÃ³n vegana con masaje relajante",
                         150_000,
                         80,
                         imageSet(professional.getId(), "spa"))

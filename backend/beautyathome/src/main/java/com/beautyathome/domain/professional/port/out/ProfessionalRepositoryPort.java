@@ -1,9 +1,9 @@
-package infrastructure.persistence.dao;
+package com.beautyathome.domain.professional.port.out;
 
 import java.util.Collections;
 import java.util.List;
 
-import domain.professional.Professional;
+import com.beautyathome.domain.professional.Professional;
 
 /**
  * DAO encargado de administrar profesionales de belleza.

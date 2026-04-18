@@ -1,6 +1,6 @@
-package infrastructure.persistence.repository;
+package com.beautyathome.infrastructure.adapter.out.persistence.repository;
 
-import infrastructure.persistence.entity.ProfessionalEntity;
+import com.beautyathome.infrastructure.adapter.out.persistence.entity.ProfessionalEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

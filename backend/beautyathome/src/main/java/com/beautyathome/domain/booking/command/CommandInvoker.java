@@ -1,4 +1,4 @@
-package domain.booking.command;
+package com.beautyathome.domain.booking.command;
 
 /**
  * Invoker that stores the current {@link Command} and triggers its execution

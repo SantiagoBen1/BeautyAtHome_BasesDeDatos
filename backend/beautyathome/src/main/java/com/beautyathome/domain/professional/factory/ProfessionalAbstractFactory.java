@@ -1,11 +1,11 @@
-package domain.professional.factory;
+package com.beautyathome.domain.professional.factory;
 
 import java.util.Map;
 
-import domain.professional.Professional;
+import com.beautyathome.domain.professional.Professional;
 
 /**
- * Define los pasos para crear profesionales a partir de datos dinámicos.
+ * Define los pasos para crear profesionales a partir de datos dinÃ¡micos.
  */
 public interface ProfessionalAbstractFactory {
 
@@ -14,7 +14,7 @@ public interface ProfessionalAbstractFactory {
 	 *
 	 * @param type cadena que determina la especialidad (p. ej. "hairstylist")
 	 * @param data mapa con atributos de la profesional y sus servicios
-	 * @return instancia lista para publicar en catálogos
+	 * @return instancia lista para publicar en catÃ¡logos
 	 */
 	Professional createProfessional(String type, Map<String, Object> data);
 }

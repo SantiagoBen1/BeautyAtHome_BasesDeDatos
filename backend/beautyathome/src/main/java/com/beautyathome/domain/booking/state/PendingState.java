@@ -1,7 +1,7 @@
-package domain.booking.state;
+package com.beautyathome.domain.booking.state;
 
 
-import domain.booking.Booking;
+import com.beautyathome.domain.booking.Booking;
 
 /**
  * Default booking state before confirmation. Only confirmation or cancellation

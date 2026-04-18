@@ -1,15 +1,15 @@
-package domain.booking.history;
+package com.beautyathome.domain.booking.history;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import domain.booking.Booking;
-import domain.client.Client;
-import domain.professional.Professional;
-import domain.service.ServiceComponent;
-import domain.service.image.Photo;
+import com.beautyathome.domain.booking.Booking;
+import com.beautyathome.domain.client.Client;
+import com.beautyathome.domain.professional.Professional;
+import com.beautyathome.domain.service.ServiceComponent;
+import com.beautyathome.domain.service.image.Photo;
 
 /**
  * Value object capturing the historical execution of a service, including the

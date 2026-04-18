@@ -1,8 +1,8 @@
-package domain.service.builder;
+package com.beautyathome.domain.service.builder;
 
 import java.util.List;
 
-import domain.service.ServiceComponent;
+import com.beautyathome.domain.service.ServiceComponent;
 
 /**
  * Director that orchestrates the {@link ServiceBuilder} steps to create

@@ -1,8 +1,8 @@
-package domain.service;
+package com.beautyathome.domain.service;
 
 import java.util.List;
 
-import domain.service.image.ImageReference;
+import com.beautyathome.domain.service.image.ImageReference;
 
 /**
  * Concrete service representing makeup offerings.
@@ -10,13 +10,13 @@ import domain.service.image.ImageReference;
 public class MakeupService extends ServiceLeaf {
 
 	/**
-	 * Crea un servicio de maquillaje con categoría predefinida.
+	 * Crea un servicio de maquillaje con categorÃ­a predefinida.
 	 *
 	 * @param name         nombre del servicio mostrado al cliente
 	 * @param description  detalle de lo que incluye el servicio
-	 * @param price        precio final que se mostrará en la app
-	 * @param durationMin  duración estimada en minutos
-	 * @param images       imágenes de referencia para evidenciar resultados
+	 * @param price        precio final que se mostrarÃ¡ en la app
+	 * @param durationMin  duraciÃ³n estimada en minutos
+	 * @param images       imÃ¡genes de referencia para evidenciar resultados
 	 */
 	public MakeupService(String name,
 				 String description,

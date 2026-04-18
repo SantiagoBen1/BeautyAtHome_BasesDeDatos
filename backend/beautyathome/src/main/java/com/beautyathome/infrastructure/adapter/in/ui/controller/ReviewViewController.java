@@ -1,4 +1,4 @@
-package ui.controller;
+package com.beautyathome.infrastructure.adapter.in.ui.controller;
 
 import java.util.HashMap;
 import java.util.List;
@@ -14,13 +14,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import application.facade.BeautyAtHomeFacade;
-import domain.booking.history.ServiceHistory;
-import domain.review.Review;
-import domain.service.image.Photo;
+import com.beautyathome.application.facade.BeautyAtHomeFacade;
+import com.beautyathome.domain.booking.history.ServiceHistory;
+import com.beautyathome.domain.review.Review;
+import com.beautyathome.domain.service.image.Photo;
 import infrastructure.persistence.dao.ReviewDAO;
-import ui.viewmodel.ReviewForm;
-import ui.viewmodel.ReviewShowcase;
+import com.beautyathome.infrastructure.adapter.in.ui.viewmodel.ReviewForm;
+import com.beautyathome.infrastructure.adapter.in.ui.viewmodel.ReviewShowcase;
 
 /**
  * MVC controller that handles review pages.
@@ -58,7 +58,7 @@ public class ReviewViewController {
                             RedirectAttributes redirectAttributes) {
         try {
             facade.addReview(form.getBookingId(), form.getRating(), form.getText());
-            redirectAttributes.addFlashAttribute("message", "Reseña registrada");
+            redirectAttributes.addFlashAttribute("message", "ReseÃ±a registrada");
         } catch (Exception ex) {
             redirectAttributes.addFlashAttribute("error", ex.getMessage());
         }

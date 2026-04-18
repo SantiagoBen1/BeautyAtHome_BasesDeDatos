@@ -1,8 +1,8 @@
-package domain.professional;
+package com.beautyathome.domain.professional;
 
 import java.util.List;
 
-import domain.service.ServiceComponent;
+import com.beautyathome.domain.service.ServiceComponent;
 
 /**
  * Profesional enfocada en maquillaje social y editorial.
@@ -18,9 +18,9 @@ public class MakeupArtist implements Professional {
 	private final List<ServiceComponent> servicesOffered;
 
 	/**
-	 * Instancia a la maquillista con la información mostrada en catálogo.
+	 * Instancia a la maquillista con la informaciÃ³n mostrada en catÃ¡logo.
 	 *
-	 * @param id                identificador único
+	 * @param id                identificador Ãºnico
 	 * @param name              nombre comercial
 	 * @param photoUrl          imagen usada en la ficha
 	 * @param experienceSummary resumen de trayectoria

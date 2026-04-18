@@ -1,8 +1,8 @@
-package domain.service;
+package com.beautyathome.domain.service;
 
 import java.util.List;
 
-import domain.service.image.ImageReference;
+import com.beautyathome.domain.service.image.ImageReference;
 
 /**
  * Concrete factory-produced service representing a haircut offering.
@@ -10,13 +10,13 @@ import domain.service.image.ImageReference;
 public class HaircutService extends ServiceLeaf {
 
 	/**
-	 * Crea un servicio de corte de cabello con su categoría asociada.
+	 * Crea un servicio de corte de cabello con su categorÃ­a asociada.
 	 *
 	 * @param name         nombre comercial del servicio
-	 * @param description  descripción visible para los clientes
+	 * @param description  descripciÃ³n visible para los clientes
 	 * @param price        precio base en la moneda configurada
-	 * @param durationMin  duración estimada en minutos
-	 * @param images       galería de apoyo para ilustrar resultados
+	 * @param durationMin  duraciÃ³n estimada en minutos
+	 * @param images       galerÃ­a de apoyo para ilustrar resultados
 	 */
 	public HaircutService(String name,
 						  String description,

@@ -1,6 +1,6 @@
-package domain.service.composite;
+package com.beautyathome.domain.service.composite;
 
-import domain.service.ServiceComponent;
+import com.beautyathome.domain.service.ServiceComponent;
 
 /**
  * Iterator abstraction used to traverse composite services.

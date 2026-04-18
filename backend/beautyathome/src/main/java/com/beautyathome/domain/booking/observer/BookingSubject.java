@@ -1,4 +1,4 @@
-package domain.booking.observer;
+package com.beautyathome.domain.booking.observer;
 
 /**
  * Subject role for the booking notification observer pattern. Allows

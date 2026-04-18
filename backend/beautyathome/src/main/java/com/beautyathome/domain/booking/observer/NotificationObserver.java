@@ -1,6 +1,6 @@
-package domain.booking.observer;
+package com.beautyathome.domain.booking.observer;
 
-import domain.booking.Booking;
+import com.beautyathome.domain.booking.Booking;
 
 /**
  * Observer contract that reacts to booking changes emitted by a

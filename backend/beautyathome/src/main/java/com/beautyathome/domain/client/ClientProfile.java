@@ -1,4 +1,4 @@
-package domain.client;
+package com.beautyathome.domain.client;
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -30,30 +30,30 @@ public class ClientProfile {
 	}
 
 	/**
-	 * Registra una categoría preferida para personalizar recomendaciones.
+	 * Registra una categorÃ­a preferida para personalizar recomendaciones.
 	 *
-	 * @param categoryName nombre de la categoría (p. ej. "Makeup")
+	 * @param categoryName nombre de la categorÃ­a (p. ej. "Makeup")
 	 */
 	public void addPreferredCategory(String categoryName) {
 		preferredCategories.add(categoryName);
 	}
 
 	/**
-	 * @return conjunto inmutable con las categorías preferidas
+	 * @return conjunto inmutable con las categorÃ­as preferidas
 	 */
 	public Set<String> getPreferredCategories() {
 		return Collections.unmodifiableSet(preferredCategories);
 	}
 
 	/**
-	 * @return true si el cliente autorizó comunicaciones comerciales
+	 * @return true si el cliente autorizÃ³ comunicaciones comerciales
 	 */
 	public boolean hasMarketingConsent() {
 		return marketingConsent;
 	}
 
 	/**
-	 * Define si el cliente acepta recibir campañas.
+	 * Define si el cliente acepta recibir campaÃ±as.
 	 *
 	 * @param marketingConsent indicador de consentimiento
 	 */

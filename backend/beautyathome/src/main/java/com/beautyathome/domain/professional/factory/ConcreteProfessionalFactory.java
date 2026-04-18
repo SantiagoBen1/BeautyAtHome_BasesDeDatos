@@ -1,4 +1,4 @@
-package domain.professional.factory;
+package com.beautyathome.domain.professional.factory;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -7,16 +7,16 @@ import java.util.Map;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
-import domain.professional.Brand;
-import domain.professional.CoverageArea;
-import domain.professional.HairStylist;
-import domain.professional.MakeupArtist;
-import domain.professional.Manicurist;
-import domain.professional.Professional;
-import domain.service.ServiceComponent;
+import com.beautyathome.domain.professional.Brand;
+import com.beautyathome.domain.professional.CoverageArea;
+import com.beautyathome.domain.professional.HairStylist;
+import com.beautyathome.domain.professional.MakeupArtist;
+import com.beautyathome.domain.professional.Manicurist;
+import com.beautyathome.domain.professional.Professional;
+import com.beautyathome.domain.service.ServiceComponent;
 
 /**
- * Implementación concreta que arma profesionales a partir de mapas flexibles.
+ * ImplementaciÃ³n concreta que arma profesionales a partir de mapas flexibles.
  */
 public class ConcreteProfessionalFactory implements ProfessionalAbstractFactory {
 
@@ -33,10 +33,10 @@ public class ConcreteProfessionalFactory implements ProfessionalAbstractFactory 
 	}
 
 	/**
-	 * Llena un builder específico con los datos del mapa y genera la profesional.
+	 * Llena un builder especÃ­fico con los datos del mapa y genera la profesional.
 	 *
-	 * @param builder builder concreto según la especialidad
-	 * @param data    mapa con atributos provenientes de formularios u orígenes externos
+	 * @param builder builder concreto segÃºn la especialidad
+	 * @param data    mapa con atributos provenientes de formularios u orÃ­genes externos
 	 * @return profesional lista para publicar
 	 */
 	@SuppressWarnings("unchecked")
@@ -76,7 +76,7 @@ public class ConcreteProfessionalFactory implements ProfessionalAbstractFactory 
 	 * Convierte nombres de zonas en objetos {@link CoverageArea}.
 	 *
 	 * @param names etiquetas de barrios/sectores recibidas
-	 * @return lista mutable de áreas para asignar a la profesional
+	 * @return lista mutable de Ã¡reas para asignar a la profesional
 	 */
 	private List<CoverageArea> buildCoverageAreas(List<String> names) {
 		List<CoverageArea> coverageAreas = new ArrayList<>();
@@ -112,7 +112,7 @@ public class ConcreteProfessionalFactory implements ProfessionalAbstractFactory 
 	}
 
 	/**
-	 * Builder específico para {@link HairStylist} que sirve como base reutilizable.
+	 * Builder especÃ­fico para {@link HairStylist} que sirve como base reutilizable.
 	 */
 	private static class HairStylistBuilder implements ProfessionalBuilder {
 
@@ -180,7 +180,7 @@ public class ConcreteProfessionalFactory implements ProfessionalAbstractFactory 
 		}
 	}
 
-	/** Builder que genera maquillistas reciclando la lógica base. */
+	/** Builder que genera maquillistas reciclando la lÃ³gica base. */
 	private static class MakeupArtistBuilder extends HairStylistBuilder {
 		/** {@inheritDoc} */
 		@Override
@@ -189,7 +189,7 @@ public class ConcreteProfessionalFactory implements ProfessionalAbstractFactory 
 		}
 	}
 
-	/** Builder que crea manicuristas reutilizando el comportamiento común. */
+	/** Builder que crea manicuristas reutilizando el comportamiento comÃºn. */
 	private static class ManicuristBuilder extends HairStylistBuilder {
 		/** {@inheritDoc} */
 		@Override

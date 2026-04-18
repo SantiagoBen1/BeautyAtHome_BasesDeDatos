@@ -1,11 +1,11 @@
-package domain.review;
+package com.beautyathome.domain.review;
 
 import java.time.LocalDateTime;
 
-import domain.booking.Booking;
-import domain.client.Client;
-import domain.professional.Professional;
-import domain.review.rating.RatingValueObject;
+import com.beautyathome.domain.booking.Booking;
+import com.beautyathome.domain.client.Client;
+import com.beautyathome.domain.professional.Professional;
+import com.beautyathome.domain.review.rating.RatingValueObject;
 
 /**
  * Builder fluido para crear instancias coherentes de {@link Review}.
@@ -21,7 +21,7 @@ public class ReviewBuilder {
     private LocalDateTime createdAt;
 
     /**
-     * Define el identificador que se usará al construir.
+     * Define el identificador que se usarÃ¡ al construir.
      */
     public ReviewBuilder withId(String id) {
         this.id = id;
@@ -37,7 +37,7 @@ public class ReviewBuilder {
     }
 
     /**
-     * Establece el {@link Client} que redacta la reseña.
+     * Establece el {@link Client} que redacta la reseÃ±a.
      */
     public ReviewBuilder withClient(Client client) {
         this.client = client;
@@ -45,7 +45,7 @@ public class ReviewBuilder {
     }
 
     /**
-     * Define la profesional sobre la que recae la opinión.
+     * Define la profesional sobre la que recae la opiniÃ³n.
      */
     public ReviewBuilder withProfessional(Professional professional) {
         this.professional = professional;
@@ -53,7 +53,7 @@ public class ReviewBuilder {
     }
 
     /**
-     * Crea un {@link RatingValueObject} con la puntuación dada.
+     * Crea un {@link RatingValueObject} con la puntuaciÃ³n dada.
      */
     public ReviewBuilder withRating(int ratingValue) {
         this.rating = new RatingValueObject(ratingValue);
@@ -61,7 +61,7 @@ public class ReviewBuilder {
     }
 
     /**
-     * Establece el texto libre de la reseña.
+     * Establece el texto libre de la reseÃ±a.
      */
     public ReviewBuilder withText(String text) {
         this.text = text;
@@ -69,7 +69,7 @@ public class ReviewBuilder {
     }
 
     /**
-     * Fija la fecha de creación (útil para importaciones históricas).
+     * Fija la fecha de creaciÃ³n (Ãºtil para importaciones histÃ³ricas).
      */
     public ReviewBuilder withCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
@@ -77,7 +77,7 @@ public class ReviewBuilder {
     }
 
     /**
-     * Construye la reseña final usando los valores configurados.
+     * Construye la reseÃ±a final usando los valores configurados.
      */
     public Review build() {
         return new Review(id, booking, client, professional, rating, text, createdAt);

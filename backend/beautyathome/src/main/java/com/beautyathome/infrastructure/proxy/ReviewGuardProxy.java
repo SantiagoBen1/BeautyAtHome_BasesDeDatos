@@ -1,12 +1,12 @@
-package infrastructure.proxy;
+package com.beautyathome.infrastructure.proxy;
 
 import java.util.HashSet;
 import java.util.Set;
 
-import domain.review.Review;
+import com.beautyathome.domain.review.Review;
 
 /**
- * Proxy que protege la creación de reseñas validando unicidad y rango.
+ * Proxy que protege la creaciÃ³n de reseÃ±as validando unicidad y rango.
  */
 public class ReviewGuardProxy {
 
@@ -14,19 +14,19 @@ public class ReviewGuardProxy {
 	private final Set<String> reviewedBookings = new HashSet<>();
 
 	/**
-	 * @param real servicio real que persistirá la reseña
+	 * @param real servicio real que persistirÃ¡ la reseÃ±a
 	 */
 	public ReviewGuardProxy(ReviewService real) {
 		this.real = real;
 	}
 
 	/**
-	 * Crea la reseña solo si la reserva no ha sido evaluada previamente.
+	 * Crea la reseÃ±a solo si la reserva no ha sido evaluada previamente.
 	 *
 	 * @param bookingId reserva a evaluar
-	 * @param rating calificación en estrellas
+	 * @param rating calificaciÃ³n en estrellas
 	 * @param text comentario
-	 * @return reseña creada por el servicio real
+	 * @return reseÃ±a creada por el servicio real
 	 */
 	public synchronized Review createReview(String bookingId, int rating, String text) {
 		if (reviewedBookings.contains(bookingId)) {

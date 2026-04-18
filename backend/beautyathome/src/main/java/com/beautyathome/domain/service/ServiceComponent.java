@@ -1,10 +1,10 @@
-package domain.service;
+package com.beautyathome.domain.service;
 
 
 import java.util.List;
 
-import domain.service.image.ImageReference;
-import domain.service.visitor.ServiceVisitor;
+import com.beautyathome.domain.service.image.ImageReference;
+import com.beautyathome.domain.service.visitor.ServiceVisitor;
 
 /**
  * Component in the composite/decorator hierarchy that represents either a

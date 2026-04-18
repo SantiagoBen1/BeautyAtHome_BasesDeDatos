@@ -1,4 +1,4 @@
-package ui.viewmodel;
+package com.beautyathome.infrastructure.adapter.in.ui.viewmodel;
 
 /**
  * Form backing bean for booking creation from the UI.

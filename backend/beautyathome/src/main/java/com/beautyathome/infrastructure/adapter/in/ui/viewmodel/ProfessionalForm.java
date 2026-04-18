@@ -1,4 +1,4 @@
-package ui.viewmodel;
+package com.beautyathome.infrastructure.adapter.in.ui.viewmodel;
 
 import java.util.Arrays;
 import java.util.List;
@@ -127,7 +127,7 @@ public class ProfessionalForm {
     }
 
     /**
-     * @return lista de servicios declarados en el catálogo signature.
+     * @return lista de servicios declarados en el catÃ¡logo signature.
      */
     public List<CatalogEntry> catalogEntries() {
         if (catalogSignature == null || catalogSignature.isBlank()) {

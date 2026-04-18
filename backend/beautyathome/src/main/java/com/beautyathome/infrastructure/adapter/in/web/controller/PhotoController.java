@@ -1,13 +1,13 @@
-package api.controller;
+package com.beautyathome.infrastructure.adapter.in.web.controller;
 
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import api.dto.ConsentRequest;
-import api.dto.PhotoUploadRequest;
-import application.facade.BeautyAtHomeFacade;
+import com.beautyathome.infrastructure.adapter.in.web.dto.ConsentRequest;
+import com.beautyathome.infrastructure.adapter.in.web.dto.PhotoUploadRequest;
+import com.beautyathome.application.facade.BeautyAtHomeFacade;
 
 @RestController
 @RequestMapping("/api/photos")

@@ -1,4 +1,4 @@
-package ui.viewmodel;
+package com.beautyathome.infrastructure.adapter.in.ui.viewmodel;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -7,12 +7,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import domain.booking.Booking;
-import domain.booking.state.CancelledState;
-import domain.booking.state.CompletedState;
-import domain.booking.state.ConfirmedState;
-import domain.booking.state.InProgressState;
-import domain.booking.state.PendingState;
+import com.beautyathome.domain.booking.Booking;
+import com.beautyathome.domain.booking.state.CancelledState;
+import com.beautyathome.domain.booking.state.CompletedState;
+import com.beautyathome.domain.booking.state.ConfirmedState;
+import com.beautyathome.domain.booking.state.InProgressState;
+import com.beautyathome.domain.booking.state.PendingState;
 
 /**
  * View model that groups bookings by lifecycle status to display a clear board in the UI.
@@ -114,13 +114,13 @@ public class BookingLane {
     private enum StatusCategory {
         PENDING("pending",
                 "Reservas activas",
-                "Asignaciones en espera de ejecución o confirmación.",
-                "Aún no hay reservas en trámite",
+                "Asignaciones en espera de ejecuciÃ³n o confirmaciÃ³n.",
+                "AÃºn no hay reservas en trÃ¡mite",
                 "warning"),
         COMPLETED("completed",
                 "Experiencias entregadas",
-                "Listas para reseñas y publicación de resultados.",
-                "No hay servicios completados todavía",
+                "Listas para reseÃ±as y publicaciÃ³n de resultados.",
+                "No hay servicios completados todavÃ­a",
                 "success"),
         CANCELLED("cancelled",
                 "Cancelaciones",

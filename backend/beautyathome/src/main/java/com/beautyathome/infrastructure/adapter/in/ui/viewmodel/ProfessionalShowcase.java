@@ -1,4 +1,4 @@
-package ui.viewmodel;
+package com.beautyathome.infrastructure.adapter.in.ui.viewmodel;
 
 import java.text.NumberFormat;
 import java.time.LocalDateTime;
@@ -9,12 +9,12 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-import domain.booking.history.ServiceHistory;
-import domain.professional.Professional;
-import domain.review.Review;
-import domain.service.ServiceComponent;
-import domain.service.image.ImageReference;
-import domain.service.image.Photo;
+import com.beautyathome.domain.booking.history.ServiceHistory;
+import com.beautyathome.domain.professional.Professional;
+import com.beautyathome.domain.review.Review;
+import com.beautyathome.domain.service.ServiceComponent;
+import com.beautyathome.domain.service.image.ImageReference;
+import com.beautyathome.domain.service.image.Photo;
 
 /**
  * Aggregates everything needed to render a single professional in the deluxe showcase.
@@ -138,7 +138,7 @@ public class ProfessionalShowcase {
         return formatter.format(value);
         }
     /**
-     * DTO para mostrar información compacta de servicios publicados.
+     * DTO para mostrar informaciÃ³n compacta de servicios publicados.
      */
     public static class ServiceCard {
         private final String name;
@@ -222,7 +222,7 @@ public class ProfessionalShowcase {
     }
 
     /**
-     * DTO que conecta reseñas con la galería del servicio ejecutado.
+     * DTO que conecta reseÃ±as con la galerÃ­a del servicio ejecutado.
      */
     public static class ReviewSpotlight {
         private final Review review;

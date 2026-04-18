@@ -1,10 +1,10 @@
-package application.review;
+package com.beautyathome.application.review;
 
-import domain.review.Review;
-import infrastructure.proxy.ReviewGuardProxy;
+import com.beautyathome.domain.review.Review;
+import com.beautyathome.infrastructure.proxy.ReviewGuardProxy;
 
 /**
- * Servicio de aplicación que expone operaciones de reseñas a la capa web.
+ * Servicio de aplicaciÃ³n que expone operaciones de reseÃ±as a la capa web.
  */
 public class ReviewServiceApplication {
 
@@ -18,12 +18,12 @@ public class ReviewServiceApplication {
 	}
 
 	/**
-	 * Crea una reseña delegando en el proxy para validar negocio.
+	 * Crea una reseÃ±a delegando en el proxy para validar negocio.
 	 *
 	 * @param bookingId reserva evaluada
-	 * @param rating calificación del cliente
+	 * @param rating calificaciÃ³n del cliente
 	 * @param text comentario opcional
-	 * @return reseña persistida
+	 * @return reseÃ±a persistida
 	 */
 	public Review addReview(String bookingId, int rating, String text) {
 		return reviewGuardProxy.createReview(bookingId, rating, text);

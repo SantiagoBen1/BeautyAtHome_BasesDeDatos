@@ -1,20 +1,20 @@
-package infrastructure.proxy;
+package com.beautyathome.infrastructure.proxy;
 
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
-import domain.booking.Booking;
-import domain.client.Client;
-import domain.professional.Professional;
-import domain.review.Review;
-import domain.review.ReviewBuilder;
+import com.beautyathome.domain.booking.Booking;
+import com.beautyathome.domain.client.Client;
+import com.beautyathome.domain.professional.Professional;
+import com.beautyathome.domain.review.Review;
+import com.beautyathome.domain.review.ReviewBuilder;
 import infrastructure.persistence.dao.BookingDAO;
 import infrastructure.persistence.dao.ClientDAO;
 import infrastructure.persistence.dao.ProfessionalDAO;
 import infrastructure.persistence.dao.ReviewDAO;
 
 /**
- * Servicio que compone reseñas a partir de daos y mantiene un cache ligero.
+ * Servicio que compone reseÃ±as a partir de daos y mantiene un cache ligero.
  */
 public class ReviewService {
 
@@ -28,7 +28,7 @@ public class ReviewService {
 	 * @param bookingDAO DAO de reservas
 	 * @param clientDAO DAO de clientes
 	 * @param professionalDAO DAO de profesionales
-	 * @param reviewDAO DAO de reseñas
+	 * @param reviewDAO DAO de reseÃ±as
 	 */
 	public ReviewService(BookingDAO bookingDAO,
 						 ClientDAO clientDAO,
@@ -41,12 +41,12 @@ public class ReviewService {
 	}
 
 	/**
-	 * Construye y persiste una reseña para la reserva proporcionada.
+	 * Construye y persiste una reseÃ±a para la reserva proporcionada.
 	 *
 	 * @param bookingId id de la reserva
-	 * @param rating calificación deseada
+	 * @param rating calificaciÃ³n deseada
 	 * @param text comentario opcional
-	 * @return reseña almacenada
+	 * @return reseÃ±a almacenada
 	 */
 	public Review createReview(String bookingId, int rating, String text) {
 		Booking booking = bookingDAO.findById(bookingId);
@@ -73,7 +73,7 @@ public class ReviewService {
 	}
 
 	/**
-	 * Calcula el promedio reutilizando reseñas en cache cuando el DAO está vacío.
+	 * Calcula el promedio reutilizando reseÃ±as en cache cuando el DAO estÃ¡ vacÃ­o.
 	 *
 	 * @param professionalId profesional evaluada
 	 * @return promedio calculado

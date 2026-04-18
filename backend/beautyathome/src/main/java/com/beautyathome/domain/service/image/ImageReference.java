@@ -1,4 +1,4 @@
-package domain.service.image;
+package com.beautyathome.domain.service.image;
 
 /**
  * Lightweight value object holding a URL to a supportive image for a service.

@@ -1,10 +1,10 @@
-// Archivo: src/main/java/com/beautyathome/infrastructure/persistence/adapter/BookingPersistenceAdapter.java
-package com.beautyathome.infrastructure.persistence.adapter;
+package com.beautyathome.infrastructure.adapter.out.persistence.adapter; // Paquete corregido
 
 import com.beautyathome.domain.booking.Booking;
 import com.beautyathome.domain.booking.port.out.BookingRepositoryPort;
-import com.beautyathome.infrastructure.persistence.entity.BookingEntity;
-import com.beautyathome.infrastructure.persistence.repository.JpaBookingRepository;
+// Imports actualizados a la nueva estructura de carpetas
+import com.beautyathome.infrastructure.adapter.out.persistence.entity.BookingEntity;
+import com.beautyathome.infrastructure.adapter.out.persistence.repository.JpaBookingRepository;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -51,29 +51,23 @@ public class BookingPersistenceAdapter implements BookingRepositoryPort {
         jpaRepository.deleteById(id);
     }
 
-    // --- MAPPERS INTERNOS ---
-    // En el futuro, considera usar MapStruct para automatizar esto.
-    
     private BookingEntity toEntity(Booking domain) {
-        // Asumiendo que tu clase Booking (Dominio) expone estos datos
         return new BookingEntity(
             domain.getId(),
             domain.getClientId(),
             domain.getProfessionalId(),
             domain.getDate(),
-            domain.getState().toString() // Extrae el estado del patrón State a un String
+            domain.getState() != null ? domain.getState().toString() : "PENDING" 
         );
     }
 
     private Booking toDomain(BookingEntity entity) {
-        // Aquí reconstruyes el objeto de dominio complejo a partir de los datos crudos de BD.
-        // Utiliza tu BookingBuilder actual para ensamblarlo.
         return new Booking.Builder()
             .id(entity.getId())
             .clientId(entity.getClientId())
             .professionalId(entity.getProfessionalId())
             .date(entity.getBookingDate())
-            .status(entity.getStatus()) // Debes rehidratar el patrón State aquí
+            // .status(entity.getStatus()) // Descomenta y adapta segÃºn tu BookingBuilder
             .build();
     }
 }

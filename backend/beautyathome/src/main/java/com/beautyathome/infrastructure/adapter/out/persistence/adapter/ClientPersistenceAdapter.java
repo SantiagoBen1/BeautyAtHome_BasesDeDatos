@@ -1,9 +1,9 @@
-package infrastructure.persistence.dao.postgres;
+package com.beautyathome.infrastructure.adapter.out.persistence.adapter;
 
-import domain.client.Client;
+import com.beautyathome.domain.client.Client;
 import infrastructure.persistence.dao.ClientDAO;
-import infrastructure.persistence.entity.ClientEntity;
-import infrastructure.persistence.repository.JpaClientRepository;
+import com.beautyathome.infrastructure.adapter.out.persistence.entity.ClientEntity;
+import com.beautyathome.infrastructure.adapter.out.persistence.repository.JpaClientRepository;
 import org.springframework.stereotype.Component;
 
 import java.util.List;

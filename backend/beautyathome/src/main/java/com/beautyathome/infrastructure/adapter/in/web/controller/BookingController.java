@@ -1,4 +1,4 @@
-package api.controller;
+package com.beautyathome.infrastructure.adapter.in.web.controller;
 
 
 import java.util.Objects;
@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import application.booking.BookingRequest;
-import application.facade.BeautyAtHomeFacade;
-import domain.booking.Booking;
+import com.beautyathome.application.booking.BookingRequest;
+import com.beautyathome.application.facade.BeautyAtHomeFacade;
+import com.beautyathome.domain.booking.Booking;
 
 @RestController
 @RequestMapping("/api/bookings")

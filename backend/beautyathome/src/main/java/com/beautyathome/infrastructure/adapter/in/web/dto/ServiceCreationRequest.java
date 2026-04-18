@@ -1,4 +1,4 @@
-package api.dto;
+package com.beautyathome.infrastructure.adapter.in.web.dto;
 
 import java.util.ArrayList;
 import java.util.List;

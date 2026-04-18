@@ -1,4 +1,4 @@
-package infrastructure.persistence.entity;
+package com.beautyathome.infrastructure.adapter.out.persistence.entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -12,7 +12,7 @@ public class ServiceEntity {
     private String id;
     private String name;
     private Double price;
-    // TODO: Añadir relaciones (ServiceComposite, ServiceLeaf) según el diagrama ER
+    // TODO: AÃ±adir relaciones (ServiceComposite, ServiceLeaf) segÃºn el diagrama ER
 
     public ServiceEntity() {}
 

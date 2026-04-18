@@ -1,8 +1,8 @@
-package domain.booking.command;
+package com.beautyathome.domain.booking.command;
 
-import domain.booking.AgendaSingleton;
-import domain.booking.Booking;
-import domain.booking.BookingBuilder;
+import com.beautyathome.domain.booking.AgendaSingleton;
+import com.beautyathome.domain.booking.Booking;
+import com.beautyathome.domain.booking.BookingBuilder;
 
 /**
  * Concrete command that books a service through {@link AgendaSingleton} using

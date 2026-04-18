@@ -1,7 +1,7 @@
-package domain.service.visitor;
+package com.beautyathome.domain.service.visitor;
 
-import domain.service.ServiceComposite;
-import domain.service.ServiceLeaf;
+import com.beautyathome.domain.service.ServiceComposite;
+import com.beautyathome.domain.service.ServiceLeaf;
 
 /**
  * Visitor contract for operations executed across the service hierarchy.

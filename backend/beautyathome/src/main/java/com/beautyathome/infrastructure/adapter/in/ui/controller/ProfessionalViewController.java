@@ -1,4 +1,4 @@
-package ui.controller;
+package com.beautyathome.infrastructure.adapter.in.ui.controller;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -16,12 +16,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import application.facade.BeautyAtHomeFacade;
-import domain.professional.Professional;
-import infrastructure.persistence.dao.ProfessionalDAO;
-import infrastructure.persistence.dao.ReviewDAO;
-import ui.viewmodel.ProfessionalForm;
-import ui.viewmodel.ProfessionalShowcase;
+import com.beautyathome.application.facade.BeautyAtHomeFacade;
+import com.beautyathome.domain.professional.Professional;
+import com.domain.professional.port.out.ProfessionalRepositoryPort;
+import infrastructure.persistence.dao.ReviewRepositoryPort;
+import com.beautyathome.infrastructure.adapter.in.ui.viewmodel.ProfessionalForm;
+import com.beautyathome.infrastructure.adapter.in.ui.viewmodel.ProfessionalShowcase;
 
 /**
  * MVC controller that lists and registers professionals.
@@ -31,8 +31,8 @@ import ui.viewmodel.ProfessionalShowcase;
 public class ProfessionalViewController {
 
     private final BeautyAtHomeFacade facade;
-    private final ProfessionalDAO professionalDAO;
-    private final ReviewDAO reviewDAO;
+    private final ProfessionalRepositoryPort professionalRepositoryPort;
+    private final ReviewRepositoryPort reviewRepositoryPort;
 
     public ProfessionalViewController(BeautyAtHomeFacade facade,
                                       ProfessionalDAO professionalDAO,
@@ -103,7 +103,7 @@ public class ProfessionalViewController {
             Professional professional = facade.registerProfessional(data);
             int created = publishCatalogServices(professional.getId(), catalogEntries);
             String message = created > 0
-                    ? String.format("Profesional registrada. Catálogo signature con %d servicios", created)
+                    ? String.format("Profesional registrada. CatÃ¡logo signature con %d servicios", created)
                     : "Profesional registrada correctamente";
             redirectAttributes.addFlashAttribute("message", message);
         } catch (Exception ex) {

@@ -1,4 +1,4 @@
-package domain.service.image;
+package com.beautyathome.domain.service.image;
 
 /**
  * Immutable representation of a captured service photo along with its sharing

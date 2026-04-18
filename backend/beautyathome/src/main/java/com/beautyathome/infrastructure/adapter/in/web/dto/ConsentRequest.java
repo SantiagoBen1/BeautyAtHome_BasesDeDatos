@@ -1,4 +1,4 @@
-package api.dto;
+package com.beautyathome.infrastructure.adapter.in.web.dto;
 
 /**
  * DTO used to request granting consent for photo publishing.

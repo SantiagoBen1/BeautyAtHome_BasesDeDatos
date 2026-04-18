@@ -1,4 +1,4 @@
-package ui.controller;
+package com.beautyathome.infrastructure.adapter.in.ui.controller;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -11,9 +11,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import application.facade.BeautyAtHomeFacade;
+import com.beautyathome.application.facade.BeautyAtHomeFacade;
 import infrastructure.persistence.dao.ClientDAO;
-import ui.viewmodel.ClientForm;
+import com.beautyathome.infrastructure.adapter.in.ui.viewmodel.ClientForm;
 
 /**
  * MVC controller dedicated to client registration and listing.

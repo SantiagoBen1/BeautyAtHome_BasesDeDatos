@@ -1,13 +1,13 @@
-package api.controller;
+package com.beautyathome.infrastructure.adapter.in.web.controller;
 
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import api.dto.ServiceCreationRequest;
-import application.facade.BeautyAtHomeFacade;
-import domain.service.ServiceComponent;
+import com.beautyathome.infrastructure.adapter.in.web.dto.ServiceCreationRequest;
+import com.beautyathome.application.facade.BeautyAtHomeFacade;
+import com.beautyathome.domain.service.ServiceComponent;
 
 @RestController
 @RequestMapping("/api/services")

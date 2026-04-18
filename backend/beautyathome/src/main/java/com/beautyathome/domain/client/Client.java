@@ -1,4 +1,4 @@
-package domain.client;
+package com.beautyathome.domain.client;
 
 /**
  * Representa al cliente que agenda y paga los servicios de belleza.
@@ -12,9 +12,9 @@ public class Client {
     /**
      * Crea un cliente con identificador, nombre y correo definidos.
      *
-     * @param id     identificador único en la plataforma
+     * @param id     identificador Ãºnico en la plataforma
      * @param name   nombre completo del cliente
-     * @param email  correo electrónico de contacto y notificaciones
+     * @param email  correo electrÃ³nico de contacto y notificaciones
      */
     public Client(String id, String name, String email) {
         this.id = id;
@@ -23,7 +23,7 @@ public class Client {
     }
 
     /**
-     * Constructor sin argumentos para frameworks de serialización.
+     * Constructor sin argumentos para frameworks de serializaciÃ³n.
      */
     public Client() {}
 
@@ -42,7 +42,7 @@ public class Client {
     }
 
     /**
-     * @return email utilizado para comunicación y login
+     * @return email utilizado para comunicaciÃ³n y login
      */
     public String getEmail() {
         return email;

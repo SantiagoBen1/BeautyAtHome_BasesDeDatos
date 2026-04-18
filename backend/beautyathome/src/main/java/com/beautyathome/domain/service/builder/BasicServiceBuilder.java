@@ -1,11 +1,11 @@
-package domain.service.builder;
+package com.beautyathome.domain.service.builder;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import domain.service.ServiceComponent;
-import domain.service.ServiceLeaf;
-import domain.service.image.ImageReference;
+import com.beautyathome.domain.service.ServiceComponent;
+import com.beautyathome.domain.service.ServiceLeaf;
+import com.beautyathome.domain.service.image.ImageReference;
 
 /**
  * Simple builder that produces {@link ServiceLeaf} instances.

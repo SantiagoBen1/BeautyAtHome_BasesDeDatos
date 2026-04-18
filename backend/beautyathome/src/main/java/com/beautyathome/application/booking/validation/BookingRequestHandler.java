@@ -1,6 +1,6 @@
-package application.booking.validation;
+package com.beautyathome.application.booking.validation;
 
-import application.booking.BookingRequest;
+import com.beautyathome.application.booking.BookingRequest;
 
 /**
  * Abstract link in the chain of responsibility that validates a booking

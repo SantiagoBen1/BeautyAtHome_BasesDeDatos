@@ -1,17 +1,17 @@
-package infrastructure.proxy;
+package com.beautyathome.infrastructure.proxy;
 
-import domain.professional.CoverageArea;
-import domain.professional.Professional;
+import com.beautyathome.domain.professional.CoverageArea;
+import com.beautyathome.domain.professional.Professional;
 
 /**
- * Proxy que encapsula la verificación de cobertura geográfica.
+ * Proxy que encapsula la verificaciÃ³n de cobertura geogrÃ¡fica.
  */
 public class CoverageProxy {
 
 	private final Professional professional;
 
 	/**
-	 * @param professional profesional cuya cobertura se consultará
+	 * @param professional profesional cuya cobertura se consultarÃ¡
 	 */
 	public CoverageProxy(Professional professional) {
 		this.professional = professional;

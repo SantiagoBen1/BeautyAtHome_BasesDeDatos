@@ -1,4 +1,4 @@
-package infrastructure.persistence.entity;
+package com.beautyathome.infrastructure.adapter.out.persistence.entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;

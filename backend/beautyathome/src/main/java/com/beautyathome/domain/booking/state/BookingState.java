@@ -1,6 +1,6 @@
-package domain.booking.state;
+package com.beautyathome.domain.booking.state;
 
-import domain.booking.Booking;
+import com.beautyathome.domain.booking.Booking;
 
 /**
  * State pattern contract for booking lifecycle transitions.

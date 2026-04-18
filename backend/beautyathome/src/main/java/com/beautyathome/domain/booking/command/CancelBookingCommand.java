@@ -1,6 +1,6 @@
-package domain.booking.command;
+package com.beautyathome.domain.booking.command;
 
-import domain.booking.AgendaSingleton;
+import com.beautyathome.domain.booking.AgendaSingleton;
 
 /**
  * Concrete command that cancels an existing booking through the
