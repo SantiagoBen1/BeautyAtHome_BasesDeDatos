@@ -14,7 +14,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.beautyathome.application.facade.BeautyAtHomeFacade;
 import com.beautyathome.domain.booking.Booking;
-import infrastructure.persistence.dao.BookingDAO;
+import com.beautyathome.domain.booking.port.out.BookingRepositoryPort;
 import com.beautyathome.infrastructure.adapter.in.ui.viewmodel.BookingForm;
 import com.beautyathome.infrastructure.adapter.in.ui.viewmodel.BookingLane;
 
@@ -26,16 +26,16 @@ import com.beautyathome.infrastructure.adapter.in.ui.viewmodel.BookingLane;
 public class BookingViewController {
 
     private final BeautyAtHomeFacade facade;
-    private final BookingDAO bookingDAO;
+    private final BookingRepositoryPort bookingRepositoryPort;
 
-    public BookingViewController(BeautyAtHomeFacade facade, BookingDAO bookingDAO) {
+    public BookingViewController(BeautyAtHomeFacade facade, BookingRepositoryPort bookingRepositoryPort) {
         this.facade = facade;
-        this.bookingDAO = bookingDAO;
+        this.bookingRepositoryPort = bookingRepositoryPort;
     }
 
     @GetMapping
     public String listBookings(Model model) {
-        List<Booking> bookings = bookingDAO.findAll();
+        List<Booking> bookings = bookingRepositoryPort.findAll();
         model.addAttribute("bookings", bookings);
         model.addAttribute("bookingLanes", BookingLane.from(bookings));
         model.addAttribute("bookingForm", new BookingForm());

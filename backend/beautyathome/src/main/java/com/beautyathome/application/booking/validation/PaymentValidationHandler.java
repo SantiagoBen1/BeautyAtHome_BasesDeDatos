@@ -1,7 +1,7 @@
 package com.beautyathome.application.booking.validation;
 
 import com.beautyathome.application.booking.BookingRequest;
-import infrastructure.persistence.dao.ClientDAO;
+import com.beautyathome.domain.client.port.out.ClientRepositoryPort;
 
 /**
  * Handler that simulates payment eligibility by checking both client existence
@@ -9,18 +9,18 @@ import infrastructure.persistence.dao.ClientDAO;
  */
 public class PaymentValidationHandler extends BookingRequestHandler {
 
-    private final ClientDAO clientDAO;
+    private final ClientRepositoryPort clientRepositoryPort;
 
     /**
-     * @param clientDAO DAO used for client existence checks
+     * @param clientRepositoryPort Repository used for client existence checks
      */
-    public PaymentValidationHandler(ClientDAO clientDAO) {
-        this.clientDAO = clientDAO;
+    public PaymentValidationHandler(ClientRepositoryPort clientRepositoryPort) {
+        this.clientRepositoryPort = clientRepositoryPort;
     }
 
     @Override
     protected boolean doHandle(BookingRequest request) {
-        return clientDAO.findById(request.getClientId()) != null
+        return clientRepositoryPort.findById(request.getClientId()) != null
                 && request.getServiceId() != null;
     }
 }

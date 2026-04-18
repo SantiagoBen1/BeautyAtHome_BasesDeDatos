@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.beautyathome.application.facade.BeautyAtHomeFacade;
-import infrastructure.persistence.dao.ClientDAO;
+import com.beautyathome.domain.client.port.out.ClientRepositoryPort;
 import com.beautyathome.infrastructure.adapter.in.ui.viewmodel.ClientForm;
 
 /**
@@ -23,16 +23,16 @@ import com.beautyathome.infrastructure.adapter.in.ui.viewmodel.ClientForm;
 public class ClientViewController {
 
     private final BeautyAtHomeFacade facade;
-    private final ClientDAO clientDAO;
+    private final ClientRepositoryPort clientRepositoryPort;
 
-    public ClientViewController(BeautyAtHomeFacade facade, ClientDAO clientDAO) {
+    public ClientViewController(BeautyAtHomeFacade facade, ClientRepositoryPort clientRepositoryPort) {
         this.facade = facade;
-        this.clientDAO = clientDAO;
+        this.clientRepositoryPort = clientRepositoryPort;
     }
 
     @GetMapping
     public String listClients(Model model) {
-        model.addAttribute("clients", clientDAO.findAll());
+        model.addAttribute("clients", clientRepositoryPort.findAll());
         model.addAttribute("clientForm", new ClientForm());
         return "clients";
     }

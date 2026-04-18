@@ -1,7 +1,6 @@
 package com.beautyathome.infrastructure.adapter.out.persistence.adapter;
 
 import com.beautyathome.domain.review.Review;
-import infrastructure.persistence.dao.ReviewDAO;
 import com.beautyathome.infrastructure.adapter.out.persistence.entity.ReviewEntity;
 import com.beautyathome.infrastructure.adapter.out.persistence.repository.JpaReviewRepository;
 import org.springframework.stereotype.Component;
@@ -11,11 +10,11 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Component
-public class PostgresReviewDAO implements ReviewDAO {
+public class ReviewPersistenceAdapter implements ReviewRepositoryPort {
 
     private final JpaReviewRepository repository;
 
-    public PostgresReviewDAO(JpaReviewRepository repository) {
+    public ReviewPersistenceAdapter(JpaReviewRepository repository) {
         this.repository = repository;
     }
 

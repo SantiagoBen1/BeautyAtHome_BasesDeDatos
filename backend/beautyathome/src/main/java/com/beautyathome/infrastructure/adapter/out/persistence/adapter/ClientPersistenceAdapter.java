@@ -1,7 +1,7 @@
 package com.beautyathome.infrastructure.adapter.out.persistence.adapter;
 
 import com.beautyathome.domain.client.Client;
-import infrastructure.persistence.dao.ClientDAO;
+import com.beautyathome.domain.client.port.out.ClientRepositoryPort;
 import com.beautyathome.infrastructure.adapter.out.persistence.entity.ClientEntity;
 import com.beautyathome.infrastructure.adapter.out.persistence.repository.JpaClientRepository;
 import org.springframework.stereotype.Component;
@@ -11,11 +11,11 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Component
-public class PostgresClientDAO implements ClientDAO {
+public class ClientPersistenceAdapter implements ClientRepositoryPort {
 
     private final JpaClientRepository repository;
 
-    public PostgresClientDAO(JpaClientRepository repository) {
+    public ClientPersistenceAdapter(JpaClientRepository repository) {
         this.repository = repository;
     }
 

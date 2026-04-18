@@ -16,9 +16,9 @@ import com.beautyathome.domain.booking.Booking;
 import com.beautyathome.domain.client.Client;
 import com.beautyathome.domain.professional.Professional;
 import com.beautyathome.domain.service.ServiceComponent;
-import infrastructure.persistence.dao.ClientDAO;
-import infrastructure.persistence.dao.ProfessionalDAO;
-import infrastructure.persistence.dao.ServiceDAO;
+import com.beautyathome.domain.client.port.out.ClientRepositoryPort;
+import com.beautyathome.domain.professional.port.out.ProfessionalRepositoryPort;
+import com.beautyathome.domain.service.port.out.ServiceRepositoryPort;
 
 /**
  * Seeds the in-memory DAOs with sample data so the MVC views display meaningful
@@ -42,23 +42,23 @@ public class SampleDataInitializer implements CommandLineRunner {
     );
 
     private final BeautyAtHomeFacade facade;
-    private final ClientDAO clientDAO;
-    private final ProfessionalDAO professionalDAO;
-    private final ServiceDAO serviceDAO;
+    private final ClientRepositoryPort clientRepositoryPort;
+    private final ProfessionalRepositoryPort professionalRepositoryPort;
+    private final ServiceRepositoryPort serviceRepositoryPort;
 
     public SampleDataInitializer(BeautyAtHomeFacade facade,
-                                 ClientDAO clientDAO,
-                                 ProfessionalDAO professionalDAO,
-                                 ServiceDAO serviceDAO) {
+                                 ClientRepositoryPort clientRepositoryPort,
+                                 ProfessionalRepositoryPort professionalRepositoryPort,
+                                 ServiceRepositoryPort serviceRepositoryPort) {
         this.facade = facade;
-        this.clientDAO = clientDAO;
-        this.professionalDAO = professionalDAO;
-        this.serviceDAO = serviceDAO;
+        this.clientRepositoryPort = clientRepositoryPort;
+        this.professionalRepositoryPort = professionalRepositoryPort;
+        this.serviceRepositoryPort = serviceRepositoryPort;
     }
 
     @Override
     public void run(String... args) {
-        if (!clientDAO.findAll().isEmpty() || !professionalDAO.findAll().isEmpty()) {
+        if (!clientRepositoryPort.findAll().isEmpty() || !professionalRepositoryPort.findAll().isEmpty()) {
             return; // assume data already seeded
         }
         List<Client> clients = seedClients();
@@ -158,7 +158,7 @@ public class SampleDataInitializer implements CommandLineRunner {
         List<Booking> bookings = new ArrayList<>();
         int offset = 0;
         for (Professional professional : professionals) {
-            List<ServiceComponent> services = serviceDAO.findByProfessionalId(professional.getId());
+            List<ServiceComponent> services = serviceRepositoryPort.findByProfessionalId(professional.getId());
             if (services.isEmpty()) {
                 continue;
             }

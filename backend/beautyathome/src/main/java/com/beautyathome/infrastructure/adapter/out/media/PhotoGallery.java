@@ -7,7 +7,7 @@ import java.util.stream.Collectors;
 
 import com.beautyathome.domain.booking.Booking;
 import com.beautyathome.domain.service.image.Photo;
-import infrastructure.persistence.dao.BookingDAO;
+import com.beautyathome.domain.booking.port.out.BookingRepositoryPort;
 
 /**
  * Componente que simula un repositorio de fotos ligadas a reservas.
@@ -15,16 +15,16 @@ import infrastructure.persistence.dao.BookingDAO;
 public class PhotoGallery {
 
 	private final StorageAdapter storageAdapter;
-	private final BookingDAO bookingDAO;
+	private final BookingRepositoryPort bookingRepositoryPort;
 	private final List<Photo> photos = new CopyOnWriteArrayList<>();
 
 	/**
 	 * @param storageAdapter adaptador que guarda fÃ­sicamente la imagen
-	 * @param bookingDAO DAO para validar la existencia de la reserva
+	 * @param bookingRepositoryPort repositorio para validar la existencia de la reserva
 	 */
-	public PhotoGallery(StorageAdapter storageAdapter, BookingDAO bookingDAO) {
+	public PhotoGallery(StorageAdapter storageAdapter, BookingRepositoryPort bookingRepositoryPort) {
 		this.storageAdapter = storageAdapter;
-		this.bookingDAO = bookingDAO;
+		this.bookingRepositoryPort = bookingRepositoryPort;
 	}
 
 	/**
@@ -35,7 +35,7 @@ public class PhotoGallery {
 	 * @param isPublic bandera de visibilidad
 	 */
 	public void addPhoto(String bookingId, String url, boolean isPublic) {
-		Booking booking = bookingDAO.findById(bookingId);
+		Booking booking = bookingRepositoryPort.findById(bookingId);
 		if (booking == null) {
 			throw new IllegalArgumentException("Booking not found for photo upload");
 		}

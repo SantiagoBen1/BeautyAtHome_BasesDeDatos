@@ -30,11 +30,11 @@ import com.beautyathome.domain.service.ServiceLeaf;
 import com.beautyathome.domain.service.builder.ServiceDirector;
 import com.beautyathome.domain.service.image.Photo;
 import com.beautyathome.infrastructure.adapter.out.media.ConsentProxy;
-import infrastructure.persistence.dao.BookingDAO;
-import infrastructure.persistence.dao.ClientDAO;
-import infrastructure.persistence.dao.ProfessionalDAO;
-import infrastructure.persistence.dao.ReviewDAO;
-import infrastructure.persistence.dao.ServiceDAO;
+import com.beautyathome.domain.booking.port.out.BookingRepositoryPort;
+import com.beautyathome.domain.client.port.out.ClientRepositoryPort;
+import com.beautyathome.domain.professional.port.out.ProfessionalRepositoryPort;
+import com.beautyathome.domain.review.port.out.ReviewRepositoryPort;
+import com.beautyathome.domain.service.port.out.ServiceRepositoryPort;
 import com.beautyathome.infrastructure.proxy.CoverageProxy;
 import com.beautyathome.infrastructure.proxy.ReviewGuardProxy;
 
@@ -44,11 +44,11 @@ import com.beautyathome.infrastructure.proxy.ReviewGuardProxy;
  */
 public class BeautyAtHomeFacade {
 
-    private final ClientDAO clientDAO;
-    private final ProfessionalDAO professionalDAO;
-    private final ServiceDAO serviceDAO;
-    private final BookingDAO bookingDAO;
-    private final ReviewDAO reviewDAO;
+    private final ClientRepositoryPort clientRepositoryPort;
+    private final ProfessionalRepositoryPort professionalRepositoryPort;
+    private final ServiceRepositoryPort serviceRepositoryPort;
+    private final BookingRepositoryPort bookingRepositoryPort;
+    private final ReviewRepositoryPort reviewRepositoryPort;
     private final BookingService bookingService;
     private final PricingStrategy pricingStrategy;
     private final ProfessionalAbstractFactory professionalFactory;
@@ -61,11 +61,11 @@ public class BeautyAtHomeFacade {
     /**
      * Ensambla la fachada con todas sus dependencias colaboradoras.
      *
-     * @param clientDAO DAO de clientes
-     * @param professionalDAO DAO de profesionales
-     * @param serviceDAO DAO de servicios
-     * @param bookingDAO DAO de reservas
-     * @param reviewDAO DAO de reseÃ±as
+     * @param clientRepositoryPort repositorio de clientes
+     * @param professionalRepositoryPort repositorio de profesionales
+     * @param serviceRepositoryPort repositorio de servicios
+     * @param bookingRepositoryPort repositorio de reservas
+     * @param reviewRepositoryPort repositorio de reseÃ±as
      * @param bookingService servicio de aplicaciÃ³n para reservas
      * @param pricingStrategy estrategia de precios activa
      * @param professionalFactory fÃ¡brica para crear profesionales
@@ -75,24 +75,24 @@ public class BeautyAtHomeFacade {
     * @param commandInvoker invocador que ejecuta los comandos de agenda
     * @param agendaSingleton agenda compartida que actÃºa como receptor
      */
-    public BeautyAtHomeFacade(ClientDAO clientDAO,
-                              ProfessionalDAO professionalDAO,
-                              ServiceDAO serviceDAO,
-                              BookingDAO bookingDAO,
-                              ReviewDAO reviewDAO,
-                              BookingService bookingService,
-                              PricingStrategy pricingStrategy,
-                              ProfessionalAbstractFactory professionalFactory,
-                              ServiceDirector serviceDirector,
-                              ReviewGuardProxy reviewGuardProxy,
-                              ConsentProxy consentProxy,
-                              CommandInvoker commandInvoker,
-                              AgendaSingleton agendaSingleton) {
-        this.clientDAO = clientDAO;
-        this.professionalDAO = professionalDAO;
-        this.serviceDAO = serviceDAO;
-        this.bookingDAO = bookingDAO;
-        this.reviewDAO = reviewDAO;
+    public BeautyAtHomeFacade(ClientRepositoryPort clientRepositoryPort,
+                               ProfessionalRepositoryPort professionalRepositoryPort,
+                               ServiceRepositoryPort serviceRepositoryPort,
+                               BookingRepositoryPort bookingRepositoryPort,
+                               ReviewRepositoryPort reviewRepositoryPort,
+                               BookingService bookingService,
+                               PricingStrategy pricingStrategy,
+                               ProfessionalAbstractFactory professionalFactory,
+                               ServiceDirector serviceDirector,
+                               ReviewGuardProxy reviewGuardProxy,
+                               ConsentProxy consentProxy,
+                               CommandInvoker commandInvoker,
+                               AgendaSingleton agendaSingleton) {
+        this.clientRepositoryPort = clientRepositoryPort;
+        this.professionalRepositoryPort = professionalRepositoryPort;
+        this.serviceRepositoryPort = serviceRepositoryPort;
+        this.bookingRepositoryPort = bookingRepositoryPort;
+        this.reviewRepositoryPort = reviewRepositoryPort;
         this.bookingService = bookingService;
         this.pricingStrategy = pricingStrategy;
         this.professionalFactory = professionalFactory;
@@ -100,7 +100,7 @@ public class BeautyAtHomeFacade {
         this.reviewGuardProxy = reviewGuardProxy;
         this.consentProxy = consentProxy;
         this.commandInvoker = commandInvoker;
-        this.agendaSingleton = agendaSingleton;
+        this.agendaSingleton = agendaSingleton;     
     }
 
     /**
@@ -129,7 +129,7 @@ public class BeautyAtHomeFacade {
         Client normalized = client.getId() == null || client.getId().isBlank()
                 ? new Client(UUID.randomUUID().toString(), client.getName(), client.getEmail())
                 : client;
-        return clientDAO.save(normalized);
+        return clientRepositoryPort.save(normalized);
     }
 
     /**
@@ -142,7 +142,7 @@ public class BeautyAtHomeFacade {
         String type = (String) data.get("type");
         Objects.requireNonNull(type, "type");
         Professional professional = professionalFactory.createProfessional(type, data);
-        return professionalDAO.save(professional);
+        return professionalRepositoryPort.save(professional);
     }
 
     /**
@@ -153,7 +153,7 @@ public class BeautyAtHomeFacade {
      */
     public Professional registerProfessional(Professional professional) {
         Objects.requireNonNull(professional, "professional");
-        return professionalDAO.save(professional);
+        return professionalRepositoryPort.save(professional);
     }
 
     /**
@@ -164,7 +164,7 @@ public class BeautyAtHomeFacade {
      * @return lista filtrada de profesionales
      */
     public List<Professional> searchProfessionals(String zone, String category) {
-        return professionalDAO.findAll().stream()
+        return professionalRepositoryPort.findAll().stream()
                 .filter(pro -> matchesZone(pro, zone))
                 .filter(pro -> matchesCategory(pro, category))
                 .collect(Collectors.toList());
@@ -177,7 +177,7 @@ public class BeautyAtHomeFacade {
      * @return servicios registrados
      */
     public List<ServiceComponent> listServices(String professionalId) {
-        return new ArrayList<>(serviceDAO.findByProfessionalId(professionalId));
+        return new ArrayList<>(serviceRepositoryPort.findByProfessionalId(professionalId));
     }
 
     /**
@@ -197,11 +197,11 @@ public class BeautyAtHomeFacade {
                                                double price,
                                                int duration,
                                                List<String> imageUrls) {
-        if (professionalDAO.findById(professionalId) == null) {
+        if (professionalRepositoryPort.findById(professionalId) == null) {
             throw new IllegalArgumentException("Professional not found: " + professionalId);
         }
         ServiceComponent service = serviceDirector.constructService(name, description, price, duration, imageUrls);
-        return serviceDAO.saveForProfessional(professionalId, service);
+        return serviceRepositoryPort.saveForProfessional(professionalId, service);
     }
 
     /**
@@ -235,9 +235,9 @@ public class BeautyAtHomeFacade {
                                String serviceId,
                                LocalDateTime dateTime,
                                String zone) {
-        ServiceComponent service = serviceDAO.findById(serviceId);
-        Client client = clientDAO.findById(clientId);
-        Professional professional = professionalDAO.findById(professionalId);
+        ServiceComponent service = serviceRepositoryPort.findById(serviceId);
+        Client client = clientRepositoryPort.findById(clientId);
+        Professional professional = professionalRepositoryPort.findById(professionalId);
 
         if (service == null) {
             throw new IllegalArgumentException("Service not found: " + serviceId);
@@ -261,7 +261,7 @@ public class BeautyAtHomeFacade {
         Booking booking = bookingService.book(request);
         booking.attach(new ClientNotificationObserver(client));
         booking.attach(new ProfessionalNotificationObserver(professional));
-        Booking persisted = bookingDAO.save(booking);
+        Booking persisted = bookingRepositoryPort.save(booking);
         // El cÃ¡lculo de precios se mantiene para integraciones futuras (facturaciÃ³n, etc.)
         return persisted;
     }
@@ -278,7 +278,7 @@ public class BeautyAtHomeFacade {
         if (!command.isCancelled()) {
             throw new IllegalArgumentException("Booking not found: " + bookingId);
         }
-        bookingDAO.delete(bookingId);
+        bookingRepositoryPort.delete(bookingId);
     }
 
     /**
@@ -320,7 +320,7 @@ public class BeautyAtHomeFacade {
      * @return promedio numÃ©rico o 0.0 si no hay reseÃ±as
      */
     public double getProfessionalAverageRating(String professionalId) {
-        return reviewDAO.findByProfessionalId(professionalId).stream()
+        return reviewRepositoryPort.findByProfessionalId(professionalId).stream()
                 .mapToInt(review -> review.getRating().getValue())
                 .average()
                 .orElse(0.0);
@@ -333,19 +333,19 @@ public class BeautyAtHomeFacade {
      * @return lista de historiales enriquecidos
      */
     public List<ServiceHistory> viewProfessionalHistory(String professionalId) {
-        List<Booking> bookings = bookingDAO.findByProfessionalId(professionalId);
-        Professional professional = professionalDAO.findById(professionalId);
+        List<Booking> bookings = bookingRepositoryPort.findByProfessionalId(professionalId);
+        Professional professional = professionalRepositoryPort.findById(professionalId);
         if (professional == null) {
             return Collections.emptyList();
         }
         List<Photo> professionalPhotos = consentProxy.listByProfessional(professionalId);
         List<ServiceHistory> histories = new ArrayList<>();
         for (Booking booking : bookings) {
-            Client client = clientDAO.findById(booking.getClientId());
+            Client client = clientRepositoryPort.findById(booking.getClientId());
             if (client == null) {
                 continue;
             }
-            ServiceComponent service = serviceDAO.findById(booking.getServiceId());
+            ServiceComponent service = serviceRepositoryPort.findById(booking.getServiceId());
             ServiceHistory history = new ServiceHistory(booking, client, professional, service, booking.getDateTime());
             List<Photo> photos = professionalPhotos.stream()
                     .filter(photo -> Objects.equals(photo.getBookingId(), booking.getId()))

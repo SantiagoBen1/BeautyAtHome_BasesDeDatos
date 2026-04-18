@@ -14,7 +14,7 @@ import org.junit.jupiter.api.Test;
 
 import com.beautyathome.domain.booking.Booking;
 import com.beautyathome.domain.service.image.Photo;
-import infrastructure.persistence.dao.BookingDAO;
+import com.beautyathome.domain.booking.port.out.BookingRepositoryPort;
 
 class ConsentProxyTest {
 
@@ -22,13 +22,13 @@ class ConsentProxyTest {
     private static final String PROFESSIONAL_ID = "pro-1";
 
     private ConsentProxy consentProxy;
-    private FakeBookingDAO bookingDAO;
+    private FakeBookingRepository bookingRepository;
 
     @BeforeEach
     void setUp() {
-        bookingDAO = new FakeBookingDAO();
-        bookingDAO.save(new Booking(BOOKING_ID, "client-1", PROFESSIONAL_ID, "service-1", LocalDateTime.now()));
-        PhotoGallery gallery = new PhotoGallery(new StorageAdapter(), bookingDAO);
+        bookingRepository = new FakeBookingRepository();
+        bookingRepository.save(new Booking(BOOKING_ID, "client-1", PROFESSIONAL_ID, "service-1", LocalDateTime.now()));
+        PhotoGallery gallery = new PhotoGallery(new StorageAdapter(), bookingRepository);
         consentProxy = new ConsentProxy(gallery);
     }
 
@@ -50,7 +50,7 @@ class ConsentProxyTest {
             () -> consentProxy.addPhoto("missing", "https://img/fail.jpg", true));
     }
 
-    private static class FakeBookingDAO implements BookingDAO {
+    private static class FakeBookingRepository implements BookingRepositoryPort {
 
         private final Map<String, Booking> bookings = new ConcurrentHashMap<>();
 

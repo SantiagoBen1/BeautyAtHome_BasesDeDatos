@@ -22,16 +22,16 @@ import com.beautyathome.domain.service.builder.ServiceDirector;
 import com.beautyathome.infrastructure.adapter.out.media.ConsentProxy;
 import com.beautyathome.infrastructure.adapter.out.media.PhotoGallery;
 import com.beautyathome.infrastructure.adapter.out.media.StorageAdapter;
-import infrastructure.persistence.dao.BookingDAO;
-import infrastructure.persistence.dao.ClientDAO;
-import infrastructure.persistence.dao.ProfessionalDAO;
-import infrastructure.persistence.dao.ReviewDAO;
-import infrastructure.persistence.dao.ServiceDAO;
-import infrastructure.persistence.dao.postgres.PostgresBookingDAO;
-import infrastructure.persistence.dao.postgres.PostgresClientDAO;
-import infrastructure.persistence.dao.postgres.PostgresProfessionalDAO;
-import infrastructure.persistence.dao.postgres.PostgresReviewDAO;
-import infrastructure.persistence.dao.postgres.PostgresServiceDAO;
+import com.beautyathome.domain.booking.port.out.BookingRepositoryPort;
+import com.beautyathome.domain.client.port.out.ClientRepositoryPort;
+import com.beautyathome.domain.professional.port.out.ProfessionalRepositoryPort;
+import com.beautyathome.domain.review.port.out.ReviewRepositoryPort;
+import com.beautyathome.domain.service.port.out.ServiceRepositoryPort;
+import com.beautyathome.infrastructure.adapter.out.persistence.adapter.BookingPersistenceAdapter;
+import com.beautyathome.infrastructure.adapter.out.persistence.adapter.ClientPersistenceAdapter;
+import com.beautyathome.infrastructure.adapter.out.persistence.adapter.ProfessionalPersistenceAdapter;
+import com.beautyathome.infrastructure.adapter.out.persistence.adapter.ReviewPersistenceAdapter;
+import com.beautyathome.infrastructure.adapter.out.persistence.adapter.ServicePersistenceAdapter;
 import com.beautyathome.infrastructure.proxy.ReviewGuardProxy;
 import com.beautyathome.infrastructure.proxy.ReviewService;
 
@@ -39,28 +39,28 @@ import com.beautyathome.infrastructure.proxy.ReviewService;
 public class AppConfig {
 
     @Bean
-    public ClientDAO clientDAO(PostgresClientDAO postgresClientDAO) {
-        return postgresClientDAO;
+    public ClientRepositoryPort clientRepositoryPort(ClientPersistenceAdapter clientPersistenceAdapter) {
+        return clientPersistenceAdapter;
     }
 
     @Bean
-    public ProfessionalDAO professionalDAO(PostgresProfessionalDAO postgresProfessionalDAO) {
-        return postgresProfessionalDAO;
+    public ProfessionalRepositoryPort professionalRepositoryPort(ProfessionalPersistenceAdapter professionalPersistenceAdapter) {
+        return professionalPersistenceAdapter;
     }
 
     @Bean
-    public ServiceDAO serviceDAO(PostgresServiceDAO postgresServiceDAO) {
-        return postgresServiceDAO;
+    public ServiceRepositoryPort serviceRepositoryPort(ServicePersistenceAdapter servicePersistenceAdapter) {
+        return servicePersistenceAdapter;
     }
 
     @Bean
-    public BookingDAO bookingDAO(PostgresBookingDAO postgresBookingDAO) {
-        return postgresBookingDAO;
+    public BookingRepositoryPort bookingRepositoryPort(BookingPersistenceAdapter bookingPersistenceAdapter) {
+        return bookingPersistenceAdapter;
     }
 
     @Bean
-    public ReviewDAO reviewDAO(PostgresReviewDAO postgresReviewDAO) {
-        return postgresReviewDAO;
+    public ReviewRepositoryPort reviewRepositoryPort(ReviewPersistenceAdapter reviewPersistenceAdapter) {
+        return reviewPersistenceAdapter;
     }
 
     @Bean
@@ -74,8 +74,8 @@ public class AppConfig {
     }
 
     @Bean
-    public CoverageValidationHandler coverageValidationHandler(ProfessionalDAO professionalDAO) {
-        return new CoverageValidationHandler(professionalDAO);
+    public CoverageValidationHandler coverageValidationHandler(ProfessionalRepositoryPort professionalRepositoryPort) {
+        return new CoverageValidationHandler(professionalRepositoryPort);
     }
 
     @Bean
@@ -84,13 +84,13 @@ public class AppConfig {
     }
 
     @Bean
-    public ConsentValidationHandler consentValidationHandler(ClientDAO clientDAO) {
-        return new ConsentValidationHandler(clientDAO);
+    public ConsentValidationHandler consentValidationHandler(ClientRepositoryPort clientRepositoryPort) {
+        return new ConsentValidationHandler(clientRepositoryPort);
     }
 
     @Bean
-    public PaymentValidationHandler paymentValidationHandler(ClientDAO clientDAO) {
-        return new PaymentValidationHandler(clientDAO);
+    public PaymentValidationHandler paymentValidationHandler(ClientRepositoryPort clientRepositoryPort) {
+        return new PaymentValidationHandler(clientRepositoryPort);
     }
 
     @Bean
@@ -135,8 +135,8 @@ public class AppConfig {
     }
 
     @Bean
-    public PhotoGallery photoGallery(StorageAdapter storageAdapter, BookingDAO bookingDAO) {
-        return new PhotoGallery(storageAdapter, bookingDAO);
+    public PhotoGallery photoGallery(StorageAdapter storageAdapter, BookingRepositoryPort bookingRepositoryPort) {
+        return new PhotoGallery(storageAdapter, bookingRepositoryPort);
     }
 
     @Bean
@@ -145,11 +145,11 @@ public class AppConfig {
     }
 
     @Bean
-    public ReviewService reviewService(BookingDAO bookingDAO,
-                                       ClientDAO clientDAO,
-                                       ProfessionalDAO professionalDAO,
-                                       ReviewDAO reviewDAO) {
-        return new ReviewService(bookingDAO, clientDAO, professionalDAO, reviewDAO);
+    public ReviewService reviewService(BookingRepositoryPort bookingRepositoryPort,
+                                       ClientRepositoryPort clientRepositoryPort,
+                                       ProfessionalRepositoryPort professionalRepositoryPort,
+                                       ReviewRepositoryPort reviewRepositoryPort) {
+        return new ReviewService(bookingRepositoryPort, clientRepositoryPort, professionalRepositoryPort, reviewRepositoryPort);
     }
 
     @Bean
@@ -158,11 +158,11 @@ public class AppConfig {
     }
 
     @Bean
-    public BeautyAtHomeFacade beautyAtHomeFacade(ClientDAO clientDAO,
-                                                 ProfessionalDAO professionalDAO,
-                                                 ServiceDAO serviceDAO,
-                                                 BookingDAO bookingDAO,
-                                                 ReviewDAO reviewDAO,
+    public BeautyAtHomeFacade beautyAtHomeFacade(ClientRepositoryPort clientRepositoryPort,
+                                                 ProfessionalRepositoryPort professionalRepositoryPort,
+                                                 ServiceRepositoryPort serviceRepositoryPort,
+                                                 BookingRepositoryPort bookingRepositoryPort,
+                                                 ReviewRepositoryPort reviewRepositoryPort,
                                                  BookingService bookingService,
                                                  PricingStrategy pricingStrategy,
                                                  ProfessionalAbstractFactory professionalFactory,
@@ -171,11 +171,11 @@ public class AppConfig {
                                                  ConsentProxy consentProxy,
                                                  CommandInvoker commandInvoker,
                                                  AgendaSingleton agendaSingleton) {
-        return new BeautyAtHomeFacade(clientDAO,
-                professionalDAO,
-                serviceDAO,
-                bookingDAO,
-                reviewDAO,
+        return new BeautyAtHomeFacade(clientRepositoryPort,
+                professionalRepositoryPort,
+                serviceRepositoryPort,
+                bookingRepositoryPort,
+                reviewRepositoryPort,
                 bookingService,
                 pricingStrategy,
                 professionalFactory,

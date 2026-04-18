@@ -12,15 +12,15 @@ import org.springframework.web.bind.annotation.GetMapping;
 import com.beautyathome.application.facade.BeautyAtHomeFacade;
 import com.beautyathome.domain.booking.Booking;
 import com.beautyathome.domain.booking.history.ServiceHistory;
+import com.beautyathome.domain.booking.port.out.BookingRepositoryPort;
 import com.beautyathome.domain.client.Client;
+import com.beautyathome.domain.client.port.out.ClientRepositoryPort;
 import com.beautyathome.domain.professional.Professional;
+import com.beautyathome.domain.professional.port.out.ProfessionalRepositoryPort;
 import com.beautyathome.domain.review.Review;
+import com.beautyathome.domain.review.port.out.ReviewRepositoryPort;
 import com.beautyathome.domain.service.ServiceComponent;
-import infrastructure.persistence.dao.BookingDAO;
-import infrastructure.persistence.dao.ClientDAO;
-import infrastructure.persistence.dao.ProfessionalDAO;
-import infrastructure.persistence.dao.ReviewDAO;
-import infrastructure.persistence.dao.ServiceDAO;
+import com.beautyathome.domain.service.port.out.ServiceRepositoryPort;
 
 /**
  * Simple MVC controller that renders the landing page with quick stats and links.
@@ -28,34 +28,34 @@ import infrastructure.persistence.dao.ServiceDAO;
 @Controller
 public class HomeViewController {
 
-        private final ClientDAO clientDAO;
-        private final ProfessionalDAO professionalDAO;
-        private final BookingDAO bookingDAO;
-        private final ReviewDAO reviewDAO;
-        private final ServiceDAO serviceDAO;
+        private final ClientRepositoryPort clientRepositoryPort;
+        private final ProfessionalRepositoryPort professionalRepositoryPort;
+        private final BookingRepositoryPort bookingRepositoryPort;
+        private final ReviewRepositoryPort reviewRepositoryPort;
+        private final ServiceRepositoryPort serviceRepositoryPort;
         private final BeautyAtHomeFacade facade;
 
-    public HomeViewController(ClientDAO clientDAO,
-                              ProfessionalDAO professionalDAO,
-                                                          BookingDAO bookingDAO,
-                                                          ReviewDAO reviewDAO,
-                                                          ServiceDAO serviceDAO,
-                                                          BeautyAtHomeFacade facade) {
-        this.clientDAO = clientDAO;
-        this.professionalDAO = professionalDAO;
-        this.bookingDAO = bookingDAO;
-                this.reviewDAO = reviewDAO;
-                this.serviceDAO = serviceDAO;
-                this.facade = facade;
+    public HomeViewController(ClientRepositoryPort clientRepositoryPort,
+                              ProfessionalRepositoryPort professionalRepositoryPort,
+                              BookingRepositoryPort bookingRepositoryPort,
+                              ReviewRepositoryPort reviewRepositoryPort,
+                              ServiceRepositoryPort serviceRepositoryPort,
+                              BeautyAtHomeFacade facade) {
+        this.clientRepositoryPort = clientRepositoryPort;
+        this.professionalRepositoryPort = professionalRepositoryPort;
+        this.bookingRepositoryPort = bookingRepositoryPort;
+        this.reviewRepositoryPort = reviewRepositoryPort;
+        this.serviceRepositoryPort = serviceRepositoryPort;
+        this.facade = facade;
     }
 
     @GetMapping({"/", "/home"})
     public String home(Model model) {
-        List<Client> clients = snapshot(clientDAO.findAll());
-        List<Professional> professionals = snapshot(professionalDAO.findAll());
-        List<Booking> bookings = snapshot(bookingDAO.findAll());
-        List<Review> reviews = snapshot(reviewDAO.findAll());
-                List<ServiceComponent> services = serviceDAO.findAll();
+        List<Client> clients = snapshot(clientRepositoryPort.findAll());
+        List<Professional> professionals = snapshot(professionalRepositoryPort.findAll());
+        List<Booking> bookings = snapshot(bookingRepositoryPort.findAll());
+        List<Review> reviews = snapshot(reviewRepositoryPort.findAll());
+                List<ServiceComponent> services = snapshot(serviceRepositoryPort.findAll());
                 List<ServiceHistory> historyHighlights = professionals.stream()
                                 .flatMap(pro -> facade.viewProfessionalHistory(pro.getId()).stream())
                                 .sorted(Comparator.comparing(ServiceHistory::getDateTime).reversed())

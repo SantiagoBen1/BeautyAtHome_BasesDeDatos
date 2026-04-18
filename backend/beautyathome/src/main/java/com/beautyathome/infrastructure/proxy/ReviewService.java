@@ -8,36 +8,36 @@ import com.beautyathome.domain.client.Client;
 import com.beautyathome.domain.professional.Professional;
 import com.beautyathome.domain.review.Review;
 import com.beautyathome.domain.review.ReviewBuilder;
-import infrastructure.persistence.dao.BookingDAO;
-import infrastructure.persistence.dao.ClientDAO;
-import infrastructure.persistence.dao.ProfessionalDAO;
-import infrastructure.persistence.dao.ReviewDAO;
+import com.beautyathome.domain.booking.port.out.BookingRepositoryPort;
+import com.beautyathome.domain.client.port.out.ClientRepositoryPort;
+import com.beautyathome.domain.professional.port.out.ProfessionalRepositoryPort;
+import com.beautyathome.domain.review.port.out.ReviewRepositoryPort;
 
 /**
  * Servicio que compone reseÃ±as a partir de daos y mantiene un cache ligero.
  */
 public class ReviewService {
 
-	private final BookingDAO bookingDAO;
-	private final ClientDAO clientDAO;
-	private final ProfessionalDAO professionalDAO;
-	private final ReviewDAO reviewDAO;
+	private final BookingRepositoryPort bookingRepositoryPort;
+	private final ClientRepositoryPort clientRepositoryPort;
+	private final ProfessionalRepositoryPort professionalRepositoryPort;
+	private final ReviewRepositoryPort reviewRepositoryPort;
 	private final List<Review> cache = new CopyOnWriteArrayList<>();
 
 	/**
-	 * @param bookingDAO DAO de reservas
-	 * @param clientDAO DAO de clientes
-	 * @param professionalDAO DAO de profesionales
-	 * @param reviewDAO DAO de reseÃ±as
+	 * @param bookingRepositoryPort puerto de repositorio de reservas
+	 * @param clientRepositoryPort puerto de repositorio de clientes
+	 * @param professionalRepositoryPort puerto de repositorio de profesionales
+	 * @param reviewRepositoryPort puerto de repositorio de reseÃ±as
 	 */
-	public ReviewService(BookingDAO bookingDAO,
-						 ClientDAO clientDAO,
-						 ProfessionalDAO professionalDAO,
-						 ReviewDAO reviewDAO) {
-		this.bookingDAO = bookingDAO;
-		this.clientDAO = clientDAO;
-		this.professionalDAO = professionalDAO;
-		this.reviewDAO = reviewDAO;
+	public ReviewService(BookingRepositoryPort bookingRepositoryPort,
+						 ClientRepositoryPort clientRepositoryPort,
+						 ProfessionalRepositoryPort professionalRepositoryPort,
+						 ReviewRepositoryPort reviewRepositoryPort) {
+		this.bookingRepositoryPort = bookingRepositoryPort;
+		this.clientRepositoryPort = clientRepositoryPort;
+		this.professionalRepositoryPort = professionalRepositoryPort;
+		this.reviewRepositoryPort = reviewRepositoryPort;
 	}
 
 	/**
@@ -49,12 +49,12 @@ public class ReviewService {
 	 * @return reseÃ±a almacenada
 	 */
 	public Review createReview(String bookingId, int rating, String text) {
-		Booking booking = bookingDAO.findById(bookingId);
+		Booking booking = bookingRepositoryPort.findById(bookingId);
 		if (booking == null) {
 			throw new IllegalArgumentException("Booking not found: " + bookingId);
 		}
-		Client client = clientDAO.findById(booking.getClientId());
-		Professional professional = professionalDAO.findById(booking.getProfessionalId());
+		Client client = clientRepositoryPort.findById(booking.getClientId());
+		Professional professional = professionalRepositoryPort.findById(booking.getProfessionalId());
 		if (client == null || professional == null) {
 			throw new IllegalStateException("Booking references missing entities");
 		}
@@ -67,7 +67,7 @@ public class ReviewService {
 				.withText(text)
 				.build();
 
-		Review persisted = reviewDAO.save(review);
+		Review persisted = reviewRepositoryPort.save(review);
 		cache.add(persisted);
 		return persisted;
 	}
@@ -79,7 +79,7 @@ public class ReviewService {
 	 * @return promedio calculado
 	 */
 	public double getAverageForProfessional(String professionalId) {
-		List<Review> reviews = reviewDAO.findByProfessionalId(professionalId);
+		List<Review> reviews = reviewRepositoryPort.findByProfessionalId(professionalId);
 		if (reviews.isEmpty()) {
 			reviews = cache;
 		}

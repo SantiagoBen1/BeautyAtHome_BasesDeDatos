@@ -1,7 +1,6 @@
 package com.beautyathome.infrastructure.adapter.out.persistence.adapter;
 
 import com.beautyathome.domain.professional.Professional;
-import infrastructure.persistence.dao.ProfessionalDAO;
 import com.beautyathome.infrastructure.adapter.out.persistence.entity.ProfessionalEntity;
 import com.beautyathome.infrastructure.adapter.out.persistence.repository.JpaProfessionalRepository;
 import org.springframework.stereotype.Component;
@@ -11,11 +10,11 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Component
-public class PostgresProfessionalDAO implements ProfessionalDAO {
+public class ProfessionalPersistenceAdapter implements ProfessionalRepositoryPort {
 
     private final JpaProfessionalRepository repository;
 
-    public PostgresProfessionalDAO(JpaProfessionalRepository repository) {
+    public ProfessionalPersistenceAdapter(JpaProfessionalRepository repository) {
         this.repository = repository;
     }
 

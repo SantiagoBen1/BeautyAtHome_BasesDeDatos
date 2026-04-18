@@ -23,12 +23,12 @@ import com.beautyathome.domain.professional.Brand;
 import com.beautyathome.domain.professional.HairStylist;
 import com.beautyathome.domain.professional.Professional;
 import com.beautyathome.domain.review.Review;
+import com.beautyathome.domain.review.port.out.ReviewRepositoryPort;
 import com.beautyathome.domain.review.rating.RatingValueObject;
 import com.beautyathome.domain.service.ServiceComponent;
 import com.beautyathome.domain.service.ServiceLeaf;
 import com.beautyathome.domain.service.image.ImageReference;
 import com.beautyathome.domain.service.image.Photo;
-import infrastructure.persistence.dao.ReviewDAO;
 import com.beautyathome.infrastructure.adapter.in.ui.viewmodel.ReviewShowcase;
 
 @ExtendWith(MockitoExtension.class)
@@ -38,7 +38,7 @@ class ReviewViewControllerTest {
     private BeautyAtHomeFacade facade;
 
     @Mock
-    private ReviewDAO reviewDAO;
+    private ReviewRepositoryPort reviewRepositoryPort;
 
     private ReviewViewController controller;
 
@@ -48,7 +48,7 @@ class ReviewViewControllerTest {
 
     @BeforeEach
     void setUp() {
-        controller = new ReviewViewController(facade, reviewDAO);
+        controller = new ReviewViewController(facade, reviewRepositoryPort);
         professional = new HairStylist(
             "pro-1",
             "Eva",
@@ -83,7 +83,7 @@ class ReviewViewControllerTest {
         ServiceHistory history = new ServiceHistory(booking, client, professional, service, LocalDateTime.now());
         history.addPhoto(new Photo(booking.getId(), professional.getId(), "https://img/cover.jpg", true));
 
-        when(reviewDAO.findAll()).thenReturn(List.of(review));
+        when(reviewRepositoryPort.findAll()).thenReturn(List.of(review));
         when(facade.viewProfessionalHistory(professional.getId())).thenReturn(List.of(history));
 
         Model model = new ConcurrentModel();

@@ -17,8 +17,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.beautyathome.application.facade.BeautyAtHomeFacade;
 import com.beautyathome.domain.booking.history.ServiceHistory;
 import com.beautyathome.domain.review.Review;
+import com.beautyathome.domain.review.port.out.ReviewRepositoryPort;
 import com.beautyathome.domain.service.image.Photo;
-import infrastructure.persistence.dao.ReviewDAO;
 import com.beautyathome.infrastructure.adapter.in.ui.viewmodel.ReviewForm;
 import com.beautyathome.infrastructure.adapter.in.ui.viewmodel.ReviewShowcase;
 
@@ -30,16 +30,16 @@ import com.beautyathome.infrastructure.adapter.in.ui.viewmodel.ReviewShowcase;
 public class ReviewViewController {
 
     private final BeautyAtHomeFacade facade;
-    private final ReviewDAO reviewDAO;
+    private final ReviewRepositoryPort reviewRepositoryPort;
 
-    public ReviewViewController(BeautyAtHomeFacade facade, ReviewDAO reviewDAO) {
+    public ReviewViewController(BeautyAtHomeFacade facade, ReviewRepositoryPort reviewRepositoryPort) {
         this.facade = facade;
-        this.reviewDAO = reviewDAO;
+        this.reviewRepositoryPort = reviewRepositoryPort;
     }
 
     @GetMapping
     public String listReviews(Model model) {
-        List<Review> reviews = StreamSupport.stream(reviewDAO.findAll().spliterator(), false)
+        List<Review> reviews = StreamSupport.stream(reviewRepositoryPort.findAll().spliterator(), false)
             .collect(Collectors.toList());
         double averageRating = reviews.stream()
             .mapToInt(review -> review.getRating().getValue())

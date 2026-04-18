@@ -18,8 +18,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.beautyathome.application.facade.BeautyAtHomeFacade;
 import com.beautyathome.domain.professional.Professional;
-import com.domain.professional.port.out.ProfessionalRepositoryPort;
-import infrastructure.persistence.dao.ReviewRepositoryPort;
+import com.beautyathome.domain.professional.port.out.ProfessionalRepositoryPort;
+import com.beautyathome.domain.review.port.out.ReviewRepositoryPort;
 import com.beautyathome.infrastructure.adapter.in.ui.viewmodel.ProfessionalForm;
 import com.beautyathome.infrastructure.adapter.in.ui.viewmodel.ProfessionalShowcase;
 
@@ -35,11 +35,11 @@ public class ProfessionalViewController {
     private final ReviewRepositoryPort reviewRepositoryPort;
 
     public ProfessionalViewController(BeautyAtHomeFacade facade,
-                                      ProfessionalDAO professionalDAO,
-                                      ReviewDAO reviewDAO) {
+                                      ProfessionalRepositoryPort professionalRepositoryPort,
+                                      ReviewRepositoryPort reviewRepositoryPort) {
         this.facade = facade;
-        this.professionalDAO = professionalDAO;
-        this.reviewDAO = reviewDAO;
+        this.professionalRepositoryPort = professionalRepositoryPort;
+        this.reviewRepositoryPort = reviewRepositoryPort;
     }
 
     @GetMapping
@@ -47,7 +47,7 @@ public class ProfessionalViewController {
                                     @RequestParam(required = false) String category,
                                     Model model) {
         Iterable<Professional> data = (zone == null && category == null)
-                ? professionalDAO.findAll()
+                ? professionalRepositoryPort.findAll()
                 : facade.searchProfessionals(zone, category);
         List<Professional> professionals = StreamSupport
                 .stream(data.spliterator(), false)
@@ -64,7 +64,7 @@ public class ProfessionalViewController {
                 professional,
                 facade.listServices(professional.getId()),
                 facade.viewProfessionalHistory(professional.getId()),
-                reviewDAO.findByProfessionalId(professional.getId()),
+                reviewRepositoryPort.findByProfessionalId(professional.getId()),
                 ratingByProfessional.getOrDefault(professional.getId(), 0.0)))
             .collect(Collectors.toList());
         model.addAttribute("professionals", professionals);

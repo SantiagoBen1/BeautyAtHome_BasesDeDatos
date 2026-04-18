@@ -1,7 +1,7 @@
 package com.beautyathome.application.booking.validation;
 
 import com.beautyathome.application.booking.BookingRequest;
-import infrastructure.persistence.dao.ClientDAO;
+import com.beautyathome.domain.client.port.out.ClientRepositoryPort;
 
 /**
  * Basic guard that ensures the client exists (and therefore has accepted the
@@ -9,17 +9,17 @@ import infrastructure.persistence.dao.ClientDAO;
  */
 public class ConsentValidationHandler extends BookingRequestHandler {
 
-    private final ClientDAO clientDAO;
+    private final ClientRepositoryPort clientRepositoryPort;
 
     /**
-     * @param clientDAO DAO used to verify the client identity
+     * @param clientRepositoryPort Repository used to verify the client identity
      */
-    public ConsentValidationHandler(ClientDAO clientDAO) {
-        this.clientDAO = clientDAO;
+    public ConsentValidationHandler(ClientRepositoryPort clientRepositoryPort) {
+        this.clientRepositoryPort = clientRepositoryPort;
     }
 
     @Override
     protected boolean doHandle(BookingRequest request) {
-        return clientDAO.findById(request.getClientId()) != null;
+        return clientRepositoryPort+.findById(request.getClientId()) != null;
     }
 }

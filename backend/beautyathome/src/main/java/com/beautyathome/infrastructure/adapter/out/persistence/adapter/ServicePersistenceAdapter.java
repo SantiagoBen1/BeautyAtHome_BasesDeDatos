@@ -1,7 +1,6 @@
 package com.beautyathome.infrastructure.adapter.out.persistence.adapter;
 
 import com.beautyathome.domain.service.ServiceComponent;
-import infrastructure.persistence.dao.ServiceDAO;
 import com.beautyathome.infrastructure.adapter.out.persistence.entity.ServiceEntity;
 import com.beautyathome.infrastructure.adapter.out.persistence.repository.JpaServiceRepository;
 import org.springframework.stereotype.Component;
@@ -11,11 +10,11 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Component
-public class PostgresServiceDAO implements ServiceDAO {
+public class ServicePersistenceAdapter implements ServiceRepositoryPort {
 
     private final JpaServiceRepository repository;
 
-    public PostgresServiceDAO(JpaServiceRepository repository) {
+    public ServicePersistenceAdapter(JpaServiceRepository repository) {
         this.repository = repository;
     }
 
