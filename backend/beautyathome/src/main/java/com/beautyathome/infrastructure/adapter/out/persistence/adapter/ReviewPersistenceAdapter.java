@@ -1,54 +1,60 @@
 package com.beautyathome.infrastructure.adapter.out.persistence.adapter;
 
-import com.beautyathome.domain.review.Review;
-import com.beautyathome.infrastructure.adapter.out.persistence.entity.ReviewEntity;
-import com.beautyathome.infrastructure.adapter.out.persistence.repository.JpaReviewRepository;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+
 import org.springframework.stereotype.Component;
 
-import java.util.List;
-import java.util.UUID;
-import java.util.stream.Collectors;
+import com.beautyathome.domain.review.Review;
+import com.beautyathome.domain.review.port.out.ReviewRepositoryPort;
+import com.beautyathome.infrastructure.adapter.out.persistence.entity.ReviewEntity;
+import com.beautyathome.infrastructure.adapter.out.persistence.repository.JpaReviewRepository;
 
 @Component
 public class ReviewPersistenceAdapter implements ReviewRepositoryPort {
 
-    private final JpaReviewRepository repository;
+    private final JpaReviewRepository jpaRepository;
 
-    public ReviewPersistenceAdapter(JpaReviewRepository repository) {
-        this.repository = repository;
+    public ReviewPersistenceAdapter(JpaReviewRepository jpaRepository) {
+        this.jpaRepository = jpaRepository;
     }
 
     @Override
-    public Review save(Review entity) {
-        if (entity == null) throw new IllegalArgumentException("Review cannot be null");
-        
-        String id = (entity.getId() == null || entity.getId().isBlank()) 
-                ? UUID.randomUUID().toString() 
-                : entity.getId();
-                
-        ReviewEntity reviewEntity = new ReviewEntity(id, 
-                entity.getBooking().getId(), 
-                entity.getRating().getValue(), // Asumiendo que se usa RatingValueObject
-                entity.getComment());
-                
-        ReviewEntity saved = repository.save(reviewEntity);
-        
-        // TODO: Reconstruir usando ReviewBuilder
-        return null;
+    public Review save(Review review) {
+        ReviewEntity entity = toEntity(review); 
+        return toDomain(jpaRepository.save(entity));
     }
 
     @Override
-    public Review findById(String id) {
-        return null;
+    public Optional<Review> findById(String id) {
+        return jpaRepository.findById(id).map(this::toDomain);
     }
 
     @Override
-    public void delete(String id) {
-        if (id != null) repository.deleteById(id);
+    public List<Review> findByProfessionalId(String professionalId) {
+        // Necesitarás definir findByProfessionalId en JpaReviewRepository
+        return List.of(); 
     }
 
     @Override
     public List<Review> findAll() {
-        return List.of();
+        return jpaRepository.findAll().stream().map(this::toDomain).collect(Collectors.toList());
+    }
+
+    @Override
+    public void delete(String id) {
+        jpaRepository.deleteById(id);
+    }
+
+    private ReviewEntity toEntity(Review domain) {
+        ReviewEntity entity = new ReviewEntity();
+        entity.setId(domain.getId());
+        return entity;
+    }
+
+    private Review toDomain(ReviewEntity entity) {
+        // Emplea tu ReviewBuilder aquí 
+        return null; 
     }
 }

@@ -13,8 +13,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import com.beautyathome.domain.booking.Booking;
-import com.beautyathome.domain.service.image.Photo;
 import com.beautyathome.domain.booking.port.out.BookingRepositoryPort;
+import com.beautyathome.domain.service.image.Photo;
 
 class ConsentProxyTest {
 
@@ -25,10 +25,10 @@ class ConsentProxyTest {
     private FakeBookingRepository bookingRepository;
 
     @BeforeEach
-    void setUp() {
+    public void setUp() {
         bookingRepository = new FakeBookingRepository();
         bookingRepository.save(new Booking(BOOKING_ID, "client-1", PROFESSIONAL_ID, "service-1", LocalDateTime.now()));
-        PhotoGallery gallery = new PhotoGallery(new StorageAdapter(), bookingRepository);
+        PhotoGallery gallery = new PhotoGallery(bookingRepository);
         consentProxy = new ConsentProxy(gallery);
     }
 
@@ -46,8 +46,9 @@ class ConsentProxyTest {
 
     @Test
     void addPhotoRejectsUnknownBooking() {
-        assertThrows(IllegalArgumentException.class,
+        IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class,
             () -> consentProxy.addPhoto("missing", "https://img/fail.jpg", true));
+        assertTrue(thrown.getMessage().contains("Booking not found"), "Debe rechazar booking faltante");
     }
 
     private static class FakeBookingRepository implements BookingRepositoryPort {
@@ -61,8 +62,15 @@ class ConsentProxyTest {
         }
 
         @Override
-        public Booking findById(String id) {
-            return bookings.get(id);
+        public java.util.Optional<Booking> findById(String id) {
+            return java.util.Optional.ofNullable(bookings.get(id));
+        }
+
+        @Override
+        public List<Booking> findByClientId(String clientId) {
+            return bookings.values().stream()
+                .filter(booking -> clientId.equals(booking.getClientId()))
+                .toList();
         }
 
         @Override

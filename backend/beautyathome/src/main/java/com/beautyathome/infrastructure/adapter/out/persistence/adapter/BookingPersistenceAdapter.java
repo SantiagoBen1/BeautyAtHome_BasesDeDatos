@@ -1,15 +1,16 @@
-package com.beautyathome.infrastructure.adapter.out.persistence.adapter; // Paquete corregido
-
-import com.beautyathome.domain.booking.Booking;
-import com.beautyathome.domain.booking.port.out.BookingRepositoryPort;
-// Imports actualizados a la nueva estructura de carpetas
-import com.beautyathome.infrastructure.adapter.out.persistence.entity.BookingEntity;
-import com.beautyathome.infrastructure.adapter.out.persistence.repository.JpaBookingRepository;
-import org.springframework.stereotype.Component;
+package com.beautyathome.infrastructure.adapter.out.persistence.adapter;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+
+import org.springframework.stereotype.Component;
+
+import com.beautyathome.domain.booking.Booking;
+import com.beautyathome.domain.booking.BookingBuilder;
+import com.beautyathome.domain.booking.port.out.BookingRepositoryPort;
+import com.beautyathome.infrastructure.adapter.out.persistence.entity.BookingEntity;
+import com.beautyathome.infrastructure.adapter.out.persistence.repository.JpaBookingRepository;
 
 @Component
 public class BookingPersistenceAdapter implements BookingRepositoryPort {
@@ -23,8 +24,7 @@ public class BookingPersistenceAdapter implements BookingRepositoryPort {
     @Override
     public Booking save(Booking booking) {
         BookingEntity entity = toEntity(booking);
-        BookingEntity savedEntity = jpaRepository.save(entity);
-        return toDomain(savedEntity);
+        return toDomain(jpaRepository.save(entity));
     }
 
     @Override
@@ -35,15 +35,20 @@ public class BookingPersistenceAdapter implements BookingRepositoryPort {
     @Override
     public List<Booking> findByProfessionalId(String professionalId) {
         return jpaRepository.findByProfessionalId(professionalId).stream()
-                .map(this::toDomain)
-                .collect(Collectors.toList());
+                .map(this::toDomain).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<Booking> findByClientId(String clientId) {
+        // Necesitarás agregar findByClientId en JpaBookingRepository
+        // return jpaRepository.findByClientId(clientId).stream().map(this::toDomain).collect(Collectors.toList());
+        return List.of(); 
     }
 
     @Override
     public List<Booking> findAll() {
         return jpaRepository.findAll().stream()
-                .map(this::toDomain)
-                .collect(Collectors.toList());
+                .map(this::toDomain).collect(Collectors.toList());
     }
 
     @Override
@@ -52,22 +57,19 @@ public class BookingPersistenceAdapter implements BookingRepositoryPort {
     }
 
     private BookingEntity toEntity(Booking domain) {
-        return new BookingEntity(
-            domain.getId(),
-            domain.getClientId(),
-            domain.getProfessionalId(),
-            domain.getDate(),
-            domain.getState() != null ? domain.getState().toString() : "PENDING" 
-        );
+        BookingEntity entity = new BookingEntity();
+        entity.setId(domain.getId());
+        entity.setClientId(domain.getClientId());
+        entity.setProfessionalId(domain.getProfessionalId());
+        entity.setBookingDate(domain.getDateTime());
+        return entity;
     }
 
     private Booking toDomain(BookingEntity entity) {
-        return new Booking.Builder()
-            .id(entity.getId())
-            .clientId(entity.getClientId())
-            .professionalId(entity.getProfessionalId())
-            .date(entity.getBookingDate())
-            // .status(entity.getStatus()) // Descomenta y adapta segÃºn tu BookingBuilder
+        return new BookingBuilder()
+            .withClient(entity.getClientId())
+            .withProfessional(entity.getProfessionalId())
+            .withDate(entity.getBookingDate())
             .build();
     }
 }

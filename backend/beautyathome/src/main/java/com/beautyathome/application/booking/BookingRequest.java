@@ -13,6 +13,7 @@ public class BookingRequest {
     private String serviceId;
     private String zone;
     private LocalDateTime dateTime;
+    private boolean consentGiven;
 
     /**
      * Default constructor used by serialization frameworks.
@@ -100,5 +101,13 @@ public class BookingRequest {
      */
     public void setDateTime(LocalDateTime dateTime) {
         this.dateTime = dateTime;
+    }
+
+    public boolean isConsentGiven() {
+        return consentGiven;
+    }
+
+    public void setConsentGiven(boolean consentGiven) {
+        this.consentGiven = consentGiven;
     }
 }

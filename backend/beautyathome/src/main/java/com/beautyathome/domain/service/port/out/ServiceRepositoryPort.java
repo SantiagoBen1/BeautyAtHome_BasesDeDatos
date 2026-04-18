@@ -7,7 +7,9 @@ import com.beautyathome.domain.service.ServiceComponent;
 
 public interface ServiceRepositoryPort {
     ServiceComponent save(ServiceComponent service);
+    ServiceComponent saveForProfessional(String professionalId, ServiceComponent service);
     Optional<ServiceComponent> findById(String id);
+    List<ServiceComponent> findByProfessionalId(String professionalId);
     List<ServiceComponent> findAll();
     void delete(String id);
 }

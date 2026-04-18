@@ -1,35 +1,29 @@
 package com.beautyathome.application.booking.validation;
 
+import java.util.Optional;
+
+import org.springframework.stereotype.Component;
 
 import com.beautyathome.application.booking.BookingRequest;
 import com.beautyathome.domain.professional.Professional;
 import com.beautyathome.domain.professional.port.out.ProfessionalRepositoryPort;
-import com.beautyathome.infrastructure.proxy.CoverageProxy;
-            
-/**
- * Ensures the selected professional provides coverage in the requested zone.
- */
+
+@Component
 public class CoverageValidationHandler extends BookingRequestHandler {
 
-    private final ProfessionalRepositoryPort professionalRepositoryPort;
+    private final ProfessionalRepositoryPort professionalRepository;
 
-    /**
-     * @param professionalRepositoryPort Repository used to load professional coverage metadata
-     */
-    public CoverageValidationHandler(ProfessionalRepositoryPort professionalRepositoryPort) {
-        this.professionalRepositoryPort = professionalRepositoryPort;
+    public CoverageValidationHandler(ProfessionalRepositoryPort professionalRepository) {
+        this.professionalRepository = professionalRepository;
     }
 
     @Override
     protected boolean doHandle(BookingRequest request) {
-        Professional professional = professionalRepositoryPort.findById(request.getProfessionalId());
-        if (professional == null) {
-            return false;
+        Optional<Professional> professionalOpt = professionalRepository.findById(request.getProfessionalId());
+        
+        if (professionalOpt.isEmpty() || professionalOpt.get().getCoverageAreas().stream().noneMatch(area -> area.getName().equalsIgnoreCase(request.getZone()))) {
+            throw new IllegalArgumentException("El profesional no cubre esta área.");
         }
-        if (request.getZone() == null || request.getZone().isBlank()) {
-            return true;
-        }
-        CoverageProxy proxy = new CoverageProxy(professional);
-        return proxy.isAvailable(request.getZone());
+        return true;
     }
 }

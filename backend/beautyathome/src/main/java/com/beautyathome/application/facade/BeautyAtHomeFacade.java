@@ -11,6 +11,8 @@ import java.util.Objects;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
+import org.springframework.stereotype.Service;
+
 import com.beautyathome.application.booking.BookingRequest;
 import com.beautyathome.application.booking.BookingService;
 import com.beautyathome.domain.booking.AgendaSingleton;
@@ -20,87 +22,65 @@ import com.beautyathome.domain.booking.command.CommandInvoker;
 import com.beautyathome.domain.booking.history.ServiceHistory;
 import com.beautyathome.domain.booking.observer.ClientNotificationObserver;
 import com.beautyathome.domain.booking.observer.ProfessionalNotificationObserver;
+import com.beautyathome.domain.booking.port.out.BookingRepositoryPort;
 import com.beautyathome.domain.client.Client;
+import com.beautyathome.domain.client.port.out.ClientRepositoryPort;
 import com.beautyathome.domain.pricing.PricingStrategy;
 import com.beautyathome.domain.professional.Professional;
 import com.beautyathome.domain.professional.factory.ProfessionalAbstractFactory;
+import com.beautyathome.domain.professional.port.out.ProfessionalRepositoryPort;
 import com.beautyathome.domain.review.Review;
+import com.beautyathome.domain.review.port.out.ReviewRepositoryPort;
 import com.beautyathome.domain.service.ServiceComponent;
 import com.beautyathome.domain.service.ServiceLeaf;
 import com.beautyathome.domain.service.builder.ServiceDirector;
 import com.beautyathome.domain.service.image.Photo;
-import com.beautyathome.infrastructure.adapter.out.media.ConsentProxy;
-import com.beautyathome.domain.booking.port.out.BookingRepositoryPort;
-import com.beautyathome.domain.client.port.out.ClientRepositoryPort;
-import com.beautyathome.domain.professional.port.out.ProfessionalRepositoryPort;
-import com.beautyathome.domain.review.port.out.ReviewRepositoryPort;
 import com.beautyathome.domain.service.port.out.ServiceRepositoryPort;
+import com.beautyathome.infrastructure.adapter.out.media.ConsentProxy;
 import com.beautyathome.infrastructure.proxy.CoverageProxy;
 import com.beautyathome.infrastructure.proxy.ReviewGuardProxy;
 
-/**
- * Fachada que expone casos de uso de Beauty At Home hacia controladores o UI.
- * Orquesta servicios de dominio, DAOs y proxies para mantener bajo acoplamiento.
- */
+@Service
 public class BeautyAtHomeFacade {
-
     private final ClientRepositoryPort clientRepositoryPort;
     private final ProfessionalRepositoryPort professionalRepositoryPort;
-    private final ServiceRepositoryPort serviceRepositoryPort;
     private final BookingRepositoryPort bookingRepositoryPort;
+    private final ServiceRepositoryPort serviceRepositoryPort;
     private final ReviewRepositoryPort reviewRepositoryPort;
-    private final BookingService bookingService;
-    private final PricingStrategy pricingStrategy;
     private final ProfessionalAbstractFactory professionalFactory;
     private final ServiceDirector serviceDirector;
+    private final PricingStrategy pricingStrategy;
+    private final BookingService bookingService;
+    private final AgendaSingleton agendaSingleton;
+    private final CommandInvoker commandInvoker;
     private final ReviewGuardProxy reviewGuardProxy;
     private final ConsentProxy consentProxy;
-    private final CommandInvoker commandInvoker;
-    private final AgendaSingleton agendaSingleton;
 
-    /**
-     * Ensambla la fachada con todas sus dependencias colaboradoras.
-     *
-     * @param clientRepositoryPort repositorio de clientes
-     * @param professionalRepositoryPort repositorio de profesionales
-     * @param serviceRepositoryPort repositorio de servicios
-     * @param bookingRepositoryPort repositorio de reservas
-     * @param reviewRepositoryPort repositorio de reseÃ±as
-     * @param bookingService servicio de aplicaciÃ³n para reservas
-     * @param pricingStrategy estrategia de precios activa
-     * @param professionalFactory fÃ¡brica para crear profesionales
-     * @param serviceDirector director para construir servicios bÃ¡sicos
-     * @param reviewGuardProxy proxy que evita reseÃ±as duplicadas
-     * @param consentProxy proxy encargado de fotos y consentimientos
-    * @param commandInvoker invocador que ejecuta los comandos de agenda
-    * @param agendaSingleton agenda compartida que actÃºa como receptor
-     */
-    public BeautyAtHomeFacade(ClientRepositoryPort clientRepositoryPort,
-                               ProfessionalRepositoryPort professionalRepositoryPort,
-                               ServiceRepositoryPort serviceRepositoryPort,
-                               BookingRepositoryPort bookingRepositoryPort,
-                               ReviewRepositoryPort reviewRepositoryPort,
-                               BookingService bookingService,
-                               PricingStrategy pricingStrategy,
-                               ProfessionalAbstractFactory professionalFactory,
-                               ServiceDirector serviceDirector,
-                               ReviewGuardProxy reviewGuardProxy,
-                               ConsentProxy consentProxy,
-                               CommandInvoker commandInvoker,
-                               AgendaSingleton agendaSingleton) {
+    public BeautyAtHomeFacade(ClientRepositoryPort clientRepositoryPort, 
+                              ProfessionalRepositoryPort professionalRepositoryPort,
+                              BookingRepositoryPort bookingRepositoryPort, 
+                              ServiceRepositoryPort serviceRepositoryPort,
+                              ReviewRepositoryPort reviewRepositoryPort,
+                              ProfessionalAbstractFactory professionalFactory,
+                              ServiceDirector serviceDirector,
+                              PricingStrategy pricingStrategy,
+                              BookingService bookingService,
+                              CommandInvoker commandInvoker,
+                              ReviewGuardProxy reviewGuardProxy,
+                              ConsentProxy consentProxy) {
         this.clientRepositoryPort = clientRepositoryPort;
         this.professionalRepositoryPort = professionalRepositoryPort;
-        this.serviceRepositoryPort = serviceRepositoryPort;
         this.bookingRepositoryPort = bookingRepositoryPort;
+        this.serviceRepositoryPort = serviceRepositoryPort;
         this.reviewRepositoryPort = reviewRepositoryPort;
-        this.bookingService = bookingService;
-        this.pricingStrategy = pricingStrategy;
         this.professionalFactory = professionalFactory;
         this.serviceDirector = serviceDirector;
+        this.pricingStrategy = pricingStrategy;
+        this.bookingService = bookingService;
+        this.commandInvoker = commandInvoker;
         this.reviewGuardProxy = reviewGuardProxy;
         this.consentProxy = consentProxy;
-        this.commandInvoker = commandInvoker;
-        this.agendaSingleton = agendaSingleton;     
+        this.agendaSingleton = AgendaSingleton.getInstance();
     }
 
     /**
@@ -197,7 +177,7 @@ public class BeautyAtHomeFacade {
                                                double price,
                                                int duration,
                                                List<String> imageUrls) {
-        if (professionalRepositoryPort.findById(professionalId) == null) {
+        if (professionalRepositoryPort.findById(professionalId).orElse(null) == null) {
             throw new IllegalArgumentException("Professional not found: " + professionalId);
         }
         ServiceComponent service = serviceDirector.constructService(name, description, price, duration, imageUrls);
@@ -235,9 +215,9 @@ public class BeautyAtHomeFacade {
                                String serviceId,
                                LocalDateTime dateTime,
                                String zone) {
-        ServiceComponent service = serviceRepositoryPort.findById(serviceId);
-        Client client = clientRepositoryPort.findById(clientId);
-        Professional professional = professionalRepositoryPort.findById(professionalId);
+        ServiceComponent service = serviceRepositoryPort.findById(serviceId).orElse(null);
+        Client client = clientRepositoryPort.findById(clientId).orElse(null);
+        Professional professional = professionalRepositoryPort.findById(professionalId).orElse(null);
 
         if (service == null) {
             throw new IllegalArgumentException("Service not found: " + serviceId);
@@ -334,18 +314,18 @@ public class BeautyAtHomeFacade {
      */
     public List<ServiceHistory> viewProfessionalHistory(String professionalId) {
         List<Booking> bookings = bookingRepositoryPort.findByProfessionalId(professionalId);
-        Professional professional = professionalRepositoryPort.findById(professionalId);
+        Professional professional = professionalRepositoryPort.findById(professionalId).orElse(null);
         if (professional == null) {
             return Collections.emptyList();
         }
         List<Photo> professionalPhotos = consentProxy.listByProfessional(professionalId);
         List<ServiceHistory> histories = new ArrayList<>();
         for (Booking booking : bookings) {
-            Client client = clientRepositoryPort.findById(booking.getClientId());
+            Client client = clientRepositoryPort.findById(booking.getClientId()).orElse(null);
             if (client == null) {
                 continue;
             }
-            ServiceComponent service = serviceRepositoryPort.findById(booking.getServiceId());
+            ServiceComponent service = serviceRepositoryPort.findById(booking.getServiceId()).orElse(null);
             ServiceHistory history = new ServiceHistory(booking, client, professional, service, booking.getDateTime());
             List<Photo> photos = professionalPhotos.stream()
                     .filter(photo -> Objects.equals(photo.getBookingId(), booking.getId()))

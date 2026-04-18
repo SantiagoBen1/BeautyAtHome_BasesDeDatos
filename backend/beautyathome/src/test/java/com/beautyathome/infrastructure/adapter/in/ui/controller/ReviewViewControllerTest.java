@@ -47,7 +47,7 @@ class ReviewViewControllerTest {
     private ServiceComponent service;
 
     @BeforeEach
-    void setUp() {
+    public void setUp() {
         controller = new ReviewViewController(facade, reviewRepositoryPort);
         professional = new HairStylist(
             "pro-1",
@@ -90,13 +90,24 @@ class ReviewViewControllerTest {
         String view = controller.listReviews(model);
 
         assertEquals("reviews", view);
+        
+        List<?> reviewCardsObj = (List<?>) model.getAttribute("reviewCards");
+        assertNotNull(reviewCardsObj);
+        
         @SuppressWarnings("unchecked")
-        List<ReviewShowcase> cards = (List<ReviewShowcase>) model.getAttribute("reviewCards");
-        assertNotNull(cards);
+        List<ReviewShowcase> cards = (List<ReviewShowcase>) reviewCardsObj;
+        
         assertEquals(1, cards.size());
         assertEquals("https://img/cover.jpg", cards.get(0).getCoverPhoto());
         assertEquals(review, cards.get(0).getReview());
-        assertEquals(review, ((List<Review>) model.getAttribute("reviews")).get(0));
+        
+        List<?> reviewsObj = (List<?>) model.getAttribute("reviews");
+        assertNotNull(reviewsObj);
+        
+        @SuppressWarnings("unchecked")
+        List<Review> rawReviews = (List<Review>) reviewsObj;
+        assertEquals(review, rawReviews.get(0));
+        
         verify(facade).viewProfessionalHistory(professional.getId());
     }
 }
