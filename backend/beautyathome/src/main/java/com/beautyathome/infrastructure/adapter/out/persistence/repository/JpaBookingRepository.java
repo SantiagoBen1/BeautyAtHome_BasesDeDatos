@@ -9,6 +9,8 @@ import com.beautyathome.infrastructure.adapter.out.persistence.entity.BookingEnt
 
 @Repository
 public interface JpaBookingRepository extends JpaRepository<BookingEntity, String> {
-    // Spring infiere la query SQL automÃ¡ticamente por el nombre del mÃ©todo
+    // Spring infiere la query SQL automáticamente por el nombre del método
     List<BookingEntity> findByProfessionalId(String professionalId);
+
+    List<BookingEntity> findByClientId(String clientId);
 }

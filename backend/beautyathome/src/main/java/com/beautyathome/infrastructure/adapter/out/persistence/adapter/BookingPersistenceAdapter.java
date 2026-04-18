@@ -40,9 +40,10 @@ public class BookingPersistenceAdapter implements BookingRepositoryPort {
 
     @Override
     public List<Booking> findByClientId(String clientId) {
-        // Necesitarás agregar findByClientId en JpaBookingRepository
-        // return jpaRepository.findByClientId(clientId).stream().map(this::toDomain).collect(Collectors.toList());
-        return List.of(); 
+        // Implementación corregida usando el nuevo método del repositorio JPA
+        return jpaRepository.findByClientId(clientId).stream()
+                .map(this::toDomain)
+                .collect(Collectors.toList());
     }
 
     @Override
@@ -57,19 +58,24 @@ public class BookingPersistenceAdapter implements BookingRepositoryPort {
     }
 
     private BookingEntity toEntity(Booking domain) {
-        BookingEntity entity = new BookingEntity();
-        entity.setId(domain.getId());
-        entity.setClientId(domain.getClientId());
-        entity.setProfessionalId(domain.getProfessionalId());
-        entity.setBookingDate(domain.getDateTime());
-        return entity;
+        String status = domain.getState() != null ? domain.getState().getClass().getSimpleName() : "PENDING";
+        
+        return new BookingEntity(
+            domain.getId(),
+            domain.getClientId(),
+            domain.getProfessionalId(),
+            domain.getDateTime(),
+            status
+        );
     }
 
     private Booking toDomain(BookingEntity entity) {
         return new BookingBuilder()
+            .withId(entity.getId())
             .withClient(entity.getClientId())
             .withProfessional(entity.getProfessionalId())
             .withDate(entity.getBookingDate())
+            // .withStatus(entity.getStatus()) // Necesario en el Builder para reconstruir el State
             .build();
     }
 }
