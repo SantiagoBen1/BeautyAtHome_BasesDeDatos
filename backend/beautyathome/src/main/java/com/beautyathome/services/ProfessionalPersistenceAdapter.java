@@ -26,9 +26,31 @@ public class ProfessionalPersistenceAdapter implements ProfessionalRepository {
 
     @Override
     @Transactional
-    @SuppressWarnings("null")
     public Professional save(Professional professional) {
-        ProfessionalEntity entity = toEntity(professional);
+        ProfessionalEntity entity = null;
+        if (professional.getId() != null && !professional.getId().isEmpty()) {
+            try {
+                int id = Integer.parseInt(professional.getId());
+                entity = jpaRepository.findById(id).orElse(null);
+            } catch (NumberFormatException e) {}
+        }
+        
+        if (entity == null) {
+            entity = new ProfessionalEntity();
+            entity.setPhone("0000000000"); // Dummy
+            entity.setRating(5.0);
+            entity.setStatus("activo");
+            
+            BrandEntity brand = new BrandEntity();
+            brand.setId(1);
+            entity.setBrand(brand);
+        }
+        
+        entity.setUserName(professional.getName() != null ? professional.getName().replaceAll("\\s+", "_").toLowerCase() : "unknown");
+        entity.setPhotoUrl(professional.getPhotoUrl());
+        entity.setBioExperience(professional.getExperienceSummary());
+        entity.setSpeciality(professional.getClass().getSimpleName());
+        
         return toDomain(jpaRepository.save(entity));
     }
 
@@ -56,25 +78,7 @@ public class ProfessionalPersistenceAdapter implements ProfessionalRepository {
         } catch (NumberFormatException e) {}
     }
 
-    private ProfessionalEntity toEntity(Professional domain) {
-        ProfessionalEntity entity = new ProfessionalEntity();
-        if (domain.getId() != null && !domain.getId().isEmpty()) {
-            try {
-                entity.setId(Integer.parseInt(domain.getId()));
-            } catch (NumberFormatException e) {}
-        }
-        
-        entity.setUserName(domain.getName() != null ? domain.getName().replaceAll("\\s+", "_").toLowerCase() : "unknown");
-        entity.setPhone("0000000000"); // Dummy
-        entity.setRating(5.0);
-        entity.setPhotoUrl(domain.getPhotoUrl());
-        
-        BrandEntity brand = new BrandEntity();
-        brand.setId(1);
-        entity.setBrand(brand);
-        
-        return entity;
-    }
+    // toEntity removed since logic is handled in save()
 
     private Professional toDomain(ProfessionalEntity entity) {
         com.beautyathome.domain.professional.Brand domainBrand = null;

@@ -116,7 +116,16 @@ public class BookingPersistenceAdapter implements BookingRepository {
         entity.setServices(services);
         
         if (domain.getStatusName() != null) {
-            entity.setStatus(domain.getStatusName().toLowerCase());
+            String status = domain.getStatusName().toLowerCase();
+            switch (status) {
+                case "pending": entity.setStatus("pendiente"); break;
+                case "confirmed": entity.setStatus("confirmado"); break;
+                case "completed": entity.setStatus("completado"); break;
+                case "cancelled": entity.setStatus("cancelado"); break;
+                default: entity.setStatus("pendiente"); break;
+            }
+        } else {
+            entity.setStatus("pendiente");
         }
         
         return entity;

@@ -235,6 +235,7 @@ public class BeautyAtHomeFacade {
         request.setServiceIds(serviceIds);
         request.setDateTime(dateTime);
         request.setZone(zone);
+        request.setConsentGiven(true); // Auto-consent for MVC submissions
 
         Booking booking = bookingService.book(request);
         booking.attach(new ClientNotificationObserver(client));

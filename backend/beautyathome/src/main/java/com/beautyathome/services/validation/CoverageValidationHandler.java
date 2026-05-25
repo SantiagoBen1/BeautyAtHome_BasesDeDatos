@@ -21,7 +21,16 @@ public class CoverageValidationHandler extends BookingRequestHandler {
     protected boolean doHandle(BookingRequest request) {
         Optional<Professional> professionalOpt = professionalRepository.findById(request.getProfessionalId());
         
-        if (professionalOpt.isEmpty() || professionalOpt.get().getCoverageAreas().stream().noneMatch(area -> area.getName().equalsIgnoreCase(request.getZone()))) {
+        if (professionalOpt.isEmpty()) {
+            throw new IllegalArgumentException("El profesional no existe.");
+        }
+        
+        String zone = request.getZone();
+        if (zone == null || zone.trim().isEmpty()) {
+            return true;
+        }
+        
+        if (professionalOpt.get().getCoverageAreas().stream().noneMatch(area -> area.getName().equalsIgnoreCase(zone))) {
             throw new IllegalArgumentException("El profesional no cubre esta área.");
         }
         return true;

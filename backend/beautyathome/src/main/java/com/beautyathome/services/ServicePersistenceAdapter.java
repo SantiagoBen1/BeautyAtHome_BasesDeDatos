@@ -34,8 +34,14 @@ public class ServicePersistenceAdapter implements ServiceRepository {
     }
     
     @Override
+    @Transactional
     public ServiceComponent saveForProfessional(String professionalId, ServiceComponent service) {
-        return save(service);
+        ServiceEntity entity = toEntity(service);
+        entity = jpaRepository.save(entity);
+        try {
+            jpaRepository.linkServiceToProfessional(Integer.parseInt(professionalId), entity.getId());
+        } catch (NumberFormatException e) {}
+        return toDomain(entity);
     }
 
     @Override
@@ -76,8 +82,9 @@ public class ServicePersistenceAdapter implements ServiceRepository {
         ServiceEntity entity = new ServiceEntity();
         
         entity.setName(domain.getName());
-        entity.setBasePrice(0.0); // No getter in component
-        entity.setEstimatedDuration(60);
+        entity.setDescription(domain.getDescription());
+        entity.setBasePrice(domain.getPrice() > 0 ? domain.getPrice() : 0.0);
+        entity.setEstimatedDuration(domain.getDurationMin() > 0 ? domain.getDurationMin() : 60);
         
         CategoryEntity category = new CategoryEntity();
         category.setId(1);

@@ -27,11 +27,28 @@ public class ReviewPersistenceAdapter implements ReviewRepository {
     @Override
     @Transactional
     public Review save(Review review) {
-        // Since Review class doesn't expose getters for the domain entities easily right now,
-        // we persist a dummy or use an alternative way for this adapter.
         ReviewEntity entity = new ReviewEntity();
-        entity.setRating(5.0);
-        entity.setComment("dummy");
+        
+        if (review.getBooking() != null && review.getBooking().getId() != null) {
+            try {
+                com.beautyathome.entities.BookingEntity booking = new com.beautyathome.entities.BookingEntity();
+                booking.setId(Integer.parseInt(review.getBooking().getId()));
+                entity.setBooking(booking);
+            } catch (NumberFormatException e) {}
+        }
+        
+        if (review.getRating() != null) {
+            entity.setRating((double) review.getRating().getValue());
+        } else {
+            entity.setRating(5.0);
+        }
+        
+        entity.setComment(review.getText());
+        
+        if (review.getCreatedAt() != null) {
+            entity.setCreatedDate(review.getCreatedAt().toLocalDate());
+        }
+        
         return toDomain(jpaRepository.save(entity));
     }
 

@@ -24,9 +24,26 @@ public class ClientPersistenceAdapter implements ClientRepository {
 
     @Override
     @Transactional
-    @SuppressWarnings("null")
     public Client save(Client client) {
-        ClientEntity entity = toEntity(client);
+        ClientEntity entity = null;
+        if (client.getId() != null && !client.getId().isEmpty()) {
+            try {
+                int id = Integer.parseInt(client.getId());
+                entity = jpaRepository.findById(id).orElse(null);
+            } catch (NumberFormatException e) {}
+        }
+        
+        if (entity == null) {
+            entity = new ClientEntity();
+            entity.setPhone("0000000000");
+            entity.setPasswordHash("temporary_hash_123");
+        }
+
+        String[] parts = client.getName() != null ? client.getName().split(" ", 2) : new String[]{"Unknown"};
+        entity.setFirstName(parts[0]);
+        entity.setLastName(parts.length > 1 ? parts[1] : "");
+        entity.setEmail(client.getEmail());
+
         return toDomain(jpaRepository.save(entity));
     }
 
@@ -53,23 +70,7 @@ public class ClientPersistenceAdapter implements ClientRepository {
         } catch (NumberFormatException e) {}
     }
 
-    private ClientEntity toEntity(Client domain) {
-        ClientEntity entity = new ClientEntity();
-        if (domain.getId() != null && !domain.getId().isEmpty()) {
-            try {
-                entity.setId(Integer.parseInt(domain.getId()));
-            } catch (NumberFormatException e) {}
-        }
-        
-        String[] parts = domain.getName() != null ? domain.getName().split(" ", 2) : new String[]{"Unknown"};
-        entity.setFirstName(parts[0]);
-        entity.setLastName(parts.length > 1 ? parts[1] : "");
-        entity.setEmail(domain.getEmail());
-        entity.setPhone("0000000000"); // Dummy for SQL
-        entity.setPasswordHash("temporary_hash_123"); // Dummy for SQL
-        
-        return entity;
-    }
+    // toEntity removed since logic is handled in save()
 
     private Client toDomain(ClientEntity entity) {
         return new Client(
