@@ -14,6 +14,7 @@ com\beautyathome\domain\client\Client.class
 com\beautyathome\domain\service\composite\ServiceIterator.class
 com\beautyathome\domain\booking\observer\NotificationObserver.class
 com\beautyathome\dto\ProfessionalRegistrationRequest.class
+com\beautyathome\entities\CategoryEntity.class
 com\beautyathome\dto\ClientRegistrationRequest.class
 com\beautyathome\dto\viewmodel\ProfessionalShowcase$ServiceCard.class
 com\beautyathome\domain\booking\AgendaSingleton.class
@@ -27,6 +28,7 @@ com\beautyathome\dto\viewmodel\ProfessionalShowcase$ServiceSpotlight.class
 com\beautyathome\domain\service\decorator\ServiceDecorator.class
 com\beautyathome\services\media\ConsentProxy.class
 com\beautyathome\domain\service\factory\HaircutCreator.class
+com\beautyathome\entities\PhotoReferenceEntity.class
 com\beautyathome\repositories\JpaBookingRepository.class
 com\beautyathome\exceptions\BookingConflictException.class
 com\beautyathome\services\validation\BookingRequestHandler.class
@@ -73,11 +75,13 @@ com\beautyathome\controllers\BookingController.class
 com\beautyathome\domain\professional\factory\ProfessionalAbstractFactory.class
 com\beautyathome\controllers\ProfessionalController.class
 com\beautyathome\domain\booking\state\PendingState.class
+com\beautyathome\entities\CoverageAreaEntity.class
 com\beautyathome\services\validation\AvailabilityValidationHandler.class
 com\beautyathome\domain\review\Review.class
 com\beautyathome\domain\service\decorator\TravelFeeAddon.class
 com\beautyathome\services\validation\PaymentValidationHandler.class
 com\beautyathome\dto\BrandRequest.class
+com\beautyathome\entities\BrandEntity.class
 com\beautyathome\domain\service\decorator\PremiumAddon.class
 com\beautyathome\domain\professional\factory\ConcreteProfessionalFactory.class
 com\beautyathome\domain\professional\Brand.class

@@ -19,7 +19,7 @@ public class Booking implements BookingSubject {
     private final String id;
     private final String clientId;
     private final String professionalId;
-    private final String serviceId;
+    private final List<String> serviceIds;
     private LocalDateTime dateTime;
 
     private BookingState state;
@@ -34,11 +34,20 @@ public class Booking implements BookingSubject {
      * @param serviceId service identifier
      * @param dateTime scheduled date/time
      */
-    public Booking(String id, String clientId, String professionalId, String serviceId, LocalDateTime dateTime) {
+    /**
+     * Creates a booking in the pending state.
+     *
+     * @param id unique identifier
+     * @param clientId client owning the booking
+     * @param professionalId assigned professional
+     * @param serviceIds list of service identifiers
+     * @param dateTime scheduled date/time
+     */
+    public Booking(String id, String clientId, String professionalId, List<String> serviceIds, LocalDateTime dateTime) {
         this.id = id;
         this.clientId = clientId;
         this.professionalId = professionalId;
-        this.serviceId = serviceId;
+        this.serviceIds = new ArrayList<>(serviceIds);
         this.dateTime = dateTime;
         this.state = new PendingState();
     }
@@ -65,10 +74,10 @@ public class Booking implements BookingSubject {
     }
 
     /**
-     * @return service identifier booked
+     * @return service identifiers booked
      */
-    public String getServiceId() {
-        return serviceId;
+    public List<String> getServiceIds() {
+        return new ArrayList<>(serviceIds);
     }
 
     /**

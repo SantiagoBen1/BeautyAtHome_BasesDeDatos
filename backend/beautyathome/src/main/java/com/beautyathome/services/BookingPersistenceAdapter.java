@@ -1,5 +1,7 @@
 package com.beautyathome.services;
 
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -8,9 +10,10 @@ import org.springframework.stereotype.Component;
 
 import com.beautyathome.domain.booking.Booking;
 import com.beautyathome.domain.booking.BookingBuilder;
-import com.beautyathome.repositories.BookingRepository;
-import com.beautyathome.repositories.JpaBookingRepository;
 import com.beautyathome.entities.BookingEntity;
+import com.beautyathome.entities.ClientEntity;
+import com.beautyathome.entities.ProfessionalEntity;
+import com.beautyathome.entities.ServiceEntity;
 import com.beautyathome.repositories.BookingRepository;
 import com.beautyathome.repositories.JpaBookingRepository;
 
@@ -31,53 +34,97 @@ public class BookingPersistenceAdapter implements BookingRepository {
 
     @Override
     public Optional<Booking> findById(String id) {
-        return jpaRepository.findById(id).map(this::toDomain);
-    }
-
-    @Override
-    public List<Booking> findByProfessionalId(String professionalId) {
-        return jpaRepository.findByProfessionalId(professionalId).stream()
-                .map(this::toDomain).collect(Collectors.toList());
-    }
-
-    @Override
-    public List<Booking> findByClientId(String clientId) {
-        // Implementación corregida usando el nuevo método del repositorio JPA
-        return jpaRepository.findByClientId(clientId).stream()
-                .map(this::toDomain)
-                .collect(Collectors.toList());
+        try {
+            return jpaRepository.findById(Integer.parseInt(id)).map(this::toDomain);
+        } catch (NumberFormatException e) {
+            return Optional.empty();
+        }
     }
 
     @Override
     public List<Booking> findAll() {
         return jpaRepository.findAll().stream()
-                .map(this::toDomain).collect(Collectors.toList());
+                .map(this::toDomain)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<Booking> findByProfessionalId(String professionalId) {
+        try {
+            return jpaRepository.findByProfessionalId(Integer.parseInt(professionalId)).stream()
+                    .map(this::toDomain)
+                    .collect(Collectors.toList());
+        } catch (NumberFormatException e) {
+            return List.of();
+        }
+    }
+
+    @Override
+    public List<Booking> findByClientId(String clientId) {
+        try {
+            return jpaRepository.findByClientId(Integer.parseInt(clientId)).stream()
+                    .map(this::toDomain)
+                    .collect(Collectors.toList());
+        } catch (NumberFormatException e) {
+            return List.of();
+        }
     }
 
     @Override
     public void delete(String id) {
-        jpaRepository.deleteById(id);
+        try {
+            jpaRepository.deleteById(Integer.parseInt(id));
+        } catch (NumberFormatException e) {}
     }
 
     private BookingEntity toEntity(Booking domain) {
-        String status = domain.getState() != null ? domain.getState().getClass().getSimpleName() : "PENDING";
+        BookingEntity entity = new BookingEntity();
+        if (domain.getId() != null && !domain.getId().isEmpty()) {
+            try {
+                entity.setId(Integer.parseInt(domain.getId()));
+            } catch (NumberFormatException e) {}
+        }
         
-        return new BookingEntity(
-            domain.getId(),
-            domain.getClientId(),
-            domain.getProfessionalId(),
-            domain.getDateTime(),
-            status
-        );
+        ClientEntity client = new ClientEntity();
+        try {
+            client.setId(Integer.parseInt(domain.getClientId()));
+        } catch (Exception e) {}
+        entity.setClient(client);
+
+        ProfessionalEntity professional = new ProfessionalEntity();
+        try {
+            professional.setId(Integer.parseInt(domain.getProfessionalId()));
+        } catch (Exception e) {}
+        entity.setProfessional(professional);
+        
+        entity.setDatetimeStart(domain.getDateTime());
+        entity.setDatetimeEnd(domain.getDateTime().plusHours(1)); // Dummy end time
+        entity.setTotalPrice(100.0); // Dummy price
+        
+        List<ServiceEntity> services = new ArrayList<>();
+        for (String sId : domain.getServiceIds()) {
+            try {
+                ServiceEntity s = new ServiceEntity();
+                s.setId(Integer.parseInt(sId));
+                services.add(s);
+            } catch (Exception e) {}
+        }
+        entity.setServices(services);
+        
+        return entity;
     }
 
     private Booking toDomain(BookingEntity entity) {
+        List<String> serviceIds = entity.getServices().stream()
+            .map(s -> String.valueOf(s.getId()))
+            .collect(Collectors.toList());
+
         return new BookingBuilder()
-            .withId(entity.getId())
-            .withClient(entity.getClientId())
-            .withProfessional(entity.getProfessionalId())
-            .withDate(entity.getBookingDate())
-            // .withStatus(entity.getStatus()) // Necesario en el Builder para reconstruir el State
+            .withId(String.valueOf(entity.getId()))
+            .withClient(String.valueOf(entity.getClient().getId()))
+            .withProfessional(String.valueOf(entity.getProfessional().getId()))
+            .withServices(serviceIds)
+            .withDate(entity.getDatetimeStart())
             .build();
     }
 }

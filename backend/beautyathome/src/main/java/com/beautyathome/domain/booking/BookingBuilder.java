@@ -2,6 +2,8 @@ package com.beautyathome.domain.booking;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.beautyathome.domain.service.ServiceComponent;
 
@@ -14,7 +16,7 @@ public class BookingBuilder {
     private String id;
     private String clientId;
     private String professionalId;
-    private String serviceId;
+    private List<String> serviceIds = new ArrayList<>();
     private LocalDateTime dateTime;
 
     /**
@@ -51,13 +53,13 @@ public class BookingBuilder {
     }
 
     /**
-     * Indicates the booked service by its identifier.
+     * Indicates the booked services by their identifiers.
      *
-     * @param serviceId service identifier
+     * @param serviceIds list of service identifiers
      * @return builder instance
      */
-    public BookingBuilder withService(String serviceId) {
-        this.serviceId = serviceId;
+    public BookingBuilder withServices(List<String> serviceIds) {
+        this.serviceIds = serviceIds;
         return this;
     }
 
@@ -69,7 +71,7 @@ public class BookingBuilder {
      */
     public BookingBuilder withService(ServiceComponent service) {
         if (service != null) {
-            this.serviceId = service.getName();
+            this.serviceIds.add(service.getName());
         }
         return this;
     }
@@ -93,6 +95,6 @@ public class BookingBuilder {
      */
     public Booking build() {
         String safeId = id == null ? UUID.randomUUID().toString() : id;
-        return new Booking(safeId, clientId, professionalId, serviceId, dateTime);
+        return new Booking(safeId, clientId, professionalId, serviceIds, dateTime);
     }
 }

@@ -1,6 +1,7 @@
 package com.beautyathome.dto;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  * DTO that transports booking information from the API layer into the domain
@@ -10,7 +11,7 @@ public class BookingRequest {
 
     private String clientId;
     private String professionalId;
-    private String serviceId;
+    private List<String> serviceIds;
     private String zone;
     private LocalDateTime dateTime;
     private boolean consentGiven;
@@ -25,10 +26,10 @@ public class BookingRequest {
     /**
      * Convenience constructor to populate all properties at once.
      */
-    public BookingRequest(String clientId, String professionalId, String serviceId, String zone, LocalDateTime dateTime) {
+    public BookingRequest(String clientId, String professionalId, List<String> serviceIds, String zone, LocalDateTime dateTime) {
         this.clientId = clientId;
         this.professionalId = professionalId;
-        this.serviceId = serviceId;
+        this.serviceIds = serviceIds;
         this.zone = zone;
         this.dateTime = dateTime;
     }
@@ -62,17 +63,17 @@ public class BookingRequest {
     }
 
     /**
-     * @return identifier of the service to execute
+     * @return identifiers of the services to execute
      */
-    public String getServiceId() {
-        return serviceId;
+    public List<String> getServiceIds() {
+        return serviceIds;
     }
 
     /**
-     * @param serviceId identifier of the service to execute
+     * @param serviceIds identifiers of the services to execute
      */
-    public void setServiceId(String serviceId) {
-        this.serviceId = serviceId;
+    public void setServiceIds(List<String> serviceIds) {
+        this.serviceIds = serviceIds;
     }
 
     /**

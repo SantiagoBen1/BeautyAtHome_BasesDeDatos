@@ -30,7 +30,7 @@ public class BookServiceCommand implements Command {
                 draft.getId(),
                 draft.getClientId(),
                 draft.getProfessionalId(),
-                draft.getServiceId(),
+                draft.getServiceIds(),
                 draft.getDateTime()
         );
     }

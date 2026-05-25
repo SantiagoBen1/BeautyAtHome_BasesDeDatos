@@ -32,7 +32,7 @@ public class BookingService {
         Booking booking = new BookingBuilder()
             .withClient(request.getClientId())
             .withProfessional(request.getProfessionalId())
-            .withService(request.getServiceId())
+            .withServices(request.getServiceIds())
             .withDate(request.getDateTime())
             .build(); // AsegÃºrate de llamar a build()
 

@@ -30,7 +30,7 @@ public class BookingController {
         return facade.bookService(
                 request.getClientId(),
                 request.getProfessionalId(),
-                request.getServiceId(),
+                request.getServiceIds(),
                 request.getDateTime(),
                 request.getZone()
         );

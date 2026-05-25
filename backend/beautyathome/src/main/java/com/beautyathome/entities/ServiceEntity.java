@@ -5,61 +5,62 @@ import java.util.List;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "services")
 public class ServiceEntity {
-    
-    @Id
-    @Column(length = 36)
-    private String id;
 
-    @Column(nullable = false, length = 200)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_service")
+    private Integer id;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_categoria", nullable = false)
+    private CategoryEntity category;
+
+    @Column(name = "name", nullable = false, length = 100)
     private String name;
 
-    @Column(length = 1000)
+    @Column(name = "description", length = 300)
     private String description;
 
-    @Column(nullable = false)
-    private Double price;
+    @Column(name = "base_price", nullable = false, precision = 10, scale = 2)
+    private Double basePrice;
 
-    @Column(name = "duration_minutes")
-    private Integer durationMinutes;
+    @Column(name = "estimated_duration", nullable = false)
+    private Integer estimatedDuration;
 
-    @Column(length = 100)
-    private String category;
-
-    @Column(name = "professional_id", length = 36)
-    private String professionalId;
-
-    @OneToMany(mappedBy = "service")
+    @ManyToMany(mappedBy = "services")
     private List<BookingEntity> bookings = new ArrayList<>();
+
+    @ManyToMany(mappedBy = "services")
+    private List<ProfessionalEntity> professionals = new ArrayList<>();
 
     public ServiceEntity() {}
 
-    public ServiceEntity(String id, String name, Double price) {
-        this.id = id;
-        this.name = name;
-        this.price = price;
-    }
-
-    // Getters y Setters
-    public String getId() { return id; }
-    public void setId(String id) { this.id = id; }
+    public Integer getId() { return id; }
+    public void setId(Integer id) { this.id = id; }
+    public CategoryEntity getCategory() { return category; }
+    public void setCategory(CategoryEntity category) { this.category = category; }
     public String getName() { return name; }
     public void setName(String name) { this.name = name; }
     public String getDescription() { return description; }
     public void setDescription(String description) { this.description = description; }
-    public Double getPrice() { return price; }
-    public void setPrice(Double price) { this.price = price; }
-    public Integer getDurationMinutes() { return durationMinutes; }
-    public void setDurationMinutes(Integer durationMinutes) { this.durationMinutes = durationMinutes; }
-    public String getCategory() { return category; }
-    public void setCategory(String category) { this.category = category; }
-    public String getProfessionalId() { return professionalId; }
-    public void setProfessionalId(String professionalId) { this.professionalId = professionalId; }
+    public Double getBasePrice() { return basePrice; }
+    public void setBasePrice(Double basePrice) { this.basePrice = basePrice; }
+    public Integer getEstimatedDuration() { return estimatedDuration; }
+    public void setEstimatedDuration(Integer estimatedDuration) { this.estimatedDuration = estimatedDuration; }
     public List<BookingEntity> getBookings() { return bookings; }
+    public void setBookings(List<BookingEntity> bookings) { this.bookings = bookings; }
+    public List<ProfessionalEntity> getProfessionals() { return professionals; }
+    public void setProfessionals(List<ProfessionalEntity> professionals) { this.professionals = professionals; }
 }

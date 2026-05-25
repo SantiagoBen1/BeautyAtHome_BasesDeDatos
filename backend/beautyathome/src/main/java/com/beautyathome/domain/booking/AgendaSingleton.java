@@ -50,6 +50,7 @@ public class AgendaSingleton {
                         && overlaps(booking.getDateTime(), dateTime, durationMinutes));
     }
 
+
     /**
      * Convenience availability check receiving the professional object instead
      * of its identifier.
@@ -76,9 +77,9 @@ public class AgendaSingleton {
     public synchronized Booking book(String bookingId,
                                      String clientId,
                                      String professionalId,
-                                     String serviceId,
+                                     List<String> serviceIds,
                                      LocalDateTime dateTime) {
-        Booking booking = new Booking(bookingId, clientId, professionalId, serviceId, dateTime);
+        Booking booking = new Booking(bookingId, clientId, professionalId, serviceIds, dateTime);
         bookings.add(booking);
         return booking;
     }
@@ -98,8 +99,8 @@ public class AgendaSingleton {
                         ServiceComponent service,
                         LocalDateTime dateTime) {
         String bookingId = UUID.randomUUID().toString();
-        String serviceId = service == null ? "" : service.getName();
-        return book(bookingId, clientId, professionalId, serviceId, dateTime);
+        List<String> serviceIds = service == null ? new ArrayList<>() : List.of(service.getName());
+        return book(bookingId, clientId, professionalId, serviceIds, dateTime);
     }
 
     /**

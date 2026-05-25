@@ -49,7 +49,7 @@ public class BookingViewController {
             LocalDateTime dateTime = LocalDateTime.parse(form.getDateTime());
             facade.bookService(form.getClientId(),
                     form.getProfessionalId(),
-                    form.getServiceId(),
+                    List.of(form.getServiceId()),
                     dateTime,
                     form.getZone());
             redirectAttributes.addFlashAttribute("message", "Reserva creada correctamente");

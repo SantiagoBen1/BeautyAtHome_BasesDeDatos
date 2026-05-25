@@ -1,59 +1,57 @@
 package com.beautyathome.entities;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "reviews")
 public class ReviewEntity {
-    
+
     @Id
-    @Column(length = 36)
-    private String id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_review")
+    private Integer id;
 
-    @Column(name = "booking_id", nullable = false, length = 36)
-    private String bookingId;
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_booking", nullable = false, unique = true)
+    private BookingEntity booking;
 
-    @Column(nullable = false)
-    private Integer rating;
+    @Column(name = "rating", nullable = false, precision = 3, scale = 2)
+    private Double rating;
 
-    @Column(length = 2000)
+    @Column(name = "comment", length = 300)
     private String comment;
 
-    @Column(name = "created_at")
-    private LocalDateTime createdAt;
+    @Column(name = "created_date", nullable = false)
+    private LocalDate createdDate = LocalDate.now();
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "booking_id", referencedColumnName = "id", insertable = false, updatable = false)
-    private BookingEntity booking;
+    @OneToMany(mappedBy = "review")
+    private List<PhotoReferenceEntity> photos = new ArrayList<>();
 
     public ReviewEntity() {}
 
-    public ReviewEntity(String id, String bookingId, Integer rating, String comment) {
-        this.id = id;
-        this.bookingId = bookingId;
-        this.rating = rating;
-        this.comment = comment;
-        this.createdAt = LocalDateTime.now();
-    }
-
-    // Getters y Setters
-    public String getId() { return id; }
-    public void setId(String id) { this.id = id; }
-    public String getBookingId() { return bookingId; }
-    public void setBookingId(String bookingId) { this.bookingId = bookingId; }
-    public Integer getRating() { return rating; }
-    public void setRating(Integer rating) { this.rating = rating; }
+    public Integer getId() { return id; }
+    public void setId(Integer id) { this.id = id; }
+    public BookingEntity getBooking() { return booking; }
+    public void setBooking(BookingEntity booking) { this.booking = booking; }
+    public Double getRating() { return rating; }
+    public void setRating(Double rating) { this.rating = rating; }
     public String getComment() { return comment; }
     public void setComment(String comment) { this.comment = comment; }
-    public LocalDateTime getCreatedAt() { return createdAt; }
-    public void setCreatedAt(LocalDateTime createdAt) { this.createdAt = createdAt; }
-    public BookingEntity getBooking() { return booking; }
+    public LocalDate getCreatedDate() { return createdDate; }
+    public void setCreatedDate(LocalDate createdDate) { this.createdDate = createdDate; }
+    public List<PhotoReferenceEntity> getPhotos() { return photos; }
+    public void setPhotos(List<PhotoReferenceEntity> photos) { this.photos = photos; }
 }

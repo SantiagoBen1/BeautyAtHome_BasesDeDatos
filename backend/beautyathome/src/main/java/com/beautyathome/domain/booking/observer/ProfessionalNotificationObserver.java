@@ -37,7 +37,7 @@ public class ProfessionalNotificationObserver implements NotificationObserver {
 				.append(DATE_FORMATTER.format(booking.getDateTime()));
 		}
 		message.append(" Cliente: ").append(booking.getClientId());
-		message.append(" Servicio: ").append(booking.getServiceId());
+		message.append(" Servicio: ").append(booking.getServiceIds().get(0));
 
 		System.out.printf("[PRO-NOTIFY] to=%s message=%s%n",
 			professional.getName() == null ? "profesional" : professional.getName(),

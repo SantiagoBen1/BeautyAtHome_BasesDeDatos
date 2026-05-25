@@ -5,60 +5,89 @@ import java.util.List;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "professionals")
 public class ProfessionalEntity {
-    
+
     @Id
-    @Column(length = 36)
-    private String id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_profesional")
+    private Integer id;
 
-    @Column(nullable = false, length = 150)
-    private String name;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_brand", nullable = false)
+    private BrandEntity brand;
 
-    @Column(length = 50)
-    private String type;
+    @Column(name = "user_name", nullable = false, unique = true, length = 80)
+    private String userName;
 
-    @Column(name = "photo_url", length = 500)
-    private String photoUrl;
+    @Column(name = "bio_experience", length = 300)
+    private String bioExperience;
 
-    @Column(name = "experience_summary", length = 1000)
-    private String experienceSummary;
+    @Column(name = "speciality", length = 100)
+    private String speciality;
 
-    @Column(name = "brand_name", length = 100)
-    private String brandName;
+    @Column(name = "phone", length = 20)
+    private String phone;
 
-    @Column(name = "brand_logo_url", length = 500)
-    private String brandLogoUrl;
+    @Column(name = "rating", precision = 3, scale = 2)
+    private Double rating;
+
+    @Column(name = "status", nullable = false, length = 30)
+    private String status = "activo";
 
     @OneToMany(mappedBy = "professional")
     private List<BookingEntity> bookings = new ArrayList<>();
 
+    @ManyToMany
+    @JoinTable(
+        name = "professional_service",
+        joinColumns = @JoinColumn(name = "id_profesional"),
+        inverseJoinColumns = @JoinColumn(name = "id_service")
+    )
+    private List<ServiceEntity> services = new ArrayList<>();
+
+    @ManyToMany
+    @JoinTable(
+        name = "professional_coverage",
+        joinColumns = @JoinColumn(name = "id_profesional"),
+        inverseJoinColumns = @JoinColumn(name = "id_coverage")
+    )
+    private List<CoverageAreaEntity> coverageAreas = new ArrayList<>();
+
     public ProfessionalEntity() {}
 
-    public ProfessionalEntity(String id, String name) {
-        this.id = id;
-        this.name = name;
-    }
-
-    // Getters y Setters
-    public String getId() { return id; }
-    public void setId(String id) { this.id = id; }
-    public String getName() { return name; }
-    public void setName(String name) { this.name = name; }
-    public String getType() { return type; }
-    public void setType(String type) { this.type = type; }
-    public String getPhotoUrl() { return photoUrl; }
-    public void setPhotoUrl(String photoUrl) { this.photoUrl = photoUrl; }
-    public String getExperienceSummary() { return experienceSummary; }
-    public void setExperienceSummary(String experienceSummary) { this.experienceSummary = experienceSummary; }
-    public String getBrandName() { return brandName; }
-    public void setBrandName(String brandName) { this.brandName = brandName; }
-    public String getBrandLogoUrl() { return brandLogoUrl; }
-    public void setBrandLogoUrl(String brandLogoUrl) { this.brandLogoUrl = brandLogoUrl; }
+    public Integer getId() { return id; }
+    public void setId(Integer id) { this.id = id; }
+    public BrandEntity getBrand() { return brand; }
+    public void setBrand(BrandEntity brand) { this.brand = brand; }
+    public String getUserName() { return userName; }
+    public void setUserName(String userName) { this.userName = userName; }
+    public String getBioExperience() { return bioExperience; }
+    public void setBioExperience(String bioExperience) { this.bioExperience = bioExperience; }
+    public String getSpeciality() { return speciality; }
+    public void setSpeciality(String speciality) { this.speciality = speciality; }
+    public String getPhone() { return phone; }
+    public void setPhone(String phone) { this.phone = phone; }
+    public Double getRating() { return rating; }
+    public void setRating(Double rating) { this.rating = rating; }
+    public String getStatus() { return status; }
+    public void setStatus(String status) { this.status = status; }
     public List<BookingEntity> getBookings() { return bookings; }
+    public void setBookings(List<BookingEntity> bookings) { this.bookings = bookings; }
+    public List<ServiceEntity> getServices() { return services; }
+    public void setServices(List<ServiceEntity> services) { this.services = services; }
+    public List<CoverageAreaEntity> getCoverageAreas() { return coverageAreas; }
+    public void setCoverageAreas(List<CoverageAreaEntity> coverageAreas) { this.coverageAreas = coverageAreas; }
 }

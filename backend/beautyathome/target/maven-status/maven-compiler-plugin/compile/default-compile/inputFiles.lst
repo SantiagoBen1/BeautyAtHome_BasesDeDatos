@@ -87,7 +87,11 @@ C:\Users\PC\Desktop\UNIVERSIDAD\SEXTO SEMESTRE\Bases de Datos\BeautyAtHome\backe
 C:\Users\PC\Desktop\UNIVERSIDAD\SEXTO SEMESTRE\Bases de Datos\BeautyAtHome\backend\beautyathome\src\main\java\com\beautyathome\dto\viewmodel\ReviewForm.java
 C:\Users\PC\Desktop\UNIVERSIDAD\SEXTO SEMESTRE\Bases de Datos\BeautyAtHome\backend\beautyathome\src\main\java\com\beautyathome\dto\viewmodel\ReviewShowcase.java
 C:\Users\PC\Desktop\UNIVERSIDAD\SEXTO SEMESTRE\Bases de Datos\BeautyAtHome\backend\beautyathome\src\main\java\com\beautyathome\entities\BookingEntity.java
+C:\Users\PC\Desktop\UNIVERSIDAD\SEXTO SEMESTRE\Bases de Datos\BeautyAtHome\backend\beautyathome\src\main\java\com\beautyathome\entities\BrandEntity.java
+C:\Users\PC\Desktop\UNIVERSIDAD\SEXTO SEMESTRE\Bases de Datos\BeautyAtHome\backend\beautyathome\src\main\java\com\beautyathome\entities\CategoryEntity.java
 C:\Users\PC\Desktop\UNIVERSIDAD\SEXTO SEMESTRE\Bases de Datos\BeautyAtHome\backend\beautyathome\src\main\java\com\beautyathome\entities\ClientEntity.java
+C:\Users\PC\Desktop\UNIVERSIDAD\SEXTO SEMESTRE\Bases de Datos\BeautyAtHome\backend\beautyathome\src\main\java\com\beautyathome\entities\CoverageAreaEntity.java
+C:\Users\PC\Desktop\UNIVERSIDAD\SEXTO SEMESTRE\Bases de Datos\BeautyAtHome\backend\beautyathome\src\main\java\com\beautyathome\entities\PhotoReferenceEntity.java
 C:\Users\PC\Desktop\UNIVERSIDAD\SEXTO SEMESTRE\Bases de Datos\BeautyAtHome\backend\beautyathome\src\main\java\com\beautyathome\entities\ProfessionalEntity.java
 C:\Users\PC\Desktop\UNIVERSIDAD\SEXTO SEMESTRE\Bases de Datos\BeautyAtHome\backend\beautyathome\src\main\java\com\beautyathome\entities\ReviewEntity.java
 C:\Users\PC\Desktop\UNIVERSIDAD\SEXTO SEMESTRE\Bases de Datos\BeautyAtHome\backend\beautyathome\src\main\java\com\beautyathome\entities\ServiceEntity.java

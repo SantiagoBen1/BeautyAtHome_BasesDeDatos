@@ -6,7 +6,10 @@ import com.beautyathome.domain.client.Client;
 
 public interface ClientRepository {
     Client save(Client client);
+
     Optional<Client> findById(String id);
+
     List<Client> findAll();
+
     void delete(String id);
 }

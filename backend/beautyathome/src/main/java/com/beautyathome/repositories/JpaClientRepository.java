@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository;
 import com.beautyathome.entities.ClientEntity;
 
 @Repository
-public interface JpaClientRepository extends JpaRepository<ClientEntity, String> {
+public interface JpaClientRepository extends JpaRepository<ClientEntity, Integer> {
 }

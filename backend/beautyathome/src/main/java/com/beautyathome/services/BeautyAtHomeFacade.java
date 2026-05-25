@@ -107,7 +107,7 @@ public class BeautyAtHomeFacade {
     public Client registerClient(Client client) {
         Objects.requireNonNull(client, "client");
         Client normalized = client.getId() == null || client.getId().isBlank()
-                ? new Client(UUID.randomUUID().toString(), client.getName(), client.getEmail())
+                ? new Client("", client.getName(), client.getEmail())
                 : client;
         return clientRepositoryPort.save(normalized);
     }
@@ -195,9 +195,9 @@ public class BeautyAtHomeFacade {
      */
     public Booking bookService(String clientId,
                                String professionalId,
-                               String serviceId,
+                               java.util.List<String> serviceIds,
                                LocalDateTime dateTime) {
-        return bookService(clientId, professionalId, serviceId, dateTime, null);
+        return bookService(clientId, professionalId, serviceIds, dateTime, null);
     }
 
     /**
@@ -212,15 +212,15 @@ public class BeautyAtHomeFacade {
      */
     public Booking bookService(String clientId,
                                String professionalId,
-                               String serviceId,
+                               java.util.List<String> serviceIds,
                                LocalDateTime dateTime,
                                String zone) {
-        ServiceComponent service = serviceRepositoryPort.findById(serviceId).orElse(null);
+        ServiceComponent service = serviceRepositoryPort.findById(serviceIds.get(0)).orElse(null);
         Client client = clientRepositoryPort.findById(clientId).orElse(null);
         Professional professional = professionalRepositoryPort.findById(professionalId).orElse(null);
 
         if (service == null) {
-            throw new IllegalArgumentException("Service not found: " + serviceId);
+            throw new IllegalArgumentException("Service not found: " + serviceIds);
         }
         if (client == null) {
             throw new IllegalArgumentException("Client not found: " + clientId);
@@ -234,7 +234,7 @@ public class BeautyAtHomeFacade {
         BookingRequest request = new BookingRequest();
         request.setClientId(clientId);
         request.setProfessionalId(professionalId);
-        request.setServiceId(serviceId);
+        request.setServiceIds(serviceIds);
         request.setDateTime(dateTime);
         request.setZone(zone);
 
@@ -325,7 +325,7 @@ public class BeautyAtHomeFacade {
             if (client == null) {
                 continue;
             }
-            ServiceComponent service = serviceRepositoryPort.findById(booking.getServiceId()).orElse(null);
+            ServiceComponent service = serviceRepositoryPort.findById(booking.getServiceIds().get(0)).orElse(null);
             ServiceHistory history = new ServiceHistory(booking, client, professional, service, booking.getDateTime());
             List<Photo> photos = professionalPhotos.stream()
                     .filter(photo -> Objects.equals(photo.getBookingId(), booking.getId()))

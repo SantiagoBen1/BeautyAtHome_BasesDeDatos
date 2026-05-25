@@ -2,9 +2,23 @@ spring:
   application:
     name: beautyathome
   profiles:
-    active: ${SPRING_PROFILES_ACTIVE:dev}
+    active: ${SPRING_PROFILES_ACTIVE:prod}
   jpa:
     open-in-view: false
+    # IMPORTANTE: Evita que Hibernate borre o altere las tablas y restricciones SQL
+    hibernate:
+      ddl-auto: none 
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+
+  datasource:
+    # URL de la base de datos PostgreSQL
+    url: jdbc:postgresql://localhost:5432/beautyathome
+    username: usuario_operador 
+    password: Operador123
+    driver-class-name: org.postgresql.Driver
 
 server:
   port: ${SERVER_PORT:8080}

@@ -21,6 +21,6 @@ public class PaymentValidationHandler extends BookingRequestHandler {
     @Override
     protected boolean doHandle(BookingRequest request) {
         return clientRepositoryPort.findById(request.getClientId()) != null
-                && request.getServiceId() != null;
+                && request.getServiceIds().get(0) != null;
     }
 }
