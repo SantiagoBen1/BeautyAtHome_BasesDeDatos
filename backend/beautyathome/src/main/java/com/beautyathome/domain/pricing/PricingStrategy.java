@@ -1,11 +1,10 @@
 package com.beautyathome.domain.pricing;
 
-
 import com.beautyathome.domain.client.Client;
 import com.beautyathome.domain.service.ServiceComponent;
 
 /**
- * Estrategia que permite ajustar el precio final en funciÃ³n del contexto.
+ * Estrategia que permite ajustar el precio final en función del contexto.
  */
 public interface PricingStrategy {
 

@@ -4,10 +4,13 @@ import java.util.List;
 
 import com.beautyathome.domain.service.ServiceComponent;
 
+import org.springframework.stereotype.Component;
+
 /**
  * Director that orchestrates the {@link ServiceBuilder} steps to create
  * services with consistent defaults.
  */
+@Component
 public class ServiceDirector {
 
 	private final ServiceBuilder builder;
@@ -23,10 +26,10 @@ public class ServiceDirector {
 	 * Constructs a service using all available fields.
 	 */
 	public ServiceComponent constructService(String name,
-											 String description,
-											 double price,
-											 int duration,
-											 List<String> imageUrls) {
+			String description,
+			double price,
+			int duration,
+			List<String> imageUrls) {
 		builder.reset();
 		builder.setName(name);
 		builder.setDescription(description);

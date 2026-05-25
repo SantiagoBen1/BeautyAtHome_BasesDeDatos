@@ -4,7 +4,7 @@ import com.beautyathome.domain.professional.CoverageArea;
 import com.beautyathome.domain.professional.Professional;
 
 /**
- * Proxy que encapsula la verificaciÃ³n de cobertura geogrÃ¡fica.
+ * Proxy que encapsula la verificación de cobertura geográfica.
  */
 public class CoverageProxy {
 

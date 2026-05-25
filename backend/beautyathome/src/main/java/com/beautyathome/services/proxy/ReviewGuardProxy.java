@@ -5,9 +5,12 @@ import java.util.Set;
 
 import com.beautyathome.domain.review.Review;
 
+import org.springframework.stereotype.Component;
+
 /**
- * Proxy que protege la creaciÃ³n de reseÃ±as validando unicidad y rango.
+ * Proxy que protege la creación de reseñas validando unicidad y rango.
  */
+@Component
 public class ReviewGuardProxy {
 
 	private final ReviewService real;

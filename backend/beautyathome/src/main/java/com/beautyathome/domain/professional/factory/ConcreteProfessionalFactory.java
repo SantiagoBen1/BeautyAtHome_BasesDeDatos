@@ -15,9 +15,12 @@ import com.beautyathome.domain.professional.Manicurist;
 import com.beautyathome.domain.professional.Professional;
 import com.beautyathome.domain.service.ServiceComponent;
 
+import org.springframework.stereotype.Component;
+
 /**
  * ImplementaciÃ³n concreta que arma profesionales a partir de mapas flexibles.
  */
+@Component
 public class ConcreteProfessionalFactory implements ProfessionalAbstractFactory {
 
 	/** {@inheritDoc} */
@@ -36,7 +39,8 @@ public class ConcreteProfessionalFactory implements ProfessionalAbstractFactory 
 	 * Llena un builder especÃ­fico con los datos del mapa y genera la profesional.
 	 *
 	 * @param builder builder concreto segÃºn la especialidad
-	 * @param data    mapa con atributos provenientes de formularios u orÃ­genes externos
+	 * @param data    mapa con atributos provenientes de formularios u orÃ­genes
+	 *                externos
 	 * @return profesional lista para publicar
 	 */
 	@SuppressWarnings("unchecked")
@@ -46,7 +50,8 @@ public class ConcreteProfessionalFactory implements ProfessionalAbstractFactory 
 		String photoUrl = (String) data.getOrDefault("photoUrl", "");
 		String experience = (String) data.getOrDefault("experienceSummary", "");
 		List<String> coverageNames = (List<String>) data.getOrDefault("coverage", Collections.emptyList());
-		List<ServiceComponent> services = (List<ServiceComponent>) data.getOrDefault("services", Collections.emptyList());
+		List<ServiceComponent> services = (List<ServiceComponent>) data.getOrDefault("services",
+				Collections.emptyList());
 		Map<String, Object> brandData = (Map<String, Object>) data.get("brand");
 		Brand brand = null;
 		if (brandData != null) {
@@ -56,8 +61,8 @@ public class ConcreteProfessionalFactory implements ProfessionalAbstractFactory 
 			Object rawProducts = brandData.get("products");
 			if (rawProducts instanceof List<?> list) {
 				heroProducts = list.stream()
-					.map(Object::toString)
-					.collect(Collectors.toList());
+						.map(Object::toString)
+						.collect(Collectors.toList());
 			}
 			brand = new Brand(brandName, brandLogo, heroProducts);
 		}
@@ -95,24 +100,32 @@ public class ConcreteProfessionalFactory implements ProfessionalAbstractFactory 
 	private interface ProfessionalBuilder {
 		/** Configura el identificador. */
 		ProfessionalBuilder setId(String id);
+
 		/** Configura el nombre comercial. */
 		ProfessionalBuilder setName(String name);
+
 		/** Configura la foto de perfil. */
 		ProfessionalBuilder setPhotoUrl(String photoUrl);
+
 		/** Define el resumen profesional. */
 		ProfessionalBuilder setExperienceSummary(String summary);
+
 		/** Asigna las zonas de cobertura. */
 		ProfessionalBuilder setCoverageAreas(List<CoverageArea> coverageAreas);
+
 		/** Establece la marca asociada. */
 		ProfessionalBuilder setBrand(Brand brand);
+
 		/** Lista los servicios disponibles. */
 		ProfessionalBuilder setServices(List<ServiceComponent> services);
+
 		/** Construye la profesional final. */
 		Professional build();
 	}
 
 	/**
-	 * Builder especÃ­fico para {@link HairStylist} que sirve como base reutilizable.
+	 * Builder especÃ­fico para {@link HairStylist} que sirve como base
+	 * reutilizable.
 	 */
 	private static class HairStylistBuilder implements ProfessionalBuilder {
 

@@ -1,12 +1,12 @@
 package com.beautyathome.services;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.beautyathome.domain.booking.Booking;
 import com.beautyathome.domain.booking.BookingBuilder;
@@ -18,6 +18,7 @@ import com.beautyathome.repositories.BookingRepository;
 import com.beautyathome.repositories.JpaBookingRepository;
 
 @Component
+@Transactional(readOnly = true)
 public class BookingPersistenceAdapter implements BookingRepository {
 
     private final JpaBookingRepository jpaRepository;
@@ -27,6 +28,8 @@ public class BookingPersistenceAdapter implements BookingRepository {
     }
 
     @Override
+    @Transactional
+    @SuppressWarnings("null")
     public Booking save(Booking booking) {
         BookingEntity entity = toEntity(booking);
         return toDomain(jpaRepository.save(entity));
@@ -71,6 +74,7 @@ public class BookingPersistenceAdapter implements BookingRepository {
     }
 
     @Override
+    @Transactional
     public void delete(String id) {
         try {
             jpaRepository.deleteById(Integer.parseInt(id));
@@ -111,6 +115,10 @@ public class BookingPersistenceAdapter implements BookingRepository {
         }
         entity.setServices(services);
         
+        if (domain.getStatusName() != null) {
+            entity.setStatus(domain.getStatusName().toLowerCase());
+        }
+        
         return entity;
     }
 
@@ -119,12 +127,20 @@ public class BookingPersistenceAdapter implements BookingRepository {
             .map(s -> String.valueOf(s.getId()))
             .collect(Collectors.toList());
 
-        return new BookingBuilder()
+        Booking booking = new BookingBuilder()
             .withId(String.valueOf(entity.getId()))
             .withClient(String.valueOf(entity.getClient().getId()))
             .withProfessional(String.valueOf(entity.getProfessional().getId()))
             .withServices(serviceIds)
             .withDate(entity.getDatetimeStart())
             .build();
+            
+        if ("completado".equalsIgnoreCase(entity.getStatus())) {
+            booking.setState(new com.beautyathome.domain.booking.state.CompletedState());
+        } else if ("cancelado".equalsIgnoreCase(entity.getStatus())) {
+            booking.setState(new com.beautyathome.domain.booking.state.CancelledState());
+        }
+        
+        return booking;
     }
 }

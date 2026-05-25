@@ -33,7 +33,7 @@ public class ServiceEntity {
     @Column(name = "description", length = 300)
     private String description;
 
-    @Column(name = "base_price", nullable = false, precision = 10, scale = 2)
+    @Column(name = "base_price", nullable = false)
     private Double basePrice;
 
     @Column(name = "estimated_duration", nullable = false)
@@ -45,22 +45,70 @@ public class ServiceEntity {
     @ManyToMany(mappedBy = "services")
     private List<ProfessionalEntity> professionals = new ArrayList<>();
 
-    public ServiceEntity() {}
+    public ServiceEntity() {
+    }
 
-    public Integer getId() { return id; }
-    public void setId(Integer id) { this.id = id; }
-    public CategoryEntity getCategory() { return category; }
-    public void setCategory(CategoryEntity category) { this.category = category; }
-    public String getName() { return name; }
-    public void setName(String name) { this.name = name; }
-    public String getDescription() { return description; }
-    public void setDescription(String description) { this.description = description; }
-    public Double getBasePrice() { return basePrice; }
-    public void setBasePrice(Double basePrice) { this.basePrice = basePrice; }
-    public Integer getEstimatedDuration() { return estimatedDuration; }
-    public void setEstimatedDuration(Integer estimatedDuration) { this.estimatedDuration = estimatedDuration; }
-    public List<BookingEntity> getBookings() { return bookings; }
-    public void setBookings(List<BookingEntity> bookings) { this.bookings = bookings; }
-    public List<ProfessionalEntity> getProfessionals() { return professionals; }
-    public void setProfessionals(List<ProfessionalEntity> professionals) { this.professionals = professionals; }
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public CategoryEntity getCategory() {
+        return category;
+    }
+
+    public void setCategory(CategoryEntity category) {
+        this.category = category;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public Double getBasePrice() {
+        return basePrice;
+    }
+
+    public void setBasePrice(Double basePrice) {
+        this.basePrice = basePrice;
+    }
+
+    public Integer getEstimatedDuration() {
+        return estimatedDuration;
+    }
+
+    public void setEstimatedDuration(Integer estimatedDuration) {
+        this.estimatedDuration = estimatedDuration;
+    }
+
+    public List<BookingEntity> getBookings() {
+        return bookings;
+    }
+
+    public void setBookings(List<BookingEntity> bookings) {
+        this.bookings = bookings;
+    }
+
+    public List<ProfessionalEntity> getProfessionals() {
+        return professionals;
+    }
+
+    public void setProfessionals(List<ProfessionalEntity> professionals) {
+        this.professionals = professionals;
+    }
 }

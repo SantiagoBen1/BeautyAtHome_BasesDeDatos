@@ -6,15 +6,16 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.beautyathome.domain.review.Review;
 import com.beautyathome.domain.review.rating.RatingValueObject;
 import com.beautyathome.entities.ReviewEntity;
-import com.beautyathome.entities.BookingEntity;
 import com.beautyathome.repositories.ReviewRepository;
 import com.beautyathome.repositories.JpaReviewRepository;
 
 @Component
+@Transactional(readOnly = true)
 public class ReviewPersistenceAdapter implements ReviewRepository {
 
     private final JpaReviewRepository jpaRepository;
@@ -24,6 +25,7 @@ public class ReviewPersistenceAdapter implements ReviewRepository {
     }
 
     @Override
+    @Transactional
     public Review save(Review review) {
         // Since Review class doesn't expose getters for the domain entities easily right now,
         // we persist a dummy or use an alternative way for this adapter.
@@ -51,7 +53,13 @@ public class ReviewPersistenceAdapter implements ReviewRepository {
 
     @Override
     public List<Review> findByProfessionalId(String professionalId) {
-        return findAll(); // Simplificado
+        try {
+            return jpaRepository.findByBooking_Professional_Id(Integer.parseInt(professionalId)).stream()
+                    .map(this::toDomain)
+                    .collect(Collectors.toList());
+        } catch (NumberFormatException e) {
+            return new java.util.ArrayList<>();
+        }
     }
 
     @Override
@@ -62,14 +70,23 @@ public class ReviewPersistenceAdapter implements ReviewRepository {
     }
 
     private Review toDomain(ReviewEntity entity) {
+        com.beautyathome.domain.client.Client domainClient = null;
+        if (entity.getBooking() != null && entity.getBooking().getClient() != null) {
+            domainClient = new com.beautyathome.domain.client.Client(
+                String.valueOf(entity.getBooking().getClient().getId()),
+                entity.getBooking().getClient().getFirstName() + " " + entity.getBooking().getClient().getLastName(),
+                entity.getBooking().getClient().getEmail()
+            );
+        }
+
         return new Review(
             String.valueOf(entity.getId()),
             null, // Booking domain is complex to instantiate here
-            null, // Client
+            domainClient, // Client
             null, // Professional
             new RatingValueObject(entity.getRating().intValue()),
             entity.getComment(),
-            LocalDateTime.now()
+            entity.getCreatedDate() != null ? entity.getCreatedDate().atStartOfDay() : LocalDateTime.now()
         );
     }
 }

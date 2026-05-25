@@ -44,4 +44,11 @@ public interface Professional {
      * @return catÃ¡logo de servicios que puede ejecutar
      */
     List<ServiceComponent> getServicesOffered();
+
+    /**
+     * @return name of the professional type
+     */
+    default String getTypeName() {
+        return this.getClass().getSimpleName();
+    }
 }

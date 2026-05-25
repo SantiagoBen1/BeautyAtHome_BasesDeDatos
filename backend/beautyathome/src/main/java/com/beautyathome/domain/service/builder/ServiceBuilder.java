@@ -2,10 +2,13 @@ package com.beautyathome.domain.service.builder;
 
 import com.beautyathome.domain.service.ServiceComponent;
 
+import org.springframework.stereotype.Component;
+
 /**
  * Builder contract that constructs {@link ServiceComponent} instances step by
  * step.
  */
+@Component
 public interface ServiceBuilder {
 
     /**

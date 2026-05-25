@@ -17,9 +17,19 @@ public class BookingService {
     private final BookingRequestHandler validationChain;
     private final BookingRepository bookingRepository; // Reemplazamos AgendaSingleton por el Puerto
 
-    public BookingService(BookingRequestHandler validationChain,
+    public BookingService(java.util.List<BookingRequestHandler> handlers,
                           BookingRepository bookingRepository) {
-        this.validationChain = validationChain;
+        if (!handlers.isEmpty()) {
+            for (int i = 0; i < handlers.size() - 1; i++) {
+                handlers.get(i).setNext(handlers.get(i + 1));
+            }
+            this.validationChain = handlers.get(0);
+        } else {
+            this.validationChain = new BookingRequestHandler() {
+                @Override
+                protected boolean doHandle(BookingRequest request) { return true; }
+            };
+        }
         this.bookingRepository = bookingRepository;
     }
 

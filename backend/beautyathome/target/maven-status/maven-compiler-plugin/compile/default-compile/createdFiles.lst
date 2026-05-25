@@ -136,6 +136,7 @@ com\beautyathome\services\ClientPersistenceAdapter.class
 com\beautyathome\repositories\ReviewRepository.class
 com\beautyathome\dto\viewmodel\ProfessionalForm.class
 com\beautyathome\domain\service\visitor\PricingVisitor.class
+com\beautyathome\services\BookingService$1.class
 com\beautyathome\domain\booking\state\ConfirmedState.class
 com\beautyathome\services\media\PhotoGallery.class
 com\beautyathome\controllers\ReviewController.class

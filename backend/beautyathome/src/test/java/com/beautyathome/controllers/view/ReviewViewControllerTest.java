@@ -1,4 +1,4 @@
-﻿package com.beautyathome.controllers.view;
+package com.beautyathome.controllers.view;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -50,36 +50,33 @@ class ReviewViewControllerTest {
     public void setUp() {
         controller = new ReviewViewController(facade, reviewRepositoryPort);
         professional = new HairStylist(
-            "pro-1",
-            "Eva",
-            "https://img/pro.jpg",
-            "editoriales",
-            List.of(),
-            new Brand("Glow", "https://img/logo.png"),
-            List.of()
-        );
+                "pro-1",
+                "Eva",
+                "https://img/pro.jpg",
+                "editoriales",
+                List.of(),
+                new Brand("Glow", "https://img/logo.png"),
+                List.of());
         client = new Client("client-1", "Lina", "lina@mail.com");
         service = new ServiceLeaf(
-            "Editorial",
-            "look premium",
-            280_000,
-            90,
-            List.of(new ImageReference("https://img/editorial.jpg"))
-        );
+                "Editorial",
+                "look premium",
+                280_000,
+                90,
+                List.of(new ImageReference("https://img/editorial.jpg")));
     }
 
     @Test
     void listReviewsBuildsShowcaseCardsWithMedia() {
-        Booking booking = new Booking("booking-1", client.getId(), professional.getId(), "svc-1", LocalDateTime.now());
+        Booking booking = new Booking("booking-1", client.getId(), professional.getId(), List.of("svc-1"), LocalDateTime.now());
         Review review = new Review(
-            "review-1",
-            booking,
-            client,
-            professional,
-            new RatingValueObject(5),
-            "Impecable",
-            LocalDateTime.now()
-        );
+                "review-1",
+                booking,
+                client,
+                professional,
+                new RatingValueObject(5),
+                "Impecable",
+                LocalDateTime.now());
         ServiceHistory history = new ServiceHistory(booking, client, professional, service, LocalDateTime.now());
         history.addPhoto(new Photo(booking.getId(), professional.getId(), "https://img/cover.jpg", true));
 
@@ -90,24 +87,24 @@ class ReviewViewControllerTest {
         String view = controller.listReviews(model);
 
         assertEquals("reviews", view);
-        
+
         List<?> reviewCardsObj = (List<?>) model.getAttribute("reviewCards");
         assertNotNull(reviewCardsObj);
-        
+
         @SuppressWarnings("unchecked")
         List<ReviewShowcase> cards = (List<ReviewShowcase>) reviewCardsObj;
-        
+
         assertEquals(1, cards.size());
         assertEquals("https://img/cover.jpg", cards.get(0).getCoverPhoto());
         assertEquals(review, cards.get(0).getReview());
-        
+
         List<?> reviewsObj = (List<?>) model.getAttribute("reviews");
         assertNotNull(reviewsObj);
-        
+
         @SuppressWarnings("unchecked")
         List<Review> rawReviews = (List<Review>) reviewsObj;
         assertEquals(review, rawReviews.get(0));
-        
+
         verify(facade).viewProfessionalHistory(professional.getId());
     }
 }

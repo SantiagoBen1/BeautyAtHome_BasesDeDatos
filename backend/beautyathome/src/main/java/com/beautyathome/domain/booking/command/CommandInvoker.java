@@ -1,9 +1,12 @@
 package com.beautyathome.domain.booking.command;
 
+import org.springframework.stereotype.Component;
+
 /**
  * Invoker that stores the current {@link Command} and triggers its execution
  * when requested.
  */
+@Component
 public class CommandInvoker {
 
     private Command command;

@@ -6,9 +6,12 @@ import java.util.Set;
 
 import com.beautyathome.domain.service.image.Photo;
 
+import org.springframework.stereotype.Component;
+
 /**
- * Proxy que aplica las polÃ­ticas de consentimiento antes de almacenar fotos.
+ * Proxy que aplica las políticas de consentimiento antes de almacenar fotos.
  */
+@Component
 public class ConsentProxy {
 
 	private final PhotoGallery gallery;

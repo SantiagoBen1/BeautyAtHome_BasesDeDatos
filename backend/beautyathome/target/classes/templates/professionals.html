@@ -26,7 +26,7 @@
     </header>
 
     <main class="content">
-        <section class="hero hero--sub">
+        <section class="hero hero--sub stagger-1">
             <div>
                 <p class="eyebrow">Red de especialistas</p>
                 <h1>Curamos estilistas con cobertura urbana y calificaciones reales</h1>
@@ -39,7 +39,7 @@
             </div>
         </section>
 
-        <section class="glass-panel">
+        <section class="glass-panel stagger-2">
             <div class="section-header">
                 <h2>Filtrar cobertura</h2>
                 <p>Optimiza la asignación según zona o categoría.</p>
@@ -60,7 +60,7 @@
             </form>
         </section>
 
-        <section class="glass-panel">
+        <section class="glass-panel stagger-3">
             <div class="section-header">
                 <h2>Registrar profesional</h2>
                 <p>Comparte marca, experiencia y coberturas.</p>
@@ -86,7 +86,7 @@
             </form>
         </section>
 
-        <section class="glass-panel" th:if="${!#lists.isEmpty(sponsoredShowcases)}">
+        <section class="glass-panel stagger-4" th:if="${!#lists.isEmpty(sponsoredShowcases)}">
             <div class="section-header">
                 <div>
                     <h2>Embajadores de marca</h2>
@@ -124,7 +124,7 @@
             </div>
         </section>
 
-        <section class="glass-panel">
+        <section class="glass-panel stagger-4">
             <div class="section-header">
                 <h2>Studio Capsules</h2>
                 <p>Portafolio completo: cobertura, historia y reputación en un vistazo.</p>
@@ -137,7 +137,7 @@
                     <div class="pro-card__body">
                         <div class="pro-card__head">
                             <span class="chip" th:text="${showcase.professional.brand != null ? showcase.professional.brand.name : 'Independiente'}">Marca</span>
-                            <span class="badge" th:text="${showcase.professional.class.simpleName}">Tipo</span>
+                            <span class="badge" th:text="${showcase.professional.typeName}">Tipo</span>
                             <small class="badge ghost" th:text="${#numbers.formatDecimal(showcase.averageRating, 1, 1)} + ' ★'">0.0 ★</small>
                         </div>
                         <h3 th:text="${showcase.professional.name}">Nombre</h3>

@@ -38,10 +38,13 @@ public class ProfessionalEntity {
     @Column(name = "speciality", length = 100)
     private String speciality;
 
+    @Column(name = "photo_url", length = 255)
+    private String photoUrl;
+
     @Column(name = "phone", length = 20)
     private String phone;
 
-    @Column(name = "rating", precision = 3, scale = 2)
+    @Column(name = "rating")
     private Double rating;
 
     @Column(name = "status", nullable = false, length = 30)
@@ -51,43 +54,109 @@ public class ProfessionalEntity {
     private List<BookingEntity> bookings = new ArrayList<>();
 
     @ManyToMany
-    @JoinTable(
-        name = "professional_service",
-        joinColumns = @JoinColumn(name = "id_profesional"),
-        inverseJoinColumns = @JoinColumn(name = "id_service")
-    )
+    @JoinTable(name = "professional_service", joinColumns = @JoinColumn(name = "id_profesional"), inverseJoinColumns = @JoinColumn(name = "id_service"))
     private List<ServiceEntity> services = new ArrayList<>();
 
     @ManyToMany
-    @JoinTable(
-        name = "professional_coverage",
-        joinColumns = @JoinColumn(name = "id_profesional"),
-        inverseJoinColumns = @JoinColumn(name = "id_coverage")
-    )
+    @JoinTable(name = "professional_coverage", joinColumns = @JoinColumn(name = "id_profesional"), inverseJoinColumns = @JoinColumn(name = "id_coverage"))
     private List<CoverageAreaEntity> coverageAreas = new ArrayList<>();
 
-    public ProfessionalEntity() {}
+    public ProfessionalEntity() {
+    }
 
-    public Integer getId() { return id; }
-    public void setId(Integer id) { this.id = id; }
-    public BrandEntity getBrand() { return brand; }
-    public void setBrand(BrandEntity brand) { this.brand = brand; }
-    public String getUserName() { return userName; }
-    public void setUserName(String userName) { this.userName = userName; }
-    public String getBioExperience() { return bioExperience; }
-    public void setBioExperience(String bioExperience) { this.bioExperience = bioExperience; }
-    public String getSpeciality() { return speciality; }
-    public void setSpeciality(String speciality) { this.speciality = speciality; }
-    public String getPhone() { return phone; }
-    public void setPhone(String phone) { this.phone = phone; }
-    public Double getRating() { return rating; }
-    public void setRating(Double rating) { this.rating = rating; }
-    public String getStatus() { return status; }
-    public void setStatus(String status) { this.status = status; }
-    public List<BookingEntity> getBookings() { return bookings; }
-    public void setBookings(List<BookingEntity> bookings) { this.bookings = bookings; }
-    public List<ServiceEntity> getServices() { return services; }
-    public void setServices(List<ServiceEntity> services) { this.services = services; }
-    public List<CoverageAreaEntity> getCoverageAreas() { return coverageAreas; }
-    public void setCoverageAreas(List<CoverageAreaEntity> coverageAreas) { this.coverageAreas = coverageAreas; }
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public BrandEntity getBrand() {
+        return brand;
+    }
+
+    public void setBrand(BrandEntity brand) {
+        this.brand = brand;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getBioExperience() {
+        return bioExperience;
+    }
+
+    public void setBioExperience(String bioExperience) {
+        this.bioExperience = bioExperience;
+    }
+
+    public String getSpeciality() {
+        return speciality;
+    }
+
+    public void setSpeciality(String speciality) {
+        this.speciality = speciality;
+    }
+
+    public String getPhotoUrl() {
+        return photoUrl;
+    }
+
+    public void setPhotoUrl(String photoUrl) {
+        this.photoUrl = photoUrl;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public Double getRating() {
+        return rating;
+    }
+
+    public void setRating(Double rating) {
+        this.rating = rating;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public List<BookingEntity> getBookings() {
+        return bookings;
+    }
+
+    public void setBookings(List<BookingEntity> bookings) {
+        this.bookings = bookings;
+    }
+
+    public List<ServiceEntity> getServices() {
+        return services;
+    }
+
+    public void setServices(List<ServiceEntity> services) {
+        this.services = services;
+    }
+
+    public List<CoverageAreaEntity> getCoverageAreas() {
+        return coverageAreas;
+    }
+
+    public void setCoverageAreas(List<CoverageAreaEntity> coverageAreas) {
+        this.coverageAreas = coverageAreas;
+    }
 }

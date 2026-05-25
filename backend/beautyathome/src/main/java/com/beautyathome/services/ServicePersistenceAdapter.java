@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 import java.util.ArrayList;
 
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.beautyathome.domain.service.ServiceComponent;
 import com.beautyathome.domain.service.ServiceLeaf;
@@ -15,6 +16,7 @@ import com.beautyathome.repositories.ServiceRepository;
 import com.beautyathome.repositories.JpaServiceRepository;
 
 @Component
+@Transactional(readOnly = true)
 public class ServicePersistenceAdapter implements ServiceRepository {
 
     private final JpaServiceRepository jpaRepository;
@@ -24,6 +26,8 @@ public class ServicePersistenceAdapter implements ServiceRepository {
     }
 
     @Override
+    @Transactional
+    @SuppressWarnings("null")
     public ServiceComponent save(ServiceComponent service) {
         ServiceEntity entity = toEntity(service);
         return toDomain(jpaRepository.save(entity));
@@ -52,7 +56,13 @@ public class ServicePersistenceAdapter implements ServiceRepository {
 
     @Override
     public List<ServiceComponent> findByProfessionalId(String professionalId) {
-        return findAll();
+        try {
+            return jpaRepository.findByProfessionals_Id(Integer.parseInt(professionalId)).stream()
+                    .map(this::toDomain)
+                    .collect(Collectors.toList());
+        } catch (NumberFormatException e) {
+            return new ArrayList<>();
+        }
     }
 
     @Override
@@ -78,10 +88,10 @@ public class ServicePersistenceAdapter implements ServiceRepository {
 
     private ServiceComponent toDomain(ServiceEntity entity) {
         return new ServiceLeaf(
-            String.valueOf(entity.getId()),
             entity.getName(),
-            entity.getBasePrice(),
-            entity.getEstimatedDuration(),
+            entity.getDescription(),
+            entity.getBasePrice() != null ? entity.getBasePrice() : 0.0,
+            entity.getEstimatedDuration() != null ? entity.getEstimatedDuration() : 60,
             new ArrayList<>()
         );
     }

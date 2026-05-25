@@ -5,6 +5,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.beautyathome.domain.client.Client;
 import com.beautyathome.entities.ClientEntity;
@@ -12,6 +13,7 @@ import com.beautyathome.repositories.ClientRepository;
 import com.beautyathome.repositories.JpaClientRepository;
 
 @Component
+@Transactional(readOnly = true)
 public class ClientPersistenceAdapter implements ClientRepository {
 
     private final JpaClientRepository jpaRepository;
@@ -21,6 +23,8 @@ public class ClientPersistenceAdapter implements ClientRepository {
     }
 
     @Override
+    @Transactional
+    @SuppressWarnings("null")
     public Client save(Client client) {
         ClientEntity entity = toEntity(client);
         return toDomain(jpaRepository.save(entity));

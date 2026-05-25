@@ -35,11 +35,7 @@ public class BookingEntity {
     private ProfessionalEntity professional;
 
     @ManyToMany
-    @JoinTable(
-        name = "booking_service",
-        joinColumns = @JoinColumn(name = "id_booking"),
-        inverseJoinColumns = @JoinColumn(name = "id_service")
-    )
+    @JoinTable(name = "booking_service", joinColumns = @JoinColumn(name = "id_booking"), inverseJoinColumns = @JoinColumn(name = "id_service"))
     private List<ServiceEntity> services = new ArrayList<>();
 
     @Column(name = "datetime_start", nullable = false)
@@ -48,7 +44,7 @@ public class BookingEntity {
     @Column(name = "datetime_end", nullable = false)
     private LocalDateTime datetimeEnd;
 
-    @Column(name = "total_price", nullable = false, precision = 10, scale = 2)
+    @Column(name = "total_price", nullable = false)
     private Double totalPrice;
 
     @Column(name = "status", nullable = false, length = 30)
@@ -57,24 +53,78 @@ public class BookingEntity {
     @OneToOne(mappedBy = "booking")
     private ReviewEntity review;
 
-    public BookingEntity() {}
+    public BookingEntity() {
+    }
 
-    public Integer getId() { return id; }
-    public void setId(Integer id) { this.id = id; }
-    public ClientEntity getClient() { return client; }
-    public void setClient(ClientEntity client) { this.client = client; }
-    public ProfessionalEntity getProfessional() { return professional; }
-    public void setProfessional(ProfessionalEntity professional) { this.professional = professional; }
-    public List<ServiceEntity> getServices() { return services; }
-    public void setServices(List<ServiceEntity> services) { this.services = services; }
-    public LocalDateTime getDatetimeStart() { return datetimeStart; }
-    public void setDatetimeStart(LocalDateTime datetimeStart) { this.datetimeStart = datetimeStart; }
-    public LocalDateTime getDatetimeEnd() { return datetimeEnd; }
-    public void setDatetimeEnd(LocalDateTime datetimeEnd) { this.datetimeEnd = datetimeEnd; }
-    public Double getTotalPrice() { return totalPrice; }
-    public void setTotalPrice(Double totalPrice) { this.totalPrice = totalPrice; }
-    public String getStatus() { return status; }
-    public void setStatus(String status) { this.status = status; }
-    public ReviewEntity getReview() { return review; }
-    public void setReview(ReviewEntity review) { this.review = review; }
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public ClientEntity getClient() {
+        return client;
+    }
+
+    public void setClient(ClientEntity client) {
+        this.client = client;
+    }
+
+    public ProfessionalEntity getProfessional() {
+        return professional;
+    }
+
+    public void setProfessional(ProfessionalEntity professional) {
+        this.professional = professional;
+    }
+
+    public List<ServiceEntity> getServices() {
+        return services;
+    }
+
+    public void setServices(List<ServiceEntity> services) {
+        this.services = services;
+    }
+
+    public LocalDateTime getDatetimeStart() {
+        return datetimeStart;
+    }
+
+    public void setDatetimeStart(LocalDateTime datetimeStart) {
+        this.datetimeStart = datetimeStart;
+    }
+
+    public LocalDateTime getDatetimeEnd() {
+        return datetimeEnd;
+    }
+
+    public void setDatetimeEnd(LocalDateTime datetimeEnd) {
+        this.datetimeEnd = datetimeEnd;
+    }
+
+    public Double getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void setTotalPrice(Double totalPrice) {
+        this.totalPrice = totalPrice;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public ReviewEntity getReview() {
+        return review;
+    }
+
+    public void setReview(ReviewEntity review) {
+        this.review = review;
+    }
 }

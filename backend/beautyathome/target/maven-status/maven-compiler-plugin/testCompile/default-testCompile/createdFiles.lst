@@ -1,0 +1,4 @@
+com\beautyathome\controllers\view\ReviewViewControllerTest.class
+com\beautyathome\dto\viewmodel\ProfessionalShowcaseTest.class
+com\beautyathome\services\media\ConsentProxyTest$FakeBookingRepository.class
+com\beautyathome\services\media\ConsentProxyTest.class

@@ -1,4 +1,4 @@
-﻿package com.beautyathome.services.media;
+package com.beautyathome.services.media;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -27,7 +27,7 @@ class ConsentProxyTest {
     @BeforeEach
     public void setUp() {
         bookingRepository = new FakeBookingRepository();
-        bookingRepository.save(new Booking(BOOKING_ID, "client-1", PROFESSIONAL_ID, "service-1", LocalDateTime.now()));
+        bookingRepository.save(new Booking(BOOKING_ID, "client-1", PROFESSIONAL_ID, List.of("service-1"), LocalDateTime.now()));
         PhotoGallery gallery = new PhotoGallery(bookingRepository);
         consentProxy = new ConsentProxy(gallery);
     }
@@ -47,7 +47,7 @@ class ConsentProxyTest {
     @Test
     void addPhotoRejectsUnknownBooking() {
         IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class,
-            () -> consentProxy.addPhoto("missing", "https://img/fail.jpg", true));
+                () -> consentProxy.addPhoto("missing", "https://img/fail.jpg", true));
         assertTrue(thrown.getMessage().contains("Booking not found"), "Debe rechazar booking faltante");
     }
 
@@ -69,8 +69,8 @@ class ConsentProxyTest {
         @Override
         public List<Booking> findByClientId(String clientId) {
             return bookings.values().stream()
-                .filter(booking -> clientId.equals(booking.getClientId()))
-                .toList();
+                    .filter(booking -> clientId.equals(booking.getClientId()))
+                    .toList();
         }
 
         @Override
@@ -81,8 +81,8 @@ class ConsentProxyTest {
         @Override
         public List<Booking> findByProfessionalId(String professionalId) {
             return bookings.values().stream()
-                .filter(booking -> professionalId.equals(booking.getProfessionalId()))
-                .toList();
+                    .filter(booking -> professionalId.equals(booking.getProfessionalId()))
+                    .toList();
         }
 
         @Override

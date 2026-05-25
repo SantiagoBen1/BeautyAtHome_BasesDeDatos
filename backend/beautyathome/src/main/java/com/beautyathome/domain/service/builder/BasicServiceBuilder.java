@@ -7,9 +7,12 @@ import com.beautyathome.domain.service.ServiceComponent;
 import com.beautyathome.domain.service.ServiceLeaf;
 import com.beautyathome.domain.service.image.ImageReference;
 
+import org.springframework.stereotype.Component;
+
 /**
  * Simple builder that produces {@link ServiceLeaf} instances.
  */
+@Component
 public class BasicServiceBuilder implements ServiceBuilder {
 
 	private String name;

@@ -26,7 +26,7 @@
     </header>
 
     <main class="content">
-        <section class="hero hero--sub">
+        <section class="hero hero--sub stagger-1">
             <div>
                 <p class="eyebrow">Orquestación</p>
                 <h1>Coordina clientes, profesionales y servicios en segundos</h1>
@@ -39,7 +39,7 @@
             </div>
         </section>
 
-        <section class="glass-panel">
+        <section class="glass-panel stagger-2">
             <div class="section-header">
                 <h2>Nueva reserva</h2>
                 <p>Usa formato ISO para la fecha (ej. 2025-12-07T10:00).</p>
@@ -56,7 +56,7 @@
             </form>
         </section>
 
-        <section class="glass-panel">
+        <section class="glass-panel stagger-3">
             <div class="section-header">
                 <div>
                     <h2>Tablero de estados</h2>
@@ -79,7 +79,7 @@
                             th:each="card : ${lane.cards}">
                             <span class="timeline__time" th:text="${#temporals.format(card.booking.dateTime, 'dd MMM HH:mm')}">07 Dic 10:00</span>
                             <div>
-                                <p class="timeline__title" th:text="${card.booking.serviceId}">Servicio</p>
+                                <p class="timeline__title" th:text="${card.booking.serviceIds != null and !card.booking.serviceIds.empty ? card.booking.serviceIds[0] : 'Servicio'}">Servicio</p>
                                 <p class="timeline__meta">
                                     <span th:text="${card.booking.clientId}">Cliente</span>
                                     ·

@@ -28,7 +28,7 @@ public class ReviewEntity {
     @JoinColumn(name = "id_booking", nullable = false, unique = true)
     private BookingEntity booking;
 
-    @Column(name = "rating", nullable = false, precision = 3, scale = 2)
+    @Column(name = "rating", nullable = false)
     private Double rating;
 
     @Column(name = "comment", length = 300)
@@ -40,18 +40,54 @@ public class ReviewEntity {
     @OneToMany(mappedBy = "review")
     private List<PhotoReferenceEntity> photos = new ArrayList<>();
 
-    public ReviewEntity() {}
+    public ReviewEntity() {
+    }
 
-    public Integer getId() { return id; }
-    public void setId(Integer id) { this.id = id; }
-    public BookingEntity getBooking() { return booking; }
-    public void setBooking(BookingEntity booking) { this.booking = booking; }
-    public Double getRating() { return rating; }
-    public void setRating(Double rating) { this.rating = rating; }
-    public String getComment() { return comment; }
-    public void setComment(String comment) { this.comment = comment; }
-    public LocalDate getCreatedDate() { return createdDate; }
-    public void setCreatedDate(LocalDate createdDate) { this.createdDate = createdDate; }
-    public List<PhotoReferenceEntity> getPhotos() { return photos; }
-    public void setPhotos(List<PhotoReferenceEntity> photos) { this.photos = photos; }
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public BookingEntity getBooking() {
+        return booking;
+    }
+
+    public void setBooking(BookingEntity booking) {
+        this.booking = booking;
+    }
+
+    public Double getRating() {
+        return rating;
+    }
+
+    public void setRating(Double rating) {
+        this.rating = rating;
+    }
+
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
+
+    public LocalDate getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(LocalDate createdDate) {
+        this.createdDate = createdDate;
+    }
+
+    public List<PhotoReferenceEntity> getPhotos() {
+        return photos;
+    }
+
+    public void setPhotos(List<PhotoReferenceEntity> photos) {
+        this.photos = photos;
+    }
 }

@@ -104,6 +104,15 @@ public class Booking implements BookingSubject {
     }
 
     /**
+     * @return name of the current lifecycle state
+     */
+    public String getStatusName() {
+        if (state == null) return "Desconocido";
+        String name = state.getClass().getSimpleName();
+        return name.endsWith("State") ? name.substring(0, name.length() - 5) : name;
+    }
+
+    /**
      * Manually sets the booking state, used by state transitions.
      *
      * @param state new booking state
