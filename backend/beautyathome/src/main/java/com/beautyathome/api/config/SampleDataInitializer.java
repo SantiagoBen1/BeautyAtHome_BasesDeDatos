@@ -20,7 +20,7 @@ public class SampleDataInitializer implements CommandLineRunner {
         // Inicialización de datos para pruebas. 
         // Se ejecuta automáticamente al arrancar la aplicación.
         if (clientRepository.findAll().isEmpty()) {
-            Client client = new Client("1", "Usuario de Prueba", "prueba@example.com");
+            Client client = new Client("1", "Usuario de Prueba", "prueba@example.com", "0000000000", "N/A");
             clientRepository.save(client);
         }
     }

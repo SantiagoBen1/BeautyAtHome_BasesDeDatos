@@ -88,6 +88,7 @@ public class ProfessionalViewController {
             data.put("id", form.getId());
             data.put("type", form.getType());
             data.put("name", form.getName());
+            data.put("phone", form.getPhone());
             data.put("photoUrl", form.getPhotoUrl());
             data.put("experienceSummary", form.getExperienceSummary());
             data.put("coverage", form.coverageAsList());

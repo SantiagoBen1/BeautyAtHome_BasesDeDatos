@@ -31,8 +31,9 @@ public class ReviewPersistenceAdapter implements ReviewRepository {
         
         if (review.getBooking() != null && review.getBooking().getId() != null) {
             try {
+                String bookingIdStr = review.getBooking().getId().replace("booking-", "");
                 com.beautyathome.entities.BookingEntity booking = new com.beautyathome.entities.BookingEntity();
-                booking.setId(Integer.parseInt(review.getBooking().getId()));
+                booking.setId(Integer.parseInt(bookingIdStr));
                 entity.setBooking(booking);
             } catch (NumberFormatException e) {}
         }
@@ -92,7 +93,9 @@ public class ReviewPersistenceAdapter implements ReviewRepository {
             domainClient = new com.beautyathome.domain.client.Client(
                 String.valueOf(entity.getBooking().getClient().getId()),
                 entity.getBooking().getClient().getFirstName() + " " + entity.getBooking().getClient().getLastName(),
-                entity.getBooking().getClient().getEmail()
+                entity.getBooking().getClient().getEmail(),
+                entity.getBooking().getClient().getPhone(),
+                entity.getBooking().getClient().getAddress()
             );
         }
 

@@ -27,6 +27,7 @@ class ProfessionalShowcaseTest {
         Professional professional = new HairStylist(
                 "pro-1",
                 "Aura Vega",
+                "0000000000",
                 "https://img/pro.jpg",
                 "10 aÃ±os en fashion weeks",
                 List.of(),
@@ -40,7 +41,7 @@ class ProfessionalShowcaseTest {
                 120,
                 List.of(new ImageReference("https://img/balayage-1.jpg")));
 
-        Client client = new Client("client-1", "Laura", "laura@mail.com");
+        Client client = new Client("client-1", "Laura", "laura@mail.com", "0000000000", "N/A");
         Booking matchedBooking = new Booking("booking-1", client.getId(), professional.getId(), List.of("svc-1"),
                 LocalDateTime.now());
         Booking fallbackBooking = new Booking("booking-2", client.getId(), professional.getId(), List.of("svc-2"),

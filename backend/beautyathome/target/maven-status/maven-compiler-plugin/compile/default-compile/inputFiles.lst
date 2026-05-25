@@ -103,6 +103,7 @@ C:\Users\PC\Desktop\UNIVERSIDAD\SEXTO SEMESTRE\Bases de Datos\BeautyAtHome\backe
 C:\Users\PC\Desktop\UNIVERSIDAD\SEXTO SEMESTRE\Bases de Datos\BeautyAtHome\backend\beautyathome\src\main\java\com\beautyathome\repositories\ClientRepository.java
 C:\Users\PC\Desktop\UNIVERSIDAD\SEXTO SEMESTRE\Bases de Datos\BeautyAtHome\backend\beautyathome\src\main\java\com\beautyathome\repositories\JpaBookingRepository.java
 C:\Users\PC\Desktop\UNIVERSIDAD\SEXTO SEMESTRE\Bases de Datos\BeautyAtHome\backend\beautyathome\src\main\java\com\beautyathome\repositories\JpaClientRepository.java
+C:\Users\PC\Desktop\UNIVERSIDAD\SEXTO SEMESTRE\Bases de Datos\BeautyAtHome\backend\beautyathome\src\main\java\com\beautyathome\repositories\JpaCoverageAreaRepository.java
 C:\Users\PC\Desktop\UNIVERSIDAD\SEXTO SEMESTRE\Bases de Datos\BeautyAtHome\backend\beautyathome\src\main\java\com\beautyathome\repositories\JpaProfessionalRepository.java
 C:\Users\PC\Desktop\UNIVERSIDAD\SEXTO SEMESTRE\Bases de Datos\BeautyAtHome\backend\beautyathome\src\main\java\com\beautyathome\repositories\JpaReviewRepository.java
 C:\Users\PC\Desktop\UNIVERSIDAD\SEXTO SEMESTRE\Bases de Datos\BeautyAtHome\backend\beautyathome\src\main\java\com\beautyathome\repositories\JpaServiceRepository.java

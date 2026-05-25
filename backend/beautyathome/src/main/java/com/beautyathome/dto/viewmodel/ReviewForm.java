@@ -8,6 +8,7 @@ public class ReviewForm {
     private String bookingId;
     private int rating = 5;
     private String text;
+    private String photoUrl;
 
     public String getBookingId() {
         return bookingId;
@@ -31,5 +32,13 @@ public class ReviewForm {
 
     public void setText(String text) {
         this.text = text;
+    }
+
+    public String getPhotoUrl() {
+        return photoUrl;
+    }
+
+    public void setPhotoUrl(String photoUrl) {
+        this.photoUrl = photoUrl;
     }
 }

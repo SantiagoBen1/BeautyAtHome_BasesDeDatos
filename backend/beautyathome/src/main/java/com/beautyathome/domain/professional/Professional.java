@@ -21,6 +21,11 @@ public interface Professional {
     String getName();
 
     /**
+     * @return teléfono de contacto de la profesional
+     */
+    String getPhone();
+
+    /**
      * @return URL de la fotografÃ­a representativa
      */
     String getPhotoUrl();

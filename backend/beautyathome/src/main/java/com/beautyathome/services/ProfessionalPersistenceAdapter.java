@@ -19,9 +19,12 @@ import com.beautyathome.repositories.JpaProfessionalRepository;
 public class ProfessionalPersistenceAdapter implements ProfessionalRepository {
 
     private final JpaProfessionalRepository jpaRepository;
+    private final com.beautyathome.repositories.JpaCoverageAreaRepository coverageAreaRepository;
 
-    public ProfessionalPersistenceAdapter(JpaProfessionalRepository jpaRepository) {
+    public ProfessionalPersistenceAdapter(JpaProfessionalRepository jpaRepository,
+                                          com.beautyathome.repositories.JpaCoverageAreaRepository coverageAreaRepository) {
         this.jpaRepository = jpaRepository;
+        this.coverageAreaRepository = coverageAreaRepository;
     }
 
     @Override
@@ -37,7 +40,6 @@ public class ProfessionalPersistenceAdapter implements ProfessionalRepository {
         
         if (entity == null) {
             entity = new ProfessionalEntity();
-            entity.setPhone("0000000000"); // Dummy
             entity.setRating(5.0);
             entity.setStatus("activo");
             
@@ -47,9 +49,24 @@ public class ProfessionalPersistenceAdapter implements ProfessionalRepository {
         }
         
         entity.setUserName(professional.getName() != null ? professional.getName().replaceAll("\\s+", "_").toLowerCase() : "unknown");
+        entity.setPhone(professional.getPhone() != null && !professional.getPhone().isEmpty() ? professional.getPhone() : "0000000000");
         entity.setPhotoUrl(professional.getPhotoUrl());
         entity.setBioExperience(professional.getExperienceSummary());
         entity.setSpeciality(professional.getClass().getSimpleName());
+        
+        if (professional.getCoverageAreas() != null) {
+            List<com.beautyathome.entities.CoverageAreaEntity> coverageEntities = new java.util.ArrayList<>();
+            for (com.beautyathome.domain.professional.CoverageArea ca : professional.getCoverageAreas()) {
+                com.beautyathome.entities.CoverageAreaEntity caEntity = coverageAreaRepository.findByNeighborhoodNameIgnoreCase(ca.getName()).orElseGet(() -> {
+                    com.beautyathome.entities.CoverageAreaEntity newCa = new com.beautyathome.entities.CoverageAreaEntity();
+                    newCa.setNeighborhoodName(ca.getName());
+                    newCa.setZipCode("000000");
+                    return coverageAreaRepository.save(newCa);
+                });
+                coverageEntities.add(caEntity);
+            }
+            entity.setCoverageAreas(coverageEntities);
+        }
         
         return toDomain(jpaRepository.save(entity));
     }
@@ -114,6 +131,7 @@ public class ProfessionalPersistenceAdapter implements ProfessionalRepository {
         return new HairStylist(
             String.valueOf(entity.getId()),
             entity.getUserName(),
+            entity.getPhone(),
             entity.getPhotoUrl(), // photoUrl
             entity.getBioExperience(), // experienceSummary
             domainCoverage, // coverageAreas

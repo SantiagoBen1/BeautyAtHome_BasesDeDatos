@@ -26,7 +26,7 @@
     </header>
 
     <main class="content">
-        <section class="hero stagger-1">
+        <section class="hero">
             <div class="hero__copy">
                 <p class="eyebrow">On-demand beauty concierge</p>
                 <h1>Crea experiencias premium sin salir de casa</h1>
@@ -43,7 +43,7 @@
             </div>
         </section>
 
-        <section class="stats-grid stagger-2">
+        <section class="stats-grid">
             <article class="card stat-card">
                 <small>Clientes activos</small>
                 <h3 th:text="${clientCount}">0</h3>
@@ -66,7 +66,7 @@
             </article>
         </section>
 
-        <section class="split stagger-3">
+        <section class="split">
             <div class="glass-panel">
                 <div class="section-header">
                     <h2>Talento destacado</h2>
@@ -118,14 +118,14 @@
                 <li class="timeline__item" th:each="booking : ${upcomingBookings}">
                     <span class="timeline__time" th:text="${#temporals.format(booking.dateTime, 'dd MMM HH:mm')}">07 Dic 10:00</span>
                     <div>
-                        <p class="timeline__title" th:text="${booking.serviceIds != null and !booking.serviceIds.empty ? booking.serviceIds[0] : 'Servicio'}">Servicio</p>
+                        <p class="timeline__title" th:text="${booking.serviceId}">Servicio</p>
                         <p class="timeline__meta">
                             <span th:text="'Cliente: ' + ${booking.clientId}">Cliente</span>
                             ·
                             <span th:text="'Pro: ' + ${booking.professionalId}">Pro</span>
                         </p>
                     </div>
-                    <span class="chip ghost" th:text="${booking.statusName}">Estado</span>
+                    <span class="chip ghost" th:text="${booking.state.class.simpleName}">Estado</span>
                 </li>
                 <li class="timeline__item empty" th:if="${#lists.isEmpty(upcomingBookings)}">
                     Agenda tu primera reserva para activar este panel.
@@ -133,7 +133,7 @@
             </ul>
         </section>
 
-        <section class="glass-panel stagger-4">
+        <section class="glass-panel">
             <div class="section-header">
                 <h2>Últimas reseñas</h2>
                 <a th:href="@{/reviews}">Ver todas</a>

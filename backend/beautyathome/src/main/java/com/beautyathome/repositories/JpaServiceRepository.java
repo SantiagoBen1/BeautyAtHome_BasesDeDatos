@@ -12,6 +12,8 @@ import org.springframework.data.repository.query.Param;
 @Repository
 public interface JpaServiceRepository extends JpaRepository<ServiceEntity, Integer> {
     List<ServiceEntity> findByProfessionals_Id(Integer professionalId);
+    
+    java.util.Optional<ServiceEntity> findFirstByNameIgnoreCase(String name);
 
     @Modifying
     @Query(value = "INSERT INTO professional_service (id_profesional, id_service) VALUES (:professionalId, :serviceId)", nativeQuery = true)

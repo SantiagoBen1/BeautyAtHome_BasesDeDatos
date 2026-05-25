@@ -11,6 +11,7 @@ public class MakeupArtist implements Professional {
 
 	private final String id;
 	private final String name;
+	private final String phone;
 	private final String photoUrl;
 	private final String experienceSummary;
 	private final List<CoverageArea> coverageAreas;
@@ -30,6 +31,7 @@ public class MakeupArtist implements Professional {
 	 */
 	public MakeupArtist(String id,
 					 String name,
+					 String phone,
 					 String photoUrl,
 					 String experienceSummary,
 					 List<CoverageArea> coverageAreas,
@@ -37,6 +39,7 @@ public class MakeupArtist implements Professional {
 					 List<ServiceComponent> servicesOffered) {
 		this.id = id;
 		this.name = name;
+		this.phone = phone;
 		this.photoUrl = photoUrl;
 		this.experienceSummary = experienceSummary;
 		this.coverageAreas = coverageAreas;
@@ -54,6 +57,12 @@ public class MakeupArtist implements Professional {
 	@Override
 	public String getName() {
 		return name;
+	}
+
+	/** {@inheritDoc} */
+	@Override
+	public String getPhone() {
+		return phone;
 	}
 
 	/** {@inheritDoc} */

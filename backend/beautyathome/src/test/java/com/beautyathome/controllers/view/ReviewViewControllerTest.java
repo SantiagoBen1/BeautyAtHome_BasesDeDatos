@@ -52,12 +52,13 @@ class ReviewViewControllerTest {
         professional = new HairStylist(
                 "pro-1",
                 "Eva",
+                "0000000000",
                 "https://img/pro.jpg",
                 "editoriales",
                 List.of(),
                 new Brand("Glow", "https://img/logo.png"),
                 List.of());
-        client = new Client("client-1", "Lina", "lina@mail.com");
+        client = new Client("client-1", "Lina", "lina@mail.com", "0000000000", "N/A");
         service = new ServiceLeaf(
                 "Editorial",
                 "look premium",

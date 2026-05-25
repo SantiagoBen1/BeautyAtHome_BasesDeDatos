@@ -35,9 +35,16 @@ public class ClientPersistenceAdapter implements ClientRepository {
         
         if (entity == null) {
             entity = new ClientEntity();
-            entity.setPhone("0000000000");
+        }
+        
+        if (client.getPassword() != null && !client.getPassword().isEmpty()) {
+            entity.setPasswordHash(client.getPassword()); // Dummy hashing for now
+        } else if (entity.getPasswordHash() == null) {
             entity.setPasswordHash("temporary_hash_123");
         }
+        
+        entity.setPhone(client.getPhone() != null && !client.getPhone().isEmpty() ? client.getPhone() : "0000000000");
+        entity.setAddress(client.getAddress());
 
         String[] parts = client.getName() != null ? client.getName().split(" ", 2) : new String[]{"Unknown"};
         entity.setFirstName(parts[0]);
@@ -76,7 +83,9 @@ public class ClientPersistenceAdapter implements ClientRepository {
         return new Client(
             String.valueOf(entity.getId()),
             entity.getFirstName() + " " + entity.getLastName(),
-            entity.getEmail()
+            entity.getEmail(),
+            entity.getPhone(),
+            entity.getAddress()
         );
     }
 }

@@ -26,7 +26,7 @@
     </header>
 
     <main class="content">
-        <section class="hero hero--sub stagger-1">
+        <section class="hero hero--sub">
             <div>
                 <p class="eyebrow">Prueba social</p>
                 <h1>Escucha a tus clientes y potencia la calidad de tu red</h1>
@@ -39,7 +39,7 @@
             </div>
         </section>
 
-        <section class="glass-panel stagger-2">
+        <section class="glass-panel">
             <div class="section-header">
                 <h2>Nueva reseña</h2>
                 <p>Vincula una reserva confirmada para habilitar la publicación.</p>
@@ -49,12 +49,13 @@
             <form th:action="@{/reviews}" th:object="${reviewForm}" method="post" class="form-grid">
                 <label>ID de reserva<input type="text" th:field="*{bookingId}" placeholder="booking-id" required /></label>
                 <label>Calificación (1-5)<input type="number" min="1" max="5" th:field="*{rating}" placeholder="5" required /></label>
+                <label>URL de Foto (opcional)<input type="url" th:field="*{photoUrl}" placeholder="https://..." /></label>
                 <label class="grid-span">Comentario<textarea th:field="*{text}" placeholder="Detalle la experiencia" rows="3"></textarea></label>
                 <button type="submit" class="btn primary">Publicar</button>
             </form>
         </section>
 
-        <section class="glass-panel stagger-3">
+        <section class="glass-panel">
             <div class="section-header">
                 <h2>Historias recientes</h2>
                 <span th:text="${#lists.size(reviews)} + ' opiniones'">0 opiniones</span>

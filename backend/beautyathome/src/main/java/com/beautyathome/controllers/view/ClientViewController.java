@@ -45,6 +45,8 @@ public class ClientViewController {
             data.put("id", form.getId());
             data.put("name", form.getName());
             data.put("email", form.getEmail());
+            data.put("phone", form.getPhone());
+            data.put("address", form.getAddress());
             facade.registerClient(data);
             redirectAttributes.addFlashAttribute("message", "Cliente registrado correctamente");
         } catch (Exception ex) {

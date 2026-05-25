@@ -35,6 +35,7 @@ public class ServicePersistenceAdapter implements ServiceRepository {
     
     @Override
     @Transactional
+    @SuppressWarnings("null")
     public ServiceComponent saveForProfessional(String professionalId, ServiceComponent service) {
         ServiceEntity entity = toEntity(service);
         entity = jpaRepository.save(entity);
@@ -49,7 +50,7 @@ public class ServicePersistenceAdapter implements ServiceRepository {
         try {
             return jpaRepository.findById(Integer.parseInt(id)).map(this::toDomain);
         } catch (NumberFormatException e) {
-            return Optional.empty();
+            return jpaRepository.findFirstByNameIgnoreCase(id).map(this::toDomain);
         }
     }
 

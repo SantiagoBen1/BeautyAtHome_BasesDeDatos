@@ -58,6 +58,10 @@ public class ReviewViewController {
                             RedirectAttributes redirectAttributes) {
         try {
             facade.addReview(form.getBookingId(), form.getRating(), form.getText());
+            if (form.getPhotoUrl() != null && !form.getPhotoUrl().isBlank()) {
+                facade.uploadPhoto(form.getBookingId(), form.getPhotoUrl(), true);
+                facade.grantPhotoConsent(form.getBookingId());
+            }
             redirectAttributes.addFlashAttribute("message", "ReseÃ±a registrada");
         } catch (Exception ex) {
             redirectAttributes.addFlashAttribute("error", ex.getMessage());

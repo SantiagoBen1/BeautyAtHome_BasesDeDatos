@@ -47,6 +47,7 @@ public class ConcreteProfessionalFactory implements ProfessionalAbstractFactory 
 	private Professional buildProfessional(ProfessionalBuilder builder, Map<String, Object> data) {
 		String id = (String) data.getOrDefault("id", UUID.randomUUID().toString());
 		String name = (String) data.getOrDefault("name", "Unnamed");
+		String phone = (String) data.getOrDefault("phone", "0000000000");
 		String photoUrl = (String) data.getOrDefault("photoUrl", "");
 		String experience = (String) data.getOrDefault("experienceSummary", "");
 		List<String> coverageNames = (List<String>) data.getOrDefault("coverage", Collections.emptyList());
@@ -69,6 +70,7 @@ public class ConcreteProfessionalFactory implements ProfessionalAbstractFactory 
 
 		builder.setId(id)
 				.setName(name)
+				.setPhone(phone)
 				.setPhotoUrl(photoUrl)
 				.setExperienceSummary(experience)
 				.setCoverageAreas(buildCoverageAreas(coverageNames))
@@ -104,6 +106,9 @@ public class ConcreteProfessionalFactory implements ProfessionalAbstractFactory 
 		/** Configura el nombre comercial. */
 		ProfessionalBuilder setName(String name);
 
+		/** Configura el teléfono. */
+		ProfessionalBuilder setPhone(String phone);
+
 		/** Configura la foto de perfil. */
 		ProfessionalBuilder setPhotoUrl(String photoUrl);
 
@@ -131,6 +136,7 @@ public class ConcreteProfessionalFactory implements ProfessionalAbstractFactory 
 
 		protected String id;
 		protected String name;
+		protected String phone;
 		protected String photoUrl;
 		protected String summary;
 		protected List<CoverageArea> coverageAreas;
@@ -148,6 +154,13 @@ public class ConcreteProfessionalFactory implements ProfessionalAbstractFactory 
 		@Override
 		public ProfessionalBuilder setName(String name) {
 			this.name = name;
+			return this;
+		}
+
+		/** {@inheritDoc} */
+		@Override
+		public ProfessionalBuilder setPhone(String phone) {
+			this.phone = phone;
 			return this;
 		}
 
@@ -189,7 +202,7 @@ public class ConcreteProfessionalFactory implements ProfessionalAbstractFactory 
 		/** {@inheritDoc} */
 		@Override
 		public Professional build() {
-			return new HairStylist(id, name, photoUrl, summary, coverageAreas, brand, services);
+			return new HairStylist(id, name, phone, photoUrl, summary, coverageAreas, brand, services);
 		}
 	}
 
@@ -198,7 +211,7 @@ public class ConcreteProfessionalFactory implements ProfessionalAbstractFactory 
 		/** {@inheritDoc} */
 		@Override
 		public Professional build() {
-			return new MakeupArtist(id, name, photoUrl, summary, coverageAreas, brand, services);
+			return new MakeupArtist(id, name, phone, photoUrl, summary, coverageAreas, brand, services);
 		}
 	}
 
@@ -207,7 +220,7 @@ public class ConcreteProfessionalFactory implements ProfessionalAbstractFactory 
 		/** {@inheritDoc} */
 		@Override
 		public Professional build() {
-			return new Manicurist(id, name, photoUrl, summary, coverageAreas, brand, services);
+			return new Manicurist(id, name, phone, photoUrl, summary, coverageAreas, brand, services);
 		}
 	}
 }

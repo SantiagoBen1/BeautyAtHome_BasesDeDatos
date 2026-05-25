@@ -91,7 +91,10 @@ public class BeautyAtHomeFacade {
         Client client = new Client(
                 (String) data.get("id"),
                 (String) data.getOrDefault("name", "Anonymous"),
-                (String) data.getOrDefault("email", "")
+                (String) data.getOrDefault("email", ""),
+                (String) data.getOrDefault("phone", "0000000000"),
+                (String) data.getOrDefault("address", "N/A"),
+                (String) data.get("password")
         );
         return registerClient(client);
     }
@@ -105,7 +108,7 @@ public class BeautyAtHomeFacade {
     public Client registerClient(Client client) {
         Objects.requireNonNull(client, "client");
         Client normalized = client.getId() == null || client.getId().isBlank()
-                ? new Client("", client.getName(), client.getEmail())
+                ? new Client("", client.getName(), client.getEmail(), client.getPhone(), client.getAddress(), client.getPassword())
                 : client;
         return clientRepositoryPort.save(normalized);
     }
@@ -324,7 +327,10 @@ public class BeautyAtHomeFacade {
             if (client == null) {
                 continue;
             }
-            ServiceComponent service = serviceRepositoryPort.findById(booking.getServiceIds().get(0)).orElse(null);
+            ServiceComponent service = null;
+            if (booking.getServiceIds() != null && !booking.getServiceIds().isEmpty()) {
+                service = serviceRepositoryPort.findById(booking.getServiceIds().get(0)).orElse(null);
+            }
             ServiceHistory history = new ServiceHistory(booking, client, professional, service, booking.getDateTime());
             List<Photo> photos = professionalPhotos.stream()
                     .filter(photo -> Objects.equals(photo.getBookingId(), booking.getId()))
