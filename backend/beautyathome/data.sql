@@ -1,3 +1,10 @@
+-- =========================================================
+-- PROYECTO DE BASES DE DATOS - BeautyAtHome
+-- Creador: Santiago Andrés Benavides Coral - 20232020036
+-- Asignatura: Bases de Datos (Sexto Semestre)
+-- Descripción: Script de inicialización, inserción de datos de prueba, vistas y roles.
+-- =========================================================
+
 -- Agregar la columna faltante photo_url (Ignora el error si ya existe)
 ALTER TABLE professionals ADD COLUMN IF NOT EXISTS photo_url VARCHAR(255);
 

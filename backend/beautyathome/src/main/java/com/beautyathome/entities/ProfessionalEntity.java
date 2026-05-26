@@ -16,6 +16,19 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
+/**
+ * Entidad JPA que mapea la tabla 'professionals' en PostgreSQL.
+ * 
+ * DESCRIPCIÓN DE LA BASE DE DATOS:
+ * Tabla que almacena el catálogo de trabajadores independientes.
+ * - Restricciones: 'user_name' tiene la restricción UNIQUE a nivel de BD para
+ * evitar duplicados.
+ * - Relaciones bidireccionales One-to-Many con 'bookings' (reservas).
+ * - Relaciones Many-to-Many implementadas con @JoinTable:
+ * 1. 'professional_service': Qué servicios es capaz de realizar.
+ * 2. 'professional_coverage': En qué códigos postales (zonas) está dispuesto a
+ * trabajar.
+ */
 @Entity
 @Table(name = "professionals")
 public class ProfessionalEntity {

@@ -17,6 +17,18 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
+/**
+ * Entidad JPA que mapea la tabla 'bookings' en PostgreSQL.
+ * 
+ * DESCRIPCIÓN DE LA BASE DE DATOS:
+ * Actúa como la tabla transaccional principal del sistema.
+ * - Mantiene integridad referencial con 'clients' y 'professionals'
+ * (Many-to-One).
+ * - Modela una relación Many-to-Many con 'services' a través de la tabla
+ * intermedia 'booking_service'.
+ * - Contiene una relación One-to-One implícita hacia 'reviews' (una reseña por
+ * reserva).
+ */
 @Entity
 @Table(name = "bookings")
 public class BookingEntity {

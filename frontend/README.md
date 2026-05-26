@@ -1,47 +1,22 @@
-# BeautyAtHome — Frontend
+# Frontend - BeautyAtHome (Capa de Presentación Web)
 
-## Descripción
-Este directorio contiene los archivos del frontend de BeautyAtHome.
+**Creador:** Santiago Andrés Benavides Coral - 20232020036
+**Asignatura:** Bases de Datos (Sexto Semestre)
 
-Actualmente incluye las plantillas Thymeleaf y estilos CSS del MVP original como referencia para la futura implementación de un frontend separado (React, Vue, Angular, etc.).
+## Relación con la Base de Datos
 
-## Estructura
+Aunque este directorio contiene código orientado al lado del cliente (HTML, CSS), es la interfaz principal a través de la cual los usuarios interactúan y alteran el estado de la base de datos PostgreSQL. Todo el frontend es renderizado directamente por el servidor backend utilizando **Thymeleaf**, lo cual crea un vínculo estrecho entre los datos relacionales y la interfaz visual.
 
-```
-frontend/
-├── templates/          # Plantillas HTML (Thymeleaf original)
-│   ├── index.html
-│   ├── bookings.html
-│   ├── clients.html
-│   ├── professionals.html
-│   └── reviews.html
-├── static/
-│   └── css/
-│       └── app.css     # Estilos globales
-└── README.md
-```
+### Recolección de Datos (Formularios)
 
-## Futura Implementación
+Las plantillas (`.html`) están diseñadas estratégicamente para mapearse exactamente con las Entidades (y eventualmente tablas) de la base de datos.
 
-Para implementar un frontend moderno separado:
+- Formularios como los de `clients.html` o `professionals.html` validan tipos de campos nativos (ej. `type="email"`, `type="tel"`) que garantizan que el input del usuario cumpla restricciones DDL y de dominio antes de convertirse en consultas `INSERT` o `UPDATE`.
+- La información sobre múltiples servicios seleccionados y zonas de cobertura se procesan de texto plano y se insertan a tablas dependientes (`One-to-Many`) en el backend.
 
-1. Inicializar un proyecto con el framework elegido (ej: `npx create-vite@latest ./ --template react`)
-2. Configurar las llamadas a la API REST del backend (`http://localhost:8080/api/...`)
-3. El backend ya tiene configuración CORS habilitada para desarrollo local.
+### Lectura de Datos (`SELECT` queries)
 
-## Endpoints API disponibles
+Gracias al motor de renderizado del lado del servidor, cuando el usuario navega a las pestañas de Profesionales o Reservas:
 
-| Método | Endpoint | Descripción |
-|--------|----------|-------------|
-| POST | `/api/clients` | Registrar cliente |
-| POST | `/api/professionals` | Registrar profesional |
-| GET | `/api/professionals` | Buscar profesionales (params: zone, category) |
-| GET | `/api/professionals/{id}/services` | Listar servicios de un profesional |
-| GET | `/api/professionals/{id}/history` | Ver historial de servicios |
-| POST | `/api/bookings` | Crear reserva |
-| DELETE | `/api/bookings/{id}` | Cancelar reserva |
-| POST | `/api/services` | Crear servicio |
-| POST | `/api/reviews` | Agregar reseña |
-| GET | `/api/reviews/professional/{id}/average` | Rating promedio |
-| POST | `/api/photos` | Subir foto |
-| POST | `/api/photos/consent` | Otorgar consentimiento |
+1. El backend ejecuta múltiples consultas y uniones (JOINs) SQL automatizadas a través de JPA para extraer información (ej. "Obtener un Profesional + su Marca + sus Servicios + sus Reseñas").
+2. Thymeleaf (en el HTML) usa la sintaxis iterativa (`th:each`) para dibujar tablas y tarjetas (Studio Capsules, Embajadores) pobladas dinámicamente con estas relaciones SQL extraídas sin exponer ninguna lógica SQL al cliente por seguridad.

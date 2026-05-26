@@ -14,6 +14,18 @@ import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
+/**
+ * Entidad JPA que mapea la tabla 'services' en PostgreSQL.
+ * 
+ * DESCRIPCIÓN DE LA BASE DE DATOS:
+ * Almacena el catálogo central de servicios que pueden ser prestados.
+ * - Pertenece a una Categoría ('id_categoria') formando una relación
+ * Many-to-One.
+ * - Es referenciado por Profesionales a través de 'professional_service'
+ * (ManyToMany inverso).
+ * - Es referenciado por Reservas a través de 'booking_service' (ManyToMany
+ * inverso).
+ */
 @Entity
 @Table(name = "services")
 public class ServiceEntity {
