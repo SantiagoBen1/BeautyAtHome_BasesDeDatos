@@ -32,13 +32,13 @@ La aplicación utiliza **PostgreSQL** como motor de base de datos principal, int
 ## Instrucciones de Ejecución
 
 1. Asegúrate de tener **PostgreSQL** corriendo localmente (puerto `5432`).
-2. Crea una base de datos vacía llamada `beautyathome_db`.
+2. Crea una base de datos vacía llamada `beautyathome` y ejecuta el script de `createTables.sql`,seguido del script `data.sql` en tu gestor de base de datos para cargar los datos de demostración y visualizar el funcionamiento completo.
 3. Navega al directorio `/backend/beautyathome` en tu terminal.
 4. Ejecuta el comando:
    ```bash
    mvn spring-boot:run
    ```
 5. Accede a la aplicación desde tu navegador en `http://localhost:8080`.
-6. Opcionalmente, ejecuta el script `inserts_test_data.sql` en tu gestor de base de datos para cargar los datos de demostración y visualizar el funcionamiento completo.
+
 
 ---
