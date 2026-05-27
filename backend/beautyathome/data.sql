@@ -1,19 +1,38 @@
 -- =========================================================
 -- PROYECTO DE BASES DE DATOS - BeautyAtHome
--- Creador: Santiago Andrés Benavides Coral - 20232020036
--- Asignatura: Bases de Datos (Sexto Semestre)
--- Descripción: Script de inicialización, inserción de datos de prueba, vistas y roles.
+-- Autor: Santiago Andrés Benavides Coral
+-- Asignatura: Bases de Datos
+-- Semestre: Sexto
+-- ---------------------------------------------------------
+-- Este script realiza:
+-- 1. Ajustes estructurales de tablas
+-- 2. Limpieza y reinicio de datos
+-- 3. Inserción de datos de prueba
+-- 4. Creación de vistas
+-- 5. Configuración de roles y permisos
 -- =========================================================
 
--- Agregar la columna faltante photo_url (Ignora el error si ya existe)
-ALTER TABLE professionals ADD COLUMN IF NOT EXISTS photo_url VARCHAR(255);
+-- =========================================================
+-- AJUSTE ESTRUCTURAL DE TABLAS
+-- =========================================================
 
--- Limpiar la base de datos y REINICIAR los contadores (SERIAL) a 1
+-- Agrega la columna photo_url en la tabla professionals
+-- si aún no existe dentro de la estructura.
+ALTER TABLE professionals ADD COLUMN IF NOT EXISTS photo_url VARCHAR(255);
+-- =========================================================
+-- LIMPIEZA DE LA BASE DE DATOS
+-- =========================================================
+
+-- Elimina todos los registros existentes y reinicia
+-- los contadores automáticos de las tablas relacionadas.
 TRUNCATE TABLE booking_service, professional_coverage, professional_service, photo_reference, reviews, bookings, services, coverage_areas, professionals, clients, brands, categorias RESTART IDENTITY CASCADE;
 
 -- =========================================================
--- 1. Insertar Categorías (100% Belleza y Bienestar)
+-- 1. REGISTRO DE CATEGORÍAS
 -- =========================================================
+
+-- Inserta las categorías principales disponibles
+-- dentro de la plataforma BeautyAtHome.
 INSERT INTO categorias (nombre) VALUES 
 ('Cuidado Capilar'),
 ('Cuidado de Uñas'),
@@ -25,8 +44,12 @@ INSERT INTO categorias (nombre) VALUES
 ('Tratamientos Corporales');
 
 -- =========================================================
--- 2. Insertar Marcas
+-- 2. REGISTRO DE MARCAS
 -- =========================================================
+
+-- Inserta las marcas y estudios asociados
+-- a los profesionales de la plataforma.
+
 INSERT INTO brands (brand_name, logo_url, description) VALUES 
 ('BeautyAtHome Pro', 'https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=150&q=80', 'Marca premium de profesionales exclusivos.'),
 ('Independiente', 'https://images.unsplash.com/photo-1522337660859-02fbefca4702?auto=format&fit=crop&w=150&q=80', 'Talento independiente verificado.'),
@@ -37,8 +60,12 @@ INSERT INTO brands (brand_name, logo_url, description) VALUES
 ('Lash & Brow Experts', 'https://images.unsplash.com/photo-1588513706465-d421d0a51b5c?auto=format&fit=crop&w=150&q=80', 'Diseño de miradas, pestañas y perfilado de cejas.');
 
 -- =========================================================
--- 3. Insertar Clientes
+-- 3. REGISTRO DE CLIENTES
 -- =========================================================
+
+-- Inserta clientes de prueba con información básica
+-- para realizar reservas dentro del sistema.
+
 INSERT INTO clients (first_name, last_name, email, phone, password_hash, address) VALUES 
 ('Valentina', 'Ríos', 'vale.rios@email.com', '3101234567', 'hash_abc123', 'Cra 7 # 45-10, Chapinero'),
 ('Santiago', 'Morales', 'santi.m@email.com', '3209876543', 'hash_def456', 'Av 19 # 118-30, Usaquén'),
@@ -49,8 +76,12 @@ INSERT INTO clients (first_name, last_name, email, phone, password_hash, address
 ('Mariana', 'Gómez', 'mariana.g@email.com', '3204445566', 'hash_temp456', 'Carrera 11 # 82-40, Rosales');
 
 -- =========================================================
--- 4. Insertar Profesionales
+-- 4. REGISTRO DE PROFESIONALES
 -- =========================================================
+
+-- Inserta los profesionales disponibles junto
+-- con su especialidad y calificación.
+
 INSERT INTO professionals (id_brand, user_name, bio_experience, speciality, photo_url, phone, rating, status) VALUES 
 (1, 'laura_estetica', '5 años en colorimetría y tratamientos capilares modernos.', 'Estilista Capilar', 'https://randomuser.me/api/portraits/women/44.jpg', '3111234567', 4.80, 'activo'),
 (2, 'jorge_nails', 'Especialista en uñas acrílicas, polygel y nail art avanzado.', 'Manicurista', 'https://randomuser.me/api/portraits/men/32.jpg', '3222345678', 4.70, 'activo'),
@@ -64,8 +95,11 @@ INSERT INTO professionals (id_brand, user_name, bio_experience, speciality, phot
 (4, 'roberto_masajes', 'Masajista deportivo y descontracturante avanzado.', 'Terapeuta Corporal', 'https://randomuser.me/api/portraits/men/66.jpg', '3157778899', 4.80, 'activo');
 
 -- =========================================================
--- 5. Insertar Servicios (Adaptados a las categorías de belleza)
+-- 5. REGISTRO DE SERVICIOS
 -- =========================================================
+
+-- Inserta los servicios ofrecidos por la plataforma,
+-- incluyendo precio base y duración estimada.
 INSERT INTO services (id_categoria, name, description, base_price, estimated_duration) VALUES 
 (1, 'Corte de Cabello Mujer', 'Corte moderno incluye lavado y secado rápido.', 45000.0, 45),
 (1, 'Balayage Premium', 'Decoloración técnica balayage con matizante.', 180000.0, 180),
@@ -84,8 +118,11 @@ INSERT INTO services (id_categoria, name, description, base_price, estimated_dur
 (2, 'Pedicura Spa', 'Limpieza profunda, exfoliación e hidratación.', 45000.0, 60);
 
 -- =========================================================
--- 6. Asociar Profesionales con Servicios
+-- 6. RELACIÓN PROFESIONAL - SERVICIO
 -- =========================================================
+
+-- Relaciona cada profesional con los servicios
+-- que puede ofrecer dentro de la aplicación.
 INSERT INTO professional_service (id_profesional, id_service) VALUES 
 (1, 1), (1, 2), (1, 3),    -- laura: Cabello
 (2, 4), (2, 5), (2, 15),   -- jorge: Uñas y pedicure
@@ -99,8 +136,11 @@ INSERT INTO professional_service (id_profesional, id_service) VALUES
 (10, 9);                   -- roberto: Masaje descontracturante
 
 -- =========================================================
--- 7. Insertar Zonas de Cobertura
+-- 7. REGISTRO DE ZONAS DE COBERTURA
 -- =========================================================
+
+-- Inserta los barrios y códigos postales
+-- donde opera la plataforma.
 INSERT INTO coverage_areas (zip_code, neighborhood_name) VALUES 
 ('110111', 'Chapinero'),
 ('110221', 'Usaquén'),
@@ -112,8 +152,12 @@ INSERT INTO coverage_areas (zip_code, neighborhood_name) VALUES
 ('110711', 'Cedritos');
 
 -- =========================================================
--- 8. Asociar Profesionales con Zonas de Cobertura
+-- 8. RELACIÓN PROFESIONAL - COBERTURA
 -- =========================================================
+
+-- Asocia los profesionales con las zonas
+-- donde prestan sus servicios.
+
 INSERT INTO professional_coverage (id_profesional, id_coverage) VALUES 
 (1, 1), (1, 2), (1, 6),                     
 (2, 1), (2, 3), (2, 5),                      
@@ -127,8 +171,11 @@ INSERT INTO professional_coverage (id_profesional, id_coverage) VALUES
 (10, 1), (10, 2), (10, 4), (10, 6);
 
 -- =========================================================
--- 9. Insertar Reservas de Prueba
+-- 9. REGISTRO DE RESERVAS
 -- =========================================================
+
+-- Inserta reservas de ejemplo realizadas
+-- por clientes a diferentes profesionales.
 INSERT INTO bookings (id_cliente, id_profesional, datetime_start, datetime_end, total_price, status) VALUES 
 (1, 1, '2026-05-20 10:00:00', '2026-05-20 12:00:00', 120000.0, 'completado'), -- Valentina con Laura (Balayage)
 (2, 2, '2026-05-21 14:00:00', '2026-05-21 15:30:00', 80000.0, 'completado'),  -- Santiago con Jorge (Uñas Acrílicas)
@@ -144,8 +191,12 @@ INSERT INTO bookings (id_cliente, id_profesional, datetime_start, datetime_end, 
 (5, 2, '2026-06-02 11:00:00', '2026-06-02 12:00:00', 35000.0, 'cancelado');   -- Manicura cancelada
 
 -- =========================================================
--- 10. Asociar Servicios a Reservas
+-- 10. RELACIÓN RESERVA - SERVICIO
 -- =========================================================
+
+-- Relaciona las reservas con el servicio
+-- solicitado por el cliente.
+
 INSERT INTO booking_service (id_booking, id_service) VALUES 
 (1, 2),   -- Balayage Premium
 (2, 5),   -- Uñas Acrílicas
@@ -161,8 +212,12 @@ INSERT INTO booking_service (id_booking, id_service) VALUES
 (12, 4);  -- Manicura Semipermanente
 
 -- =========================================================
--- 11. Insertar Reseñas
+-- 11. REGISTRO DE RESEÑAS
 -- =========================================================
+
+-- Inserta opiniones y calificaciones
+-- realizadas por los clientes.
+
 INSERT INTO reviews (id_booking, rating, comment, created_date) VALUES 
 (1, 5.00, 'El balayage quedó espectacular, Laura cuida muchísimo el cabello.', '2026-05-20'),
 (2, 4.80, 'Mis uñas acrílicas quedaron hermosas, Jorge tiene mucho talento para el nail art.', '2026-05-21'),
@@ -173,8 +228,12 @@ INSERT INTO reviews (id_booking, rating, comment, created_date) VALUES
 (7, 4.80, 'Las pestañas quedaron muy naturales, no ardió nada.', '2026-05-25');
 
 -- =========================================================
--- 12. Insertar Referencias de Fotos a las Reseñas
+-- 12. REGISTRO DE FOTOS DE RESEÑAS
 -- =========================================================
+
+-- Guarda imágenes relacionadas con las
+-- reseñas publicadas por los clientes.
+
 INSERT INTO photo_reference (id_review, photo, s3_bucket_url) VALUES 
 (1, 'resultado_balayage.jpg', 'https://images.unsplash.com/photo-1595476108010-b4d1f10d5e43?auto=format&fit=crop&w=300&q=80'),
 (2, 'unas_acrilicas.jpg', 'https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=300&q=80'),
