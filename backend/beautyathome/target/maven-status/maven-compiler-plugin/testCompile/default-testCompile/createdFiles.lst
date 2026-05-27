@@ -1,4 +1,4 @@
-ui\viewmodel\ProfessionalShowcaseTest.class
-infrastructure\media\ConsentProxyTest$FakeBookingDAO.class
-infrastructure\media\ConsentProxyTest.class
-ui\controller\ReviewViewControllerTest.class
+com\beautyathome\controllers\view\ReviewViewControllerTest.class
+com\beautyathome\dto\viewmodel\ProfessionalShowcaseTest.class
+com\beautyathome\services\media\ConsentProxyTest$FakeBookingRepository.class
+com\beautyathome\services\media\ConsentProxyTest.class

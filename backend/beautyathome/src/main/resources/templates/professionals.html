@@ -71,6 +71,7 @@
                 <label>ID<input type="text" th:field="*{id}" required placeholder="pro-001" /></label>
                 <label>Tipo<input type="text" th:field="*{type}" required placeholder="makeupartist" /></label>
                 <label>Nombre<input type="text" th:field="*{name}" required placeholder="Nombre completo" /></label>
+                <label>Teléfono<input type="tel" th:field="*{phone}" required placeholder="3001234567" /></label>
                 <label>Foto<input type="url" th:field="*{photoUrl}" placeholder="https://" /></label>
                 <label class="grid-span">Resumen<textarea th:field="*{experienceSummary}" placeholder="Más de 5 años en..." rows="3"></textarea></label>
                 <label>Coberturas<input type="text" th:field="*{coverageAreas}" placeholder="Chapinero, Usaquén" /></label>
@@ -137,10 +138,11 @@
                     <div class="pro-card__body">
                         <div class="pro-card__head">
                             <span class="chip" th:text="${showcase.professional.brand != null ? showcase.professional.brand.name : 'Independiente'}">Marca</span>
-                            <span class="badge" th:text="${showcase.professional.class.simpleName}">Tipo</span>
+                            <span class="badge" th:text="${showcase.professional.typeName}">Tipo</span>
                             <small class="badge ghost" th:text="${#numbers.formatDecimal(showcase.averageRating, 1, 1)} + ' ★'">0.0 ★</small>
                         </div>
                         <h3 th:text="${showcase.professional.name}">Nombre</h3>
+                        <p class="muted" th:text="${showcase.professional.phone}">3001234567</p>
                         <p class="muted" th:text="${showcase.professional.experienceSummary}">Resumen</p>
                         <div class="pro-card__meta">
                             <div>

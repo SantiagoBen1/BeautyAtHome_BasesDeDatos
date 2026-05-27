@@ -59,6 +59,18 @@
                     Correo electrónico
                     <input type="email" th:field="*{email}" placeholder="nombre@mail.com" required />
                 </label>
+                <label>
+                    Contraseña
+                    <input type="password" th:field="*{password}" placeholder="********" required />
+                </label>
+                <label>
+                    Teléfono
+                    <input type="tel" th:field="*{phone}" placeholder="3001234567" required />
+                </label>
+                <label>
+                    Dirección
+                    <input type="text" th:field="*{address}" placeholder="Calle 123" required />
+                </label>
                 <button type="submit" class="btn primary">Guardar cliente</button>
             </form>
         </section>
@@ -74,6 +86,8 @@
                     <div>
                         <h3 th:text="${client.name}">Nombre</h3>
                         <p class="muted" th:text="${client.email}">correo@mail.com</p>
+                        <p class="muted" th:text="${client.phone}">3001234567</p>
+                        <p class="muted" th:text="${client.address}">Direccion</p>
                         <small th:text="${client.id}">cli-000</small>
                     </div>
                 </article>

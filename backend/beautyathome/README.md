@@ -1,90 +1,33 @@
-## BeautyAtHome Backend
+# Backend - BeautyAtHome (Capa de Base de Datos y Lógica)
 
-Servicio REST en Spring Boot que orquesta reservas de belleza a domicilio, gestiona agendas sin solapes y expone reseñas verificadas. Este módulo corresponde al backend del monorepo académicamente orientado.
+**Creador:** Santiago Andrés Benavides Coral - 20232020036
+**Asignatura:** Bases de Datos (Sexto Semestre)
 
----
+## Arquitectura de Datos (ORM y JPA)
 
-### 🧱 Stack y arquitectura
-- Java 21 + Spring Boot 3.3.5 (web, validation) empaquetado con Maven.
-- Capas internas:
-  - `api.controller`: controladores REST y mapeo de DTOs.
-  - `application.*`: servicios de caso de uso (`BookingService`, `BeautyAtHomeFacade`, validadores).
-  - `domain.*`: entidades ricas y patrones (Builder para reservas, Strategy para precios, Singleton para agenda, Observer/State para el ciclo de booking).
-  - `infrastructure.*`: adaptadores de persistencia, multimedia y proxys de consentimiento.
-- Configuración externa centralizada en `src/main/resources/application.yml`.
+Este directorio alberga el Backend del proyecto desarrollado en **Spring Boot (Java)**. El principal objetivo de esta capa, desde la perspectiva de bases de datos, es gestionar la conexión, las consultas y la persistencia hacia PostgreSQL mediante **Hibernate (Spring Data JPA)**.
 
----
+### Mapeo de Entidades (`com/beautyathome/entities/`)
 
-### ✅ Requisitos previos
-- JDK 21 (o superior compatible con Spring Boot 3.3.x).
-- Maven 3.9+.
-- Git y una terminal con soporte para scripts de Maven.
+Las clases dentro de la carpeta de entidades son la representación viva de nuestras tablas SQL en código Java.
 
-Verifica las versiones:
-```powershell
-java -version
-mvn -version
-```
+- **Anotaciones Clave:** Se usan `@Entity` y `@Table` para atar clases a tablas. `@Id` y `@GeneratedValue` automatizan la asignación de IDs primarios (`SERIAL` en SQL).
+- **Relaciones:**
+  - `@ManyToOne`: Por ejemplo, múltiples profesionales pertenecen a una marca (`BrandEntity`).
+  - `@ManyToMany`: Configurado con `@JoinTable` para modelar de forma transparente las tablas intermedias complejas, como la asignación de servicios a una reserva (`booking_service`) o las zonas de cobertura de un profesional (`professional_coverage`).
+- **Restricciones DDL:** Se utilizaron anotaciones como `nullable = false` o `unique = true` en `@Column` para garantizar la integridad a nivel de código antes de llegar a la base de datos.
 
----
+### Repositorios (`com/beautyathome/repositories/`)
 
-### 🚀 Puesta en marcha local
-1. Clona el repo y entra al módulo:
-	```powershell
-	git clone https://github.com/AlicePQ/BeautyAtHome.git
-	cd BeautyAtHome/backend/beautyathome
-	```
-2. Compila y ejecuta pruebas:
-	```powershell
-	mvn clean verify
-	```
-3. Levanta la API (por defecto en `http://localhost:8080`):
-	```powershell
-	mvn spring-boot:run
-	```
+Las interfaces que extienden de `JpaRepository` actúan como la capa DAO (Data Access Object).
 
-Para producir un JAR ejecutable:
-```powershell
-mvn clean package
-java -jar target/beautyathome-0.0.1-SNAPSHOT.jar
-```
+- **Consultas Automáticas:** Hibernate genera automáticamente las consultas SQL subyacentes con solo declarar firmas de métodos como `findByProfessionalId(Integer id)`.
+- **Consultas Nativas Personalizadas:** En escenarios de uniones complejas, como `JpaServiceRepository`, se utilizó la anotación `@Query(nativeQuery = true)` para escribir e inyectar sentencias SQL nativas que optimizan inserciones en tablas Many-to-Many (`INSERT INTO professional_service...`).
 
----
+### Adaptadores de Persistencia (`com/beautyathome/services/`)
 
-### 📂 Estructura relevante
-```
-backend/beautyathome
-├─ pom.xml                 # Gestión de dependencias y plugins
-├─ src/main/java/com/beautyathome
-│  ├─ api/controller       # Endpoints REST (p.ej. BookingController)
-│  ├─ application          # Servicios, facades y validaciones
-│  ├─ domain               # Modelo de dominio y patrones
-│  └─ infrastructure       # Persistencia, media y proxies
-└─ src/main/resources
-	└─ application.yml      # Configuración (puertos, datasources, etc.)
-```
+Esta capa es crucial para aplicar el patrón de _Arquitectura Hexagonal_. Los adaptadores (ej. `BookingPersistenceAdapter`) traducen los datos del dominio interno de la aplicación a las `Entities` transaccionales de JPA antes de llamar al repositorio, previniendo así la fuga de abstracciones SQL al resto del sistema.
 
----
+### Controladores Web y APIs (`com/beautyathome/controllers/`)
 
-### 🔐 Configuración y perfiles
-- Las propiedades por defecto viven en `application.yml`.
-- Para entornos alternos crea archivos `application-{perfil}.yml` y arranca con `--spring.profiles.active=perfil`.
-- Variables sensibles (tokens, credenciales) deben inyectarse vía variables de entorno o un gestor de secretos; evita commitearlas.
-
----
-
-### 🧪 Calidad y pruebas
-- `mvn test`: ejecuta la suite unitaria.
-- Agrega pruebas en `src/test/java` siguiendo la convención `*Test`.
-- Usa `@SpringBootTest` para pruebas integrales y `@WebMvcTest` para controladores aislados.
-
----
-
-### 🛣️ Roadmap técnico corto
-- Persistencia real (actualmente in memory) con repositorios JPA o puertos/adapter.
-- Hardening de validaciones y manejo de excepciones global.
-- Documentación OpenAPI en `SwaggerConfig` expuesta en `/swagger-ui`.
-
----
-
-Hecho con cariño para el curso de Modelos de Programación. Si algo se rompe, es tu culpa. ✨
+(Endpoints) Gestionan las peticiones HTTP (`GET`, `POST`) de la interfaz, orquestando las interacciones entre los formularios web y las transacciones de bases de datos de forma segura, garantizando propiedades ACID.

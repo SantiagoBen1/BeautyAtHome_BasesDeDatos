@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>BeautyAtHome · Panel vivo</title>
+    <link rel="stylesheet" th:href="@{/css/app.css}" href="/css/app.css" />
+</head>
+<body class="app-body">
+<div class="shell">
+    <header class="top-nav">
+        <div class="brand">
+            <span class="brand__glyph">BAH</span>
+            <div>
+                <p class="brand__title">BeautyAtHome</p>
+                <small class="brand__tagline">Estética on-demand</small>
+            </div>
+        </div>
+        <nav class="nav-links">
+            <a th:href="@{/home}" class="is-active">Inicio</a>
+            <a th:href="@{/clients}">Clientes</a>
+            <a th:href="@{/professionals}">Profesionales</a>
+            <a th:href="@{/bookings}">Reservas</a>
+            <a th:href="@{/reviews}">Reseñas</a>
+        </nav>
+    </header>
+
+    <main class="content">
+        <section class="hero">
+            <div class="hero__copy">
+                <p class="eyebrow">On-demand beauty concierge</p>
+                <h1>Crea experiencias premium sin salir de casa</h1>
+                <p>Seguimos en vivo las agendas, profesionales y reseñas para que siempre tengas contexto de tu operación BeautyAtHome.</p>
+                <div class="hero__cta">
+                    <a class="btn primary" th:href="@{/bookings}">Agendar ahora</a>
+                    <a class="btn ghost" th:href="@{/professionals}">Conoce al talento</a>
+                </div>
+            </div>
+            <div class="hero__badge">
+                <p class="hero__kpi" th:text="${#numbers.formatDecimal(averageRating, 1, 1)}">4.9</p>
+                <p class="hero__label">Promedio general</p>
+                <span th:text="${reviewCount} + ' reseñas verificadas'">0 reseñas</span>
+            </div>
+        </section>
+
+        <section class="stats-grid">
+            <article class="card stat-card">
+                <small>Clientes activos</small>
+                <h3 th:text="${clientCount}">0</h3>
+                <span>Personas con perfil completo</span>
+            </article>
+            <article class="card stat-card">
+                <small>Profesionales</small>
+                <h3 th:text="${professionalCount}">0</h3>
+                <span>Estilistas certificados</span>
+            </article>
+            <article class="card stat-card">
+                <small>Reservas</small>
+                <h3 th:text="${bookingCount}">0</h3>
+                <span>Agendadas esta semana</span>
+            </article>
+            <article class="card stat-card">
+                <small>Reseñas verificadas</small>
+                <h3 th:text="${reviewCount}">0</h3>
+                <span>Historias reales de clientes</span>
+            </article>
+        </section>
+
+        <section class="split">
+            <div class="glass-panel">
+                <div class="section-header">
+                    <h2>Talento destacado</h2>
+                    <a th:href="@{/professionals}">Ver profesionales</a>
+                </div>
+                <div class="card-grid three">
+                    <article class="card pro-card" th:each="pro : ${heroProfessionals}">
+                        <div class="pro-card__media" th:if="${pro.photoUrl != null}">
+                            <img th:src="${pro.photoUrl}" alt="Foto profesional" />
+                        </div>
+                        <div class="pro-card__body">
+                            <span class="chip" th:text="${pro.brand != null ? pro.brand.name : 'Independiente'}">Marca</span>
+                            <h3 th:text="${pro.name}">Nombre profesional</h3>
+                            <p th:text="${pro.experienceSummary}">Experiencia</p>
+                            <div class="badges" th:if="${pro.coverageAreas != null}">
+                                <span class="badge" th:each="area : ${pro.coverageAreas}"
+                                      th:text="${area.name}">Zona</span>
+                            </div>
+                        </div>
+                    </article>
+                    <p class="empty" th:if="${#lists.isEmpty(heroProfessionals)}">Registra profesionales para verlos aquí.</p>
+                </div>
+            </div>
+
+            <div class="glass-panel">
+                <div class="section-header">
+                    <h2>Clientes felices</h2>
+                    <a th:href="@{/clients}">Ver clientes</a>
+                </div>
+                <div class="persona-grid">
+                    <article class="persona" th:each="client : ${featuredClients}">
+                        <div class="avatar" th:text="${client.name != null ? #strings.substring(client.name, 0, 1) : '?'}">M</div>
+                        <div>
+                            <h4 th:text="${client.name}">Nombre</h4>
+                            <span th:text="${client.email}">correo@mail.com</span>
+                        </div>
+                    </article>
+                    <p class="empty" th:if="${#lists.isEmpty(featuredClients)}">Registra clientes para comenzar.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="glass-panel">
+            <div class="section-header">
+                <h2>Reservas próximas</h2>
+                <a th:href="@{/bookings}">Gestionar agenda</a>
+            </div>
+            <ul class="timeline">
+                <li class="timeline__item" th:each="booking : ${upcomingBookings}">
+                    <span class="timeline__time" th:text="${#temporals.format(booking.dateTime, 'dd MMM HH:mm')}">07 Dic 10:00</span>
+                    <div>
+                        <p class="timeline__title" th:text="${booking.serviceId}">Servicio</p>
+                        <p class="timeline__meta">
+                            <span th:text="'Cliente: ' + ${booking.clientId}">Cliente</span>
+                            ·
+                            <span th:text="'Pro: ' + ${booking.professionalId}">Pro</span>
+                        </p>
+                    </div>
+                    <span class="chip ghost" th:text="${booking.state.class.simpleName}">Estado</span>
+                </li>
+                <li class="timeline__item empty" th:if="${#lists.isEmpty(upcomingBookings)}">
+                    Agenda tu primera reserva para activar este panel.
+                </li>
+            </ul>
+        </section>
+
+        <section class="glass-panel">
+            <div class="section-header">
+                <h2>Últimas reseñas</h2>
+                <a th:href="@{/reviews}">Ver todas</a>
+            </div>
+            <div class="card-grid three">
+                <article class="review-card" th:each="review : ${latestReviews}">
+                    <div class="stars" th:with="rating=${review.rating.value}">
+                        <span th:each="star : ${#numbers.sequence(1,5)}"
+                              th:classappend="${star <= rating} ? 'star--active' : ''">★</span>
+                    </div>
+                    <p class="review-card__text" th:text="${review.text}">Comentario</p>
+                    <div class="review-card__meta">
+                        <strong th:text="${review.client != null ? review.client.name : 'Cliente'}">Cliente</strong>
+                        <span th:text="${review.professional != null ? review.professional.name : 'Profesional'}">Profesional</span>
+                        <small th:text="${#temporals.format(review.createdAt, 'dd MMM yyyy')}">07 Dic</small>
+                    </div>
+                </article>
+                <p class="empty" th:if="${#lists.isEmpty(latestReviews)}">No hay reseñas aún.</p>
+            </div>
+        </section>
+    </main>
+</div>
+</body>
+</html>
