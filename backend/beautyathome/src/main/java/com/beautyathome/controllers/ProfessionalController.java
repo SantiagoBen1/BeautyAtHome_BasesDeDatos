@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.beautyathome.dto.BrandRequest;
 import com.beautyathome.dto.ProfessionalRegistrationRequest;
+import com.beautyathome.entities.ProfessionalEntity;
 import com.beautyathome.services.BeautyAtHomeFacade;
 import com.beautyathome.domain.booking.history.ServiceHistory;
 import com.beautyathome.domain.professional.Professional;
@@ -26,9 +28,11 @@ import com.beautyathome.domain.service.ServiceComponent;
 public class ProfessionalController {
 
     private final BeautyAtHomeFacade facade;
+    private final com.beautyathome.repositories.JpaProfessionalRepository professionalRepository;
 
-    public ProfessionalController(BeautyAtHomeFacade facade) {
+    public ProfessionalController(BeautyAtHomeFacade facade, com.beautyathome.repositories.JpaProfessionalRepository professionalRepository) {
         this.facade = facade;
+        this.professionalRepository = professionalRepository;
     }
 
     @PostMapping
@@ -53,7 +57,7 @@ public class ProfessionalController {
 
     @GetMapping
     public List<Professional> searchProfessionals(@RequestParam(required = false) String zone,
-                                                  @RequestParam(required = false) String category) {
+            @RequestParam(required = false) String category) {
         return facade.searchProfessionals(zone, category);
     }
 
@@ -65,5 +69,10 @@ public class ProfessionalController {
     @GetMapping("/{professionalId}/history")
     public List<ServiceHistory> viewHistory(@PathVariable String professionalId) {
         return facade.viewProfessionalHistory(professionalId);
+    }
+
+    @GetMapping("/top-rated")
+    public ResponseEntity<List<ProfessionalEntity>> getTopRatedProfessionals() {
+        return ResponseEntity.ok(professionalRepository.findProfessionalsAboveAverageRating());
     }
 }

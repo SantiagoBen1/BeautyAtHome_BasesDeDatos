@@ -118,14 +118,14 @@
                 <li class="timeline__item" th:each="booking : ${upcomingBookings}">
                     <span class="timeline__time" th:text="${#temporals.format(booking.dateTime, 'dd MMM HH:mm')}">07 Dic 10:00</span>
                     <div>
-                        <p class="timeline__title" th:text="${booking.serviceId}">Servicio</p>
+                        <p class="timeline__title" th:text="${booking.serviceIds != null and !booking.serviceIds.empty ? booking.serviceIds[0] : 'Servicio'}">Servicio</p>
                         <p class="timeline__meta">
                             <span th:text="'Cliente: ' + ${booking.clientId}">Cliente</span>
                             ·
                             <span th:text="'Pro: ' + ${booking.professionalId}">Pro</span>
                         </p>
                     </div>
-                    <span class="chip ghost" th:text="${booking.state.class.simpleName}">Estado</span>
+                    <span class="chip ghost" th:text="${booking.statusName}">Estado</span>
                 </li>
                 <li class="timeline__item empty" th:if="${#lists.isEmpty(upcomingBookings)}">
                     Agenda tu primera reserva para activar este panel.

@@ -1,6 +1,9 @@
 # Backend - BeautyAtHome (Capa de Base de Datos y Lógica)
 
 **Creador:** Santiago Andrés Benavides Coral - 20232020036
+**Creador:** Miguel Andres Contreras Rodriguez - 20232020020
+**Creador:** Sergio Nicolas Osorio Guevara - 20241020073
+**Creador:** Adiel Valentin Hernandez  - 20201020144
 **Asignatura:** Bases de Datos (Sexto Semestre)
 
 ## Arquitectura de Datos (ORM y JPA)
