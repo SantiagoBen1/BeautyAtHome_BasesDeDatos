@@ -79,7 +79,7 @@
                             th:each="card : ${lane.cards}">
                             <span class="timeline__time" th:text="${#temporals.format(card.booking.dateTime, 'dd MMM HH:mm')}">07 Dic 10:00</span>
                             <div>
-                                <p class="timeline__title" th:text="${card.booking.serviceIds != null and !card.booking.serviceIds.empty ? card.booking.serviceIds[0] : 'Servicio'}">Servicio</p>
+                                <p class="timeline__title" th:text="${card.booking.serviceId}">Servicio</p>
                                 <p class="timeline__meta">
                                     <span th:text="${card.booking.clientId}">Cliente</span>
                                     ·
