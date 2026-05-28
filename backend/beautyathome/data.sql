@@ -1,37 +1,31 @@
 -- =========================================================
 -- PROYECTO DE BASES DE DATOS - BeautyAtHome
--- Autor: Santiago Andrés Benavides Coral, Sergio Nicolas Osorio Guevara,Miguel Andres Contreras Rodriguez,Adiel Valentín Hernández Manosalva
+-- Autor: Santiago Andrés Benavides Coral, Sergio Nicolas Osorio Guevara, Miguel Andres Contreras Rodriguez, Adiel Valentín Hernández Manosalva
 -- Asignatura: Bases de Datos
--- Semestre: Sexto
+-- Semestre: Sexto (2026-1)
 -- ---------------------------------------------------------
 -- Este script realiza:
--- 1. Ajustes estructurales de tablas
--- 2. Limpieza y reinicio de datos
--- 3. Inserción de datos de prueba
--- 4. Creación de vistas
--- 5. Configuración de roles y permisos
--- =========================================================
-
--- =========================================================
--- AJUSTE ESTRUCTURAL DE TABLAS
+-- 1. Creación de tablas y restricciones (DDL)
+-- 2. Limpieza de datos (TRUNCATE)
+-- 3. Inserción de datos de prueba (DML)
+-- 4. Creación de Vistas y Subconsultas (Reportes y Simplificación)
+-- 5. Configuración de Roles, Usuarios y Permisos (DCL)
 -- =========================================================
 
 
-
-
 -- =========================================================
--- CREACIÓN DE TABLAS Y RESTRICCIONES
+-- PARTE 1: CREACIÓN DE TABLAS Y RESTRICCIONES
 -- =========================================================
 
 CREATE TABLE clients (
     id_cliente    SERIAL          PRIMARY KEY,
     first_name    VARCHAR(80)     NOT NULL,
     last_name     VARCHAR(80)     NOT NULL,
-    email         VARCHAR(120)    NOT NULL UNIQUE,
+    email         VARCHAR(120)    NOT NULL UNIQUE, -- El correo no se puede repetir
     phone         VARCHAR(20)     NOT NULL, 
     password_hash VARCHAR(255)    NOT NULL,
     address       VARCHAR(200),
-    CONSTRAINT chk_email CHECK (email LIKE '%@%')
+    CONSTRAINT chk_email CHECK (email LIKE '%@%') -- Valida formato básico de email
 );
  
 CREATE TABLE brands (
@@ -58,8 +52,9 @@ CREATE TABLE professionals (
     user_name       VARCHAR(80)     NOT NULL UNIQUE,
     bio_experience  VARCHAR(300),
     speciality      VARCHAR(100),
+    photo_url       VARCHAR(255),
     phone           VARCHAR(20),
-    rating          NUMERIC(3, 2)   CHECK (rating BETWEEN 0 AND 5),
+    rating          NUMERIC(3, 2)   CHECK (rating >= 0 AND rating <= 5), -- Rating válido de 0 a 5
     status          VARCHAR(30)     NOT NULL DEFAULT 'activo'
                                     CHECK (status IN ('activo', 'inactivo', 'suspendido'))
 );
@@ -80,9 +75,9 @@ CREATE TABLE bookings (
     datetime_start  TIMESTAMP       NOT NULL,
     datetime_end    TIMESTAMP       NOT NULL,
     total_price     NUMERIC(10, 2)  NOT NULL CHECK (total_price >= 0),
-    status          VARCHAR(30)     NOT NULL DEFAULT 'pendiente'
+    status          VARCHAR(30)     NOT NULL DEFAULT 'pendiente' -- Inicia en pendiente por defecto
                                     CHECK (status IN ('pendiente', 'confirmado', 'cancelado', 'completado')),
-    CONSTRAINT chk_fechas CHECK (datetime_end > datetime_start)
+    CONSTRAINT chk_fechas CHECK (datetime_end > datetime_start) -- Validación temporal lógica
 );
  
 CREATE TABLE booking_service (
@@ -106,7 +101,7 @@ CREATE TABLE professional_coverage (
 CREATE TABLE reviews (
     id_review     SERIAL          PRIMARY KEY,
     id_booking    INTEGER         NOT NULL UNIQUE REFERENCES bookings(id_booking),
-    rating        NUMERIC(3, 2)   NOT NULL CHECK (rating BETWEEN 0 AND 5),
+    rating        NUMERIC(3, 2)   NOT NULL CHECK (rating >= 0 AND rating <= 5),
     comment       VARCHAR(300),
     created_date  DATE            NOT NULL DEFAULT CURRENT_DATE
 );
@@ -118,232 +113,21 @@ CREATE TABLE photo_reference (
     s3_bucket_url VARCHAR(500) NOT NULL
 );
 
-0
 
 -- =========================================================
--- CREACIÓN DE VISTAS (PARTE 1)
+-- PARTE 2: LIMPIEZA DE LA BASE DE DATOS
 -- =========================================================
-
--- Vista 1.2: Simplificación
-DROP VIEW IF EXISTS ServiciosDisponibles;
-CREATE VIEW ServiciosDisponibles AS
-SELECT 
-    ca.neighborhood_name AS vecindario,
-    ca.zip_code AS codigo_postal,
-    pr.user_name AS nombre,
-    pr.phone AS telefono,
-    pr.rating AS rating,
-    se.name AS nombre_del_servicio,
-    se.base_price AS precio_base,
-    se.estimated_duration AS duracion_estimada,
-    cat.nombre AS nombre_de_la_categoria
-FROM coverage_areas ca
-JOIN professional_coverage pc ON ca.id_coverage = pc.id_coverage
-JOIN professionals pr ON pc.id_profesional = pr.id_profesional
-JOIN professional_service ps ON ps.id_profesional = pr.id_profesional
-JOIN services se ON se.id_service = ps.id_service
-JOIN categorias cat ON cat.id=se.id_categoria
-WHERE pr.status = 'activo';
-
--- Vista 1.3: Reporte
-DROP VIEW IF EXISTS CategoriasReservadas;
-CREATE VIEW CategoriasReservadas AS
-SELECT 
-    cat.nombre AS categoria,
-    COUNT(b.id_booking) AS total_reservas,
-    SUM(b.total_price) AS ingresos_totales,
-    AVG(b.total_price) AS promedio_valor_reserva
-FROM categorias cat
-JOIN services se ON cat.id = se.id_categoria
-JOIN booking_service bs ON se.id_service = bs.id_service
-JOIN bookings b ON bs.id_booking = b.id_booking
-GROUP BY cat.nombre
-ORDER BY total_reservas DESC;
-
-SELECT * FROM CategoriasReservadas;
-
--- Vista Seguridad / Simplificación
-DROP VIEW IF EXISTS ReservasActivas;
-CREATE VIEW ReservasActivas AS
-SELECT 
-    b.id_booking,
-    c.first_name || ' ' || c.last_name AS cliente,
-    c.email AS correo_cliente,
-    c.phone AS telefono_cliente,
-    pr.user_name AS profesional,
-    b.datetime_start AS fecha_inicio,
-    b.datetime_end AS fecha_fin,
-    b.total_price AS valor_total,
-    b.status AS estado_reserva
-FROM bookings b
-JOIN clients c ON b.id_cliente = c.id_cliente
-JOIN professionals pr ON b.id_profesional = pr.id_profesional
-WHERE b.status IN ('pendiente', 'confirmado');
-
--- =========================================================
--- PARTE 2: USUARIOS Y PERMISOS DEL PROYECTO
--- =========================================================
-
--- Eliminar roles y usuarios si ya existen (para correr el script varias veces)
-DROP USER IF EXISTS usuario_consulta;
-DROP USER IF EXISTS usuario_operador;
-DROP USER IF EXISTS usuario_admin;
-
-DROP ROLE IF EXISTS rol_consulta_barberia;
-DROP ROLE IF EXISTS rol_operador_barberia;
-DROP ROLE IF EXISTS rol_admin_barberia;
-
--- 2.2 CREAR ROLES AGRUPADORES SIN LOGIN
-CREATE ROLE rol_consulta_barberia;
-CREATE ROLE rol_operador_barberia;
-CREATE ROLE rol_admin_barberia;
-
--- CREAR USUARIOS CON LOGIN
-CREATE USER usuario_consulta WITH LOGIN PASSWORD 'Consulta123';
-CREATE USER usuario_operador WITH LOGIN PASSWORD 'Operador123';
-CREATE USER usuario_admin    WITH LOGIN PASSWORD 'Admin123';
-
--- ASIGNAR ROLES A USUARIOS (¡Corrección aplicada aquí!)
-GRANT rol_consulta_barberia TO usuario_consulta;
-GRANT rol_operador_barberia TO usuario_operador;
-GRANT rol_admin_barberia    TO usuario_admin;
-
--- Permiso extra para que TÚ (o postgres) puedas usar SET ROLE y probar
-GRANT rol_consulta_barberia TO CURRENT_USER;
-GRANT rol_operador_barberia TO CURRENT_USER;
-GRANT rol_admin_barberia    TO CURRENT_USER;
-
--- REVOCAR PERMISOS GENERALES A PUBLIC (Principio de mínimo privilegio)
-REVOKE ALL ON SCHEMA public FROM PUBLIC;
-REVOKE ALL ON ALL TABLES IN SCHEMA public FROM PUBLIC;
-REVOKE ALL ON ALL SEQUENCES IN SCHEMA public FROM PUBLIC;
-
--- PERMITIR USO DEL ESQUEMA PUBLIC A LOS ROLES
-GRANT USAGE ON SCHEMA public TO rol_consulta_barberia;
-GRANT USAGE ON SCHEMA public TO rol_operador_barberia;
-GRANT USAGE ON SCHEMA public TO rol_admin_barberia;
-
-
--- PERMISOS PARA ROL CONSULTA
-GRANT SELECT ON ServiciosDisponibles TO rol_consulta_barberia;
-
--- PERMISOS PARA ROL OPERADOR
-GRANT SELECT ON ServiciosDisponibles TO rol_operador_barberia;
-GRANT SELECT ON ReservasActivas TO rol_operador_barberia;
-GRANT SELECT ON CategoriasReservadas TO rol_operador_barberia;
-
-GRANT SELECT, INSERT, UPDATE ON clients TO rol_operador_barberia;
-GRANT SELECT, INSERT, UPDATE ON bookings TO rol_operador_barberia;
-GRANT SELECT, INSERT, UPDATE ON booking_service TO rol_operador_barberia;
-GRANT SELECT, INSERT, UPDATE ON reviews TO rol_operador_barberia;
-
-GRANT SELECT ON services TO rol_operador_barberia;
-GRANT SELECT ON professionals TO rol_operador_barberia;
-GRANT SELECT ON professional_service TO rol_operador_barberia;
-GRANT SELECT ON professional_coverage TO rol_operador_barberia;
-GRANT SELECT ON coverage_areas TO rol_operador_barberia;
-GRANT SELECT ON categorias TO rol_operador_barberia;
-
--- PERMISOS DE SECUENCIAS PARA EL ROL OPERADOR (¡Corrección aplicada aquí!)
--- Necesario para que los INSERT funcionen en tablas con SERIAL
-GRANT USAGE, SELECT ON ALL SEQUENCES IN SCHEMA public TO rol_operador_barberia;
-
-
--- PERMISOS PARA ROL ADMINISTRADOR
-GRANT SELECT ON ServiciosDisponibles TO rol_admin_barberia;
-GRANT SELECT ON ReservasActivas TO rol_admin_barberia;
-GRANT SELECT ON CategoriasReservadas TO rol_admin_barberia;
-
-GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO rol_admin_barberia;
-GRANT ALL PRIVILEGES ON ALL SEQUENCES IN SCHEMA public TO rol_admin_barberia;
-
-
--- =========================================================
--- PARTE 3: PRUEBAS DE ACCESO (¡Correcciones aplicadas aquí!)
--- =========================================================
-
------------------------------------------------------------
--- PRUEBA 1: USUARIO CONSULTA (Solo lectura de vistas permitidas)
------------------------------------------------------------
-SET ROLE usuario_consulta;
-
--- A. Debe funcionar (Tiene permiso sobre la vista)
-SELECT * FROM ServiciosDisponibles LIMIT 5;
-
--- B. Debe fallar (No tiene permiso sobre tablas base o datos sensibles)
--- Error esperado: permission denied for table clients
-SELECT * FROM clients;
-
--- C. Debe fallar (No tiene permiso de escritura)
--- Error esperado: permission denied for table bookings
-INSERT INTO bookings (id_cliente, id_profesional, datetime_start, datetime_end, total_price) 
-VALUES (1, 1, '2024-05-01 10:00', '2024-05-01 11:00', 50000);
-
-RESET ROLE;
-
-
------------------------------------------------------------
--- PRUEBA 2: USUARIO OPERADOR (Gestión de clientes y reservas)
------------------------------------------------------------
-SET ROLE usuario_operador;
-
--- A. Debe funcionar (Puede ver y editar clientes)
-SELECT id_cliente, first_name FROM clients LIMIT 1;
-UPDATE clients SET phone = '3000000000' WHERE id_cliente = 1;
-
--- B. Debe funcionar (Insertar cliente nuevo, requiere permisos de secuencia)
-INSERT INTO clients (first_name, last_name, email, phone, password_hash, address) 
-VALUES ('Juan', 'Perez', 'juan.perez@email.com', '3009998877', 'hash_xyz', 'Centro');
-
--- C. Debe fallar (No tiene permiso de eliminación / DELETE)
--- Error esperado: permission denied for table clients
-DELETE FROM clients WHERE id_cliente = 5;
-
-RESET ROLE;
-
-
------------------------------------------------------------
--- PRUEBA 3: USUARIO ADMINISTRADOR (Acceso total)
------------------------------------------------------------
-SET ROLE usuario_admin;
-
--- A. Debe funcionar (Puede hacer cualquier operación)
-SELECT COUNT(*) FROM brands;
-DELETE FROM photo_reference WHERE id_photo_ref = 999; -- Intentar borrar algo inexistente pero con permiso
-
-RESET ROLE;
-
-
--- =========================================================
--- PROYECTO DE BASES DE DATOS - BeautyAtHome
--- Autor: Santiago Andrés Benavides Coral
--- Asignatura: Bases de Datos
--- Semestre: Sexto
--- ---------------------------------------------------------
--- Este script realiza:
--- 1. Ajustes estructurales de tablas
--- 2. Limpieza y reinicio de datos
--- 3. Inserción de datos de prueba
--- 4. Creación de vistas
--- 5. Configuración de roles y permisos
--- =========================================================
-
--- Agregar la columna faltante photo_url (Ignora el error si ya existe)
-ALTER TABLE professionals ADD COLUMN IF NOT EXISTS photo_url VARCHAR(255);
-
--- =========================================================
--- LIMPIEZA DE LA BASE DE DATOS
--- =========================================================
+-- Reinicia las identidades en cascada para evitar conflictos 
+-- al ejecutar el script múltiples veces.
 
 TRUNCATE TABLE booking_service, professional_coverage, professional_service, photo_reference, reviews, bookings, services, coverage_areas, professionals, clients, brands, categorias RESTART IDENTITY CASCADE;
 
+
 -- =========================================================
+-- PARTE 3: INSERCIÓN DE DATOS DE PRUEBA
+-- =========================================================
+
 -- 1. REGISTRO DE CATEGORÍAS
--- =========================================================
-
--- Inserta las categorías principales disponibles
--- dentro de la plataforma BeautyAtHome.
-
 INSERT INTO categorias (nombre) VALUES 
 ('Cuidado Capilar'),
 ('Cuidado de Uñas'),
@@ -354,13 +138,7 @@ INSERT INTO categorias (nombre) VALUES
 ('Depilación'),
 ('Tratamientos Corporales');
 
--- =========================================================
 -- 2. REGISTRO DE MARCAS
--- =========================================================
-
--- Inserta las marcas y estudios asociados
--- a los profesionales de la plataforma.
-
 INSERT INTO brands (brand_name, logo_url, description) VALUES 
 ('BeautyAtHome Pro', 'https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=150&q=80', 'Marca premium de profesionales exclusivos.'),
 ('Independiente', 'https://images.unsplash.com/photo-1522337660859-02fbefca4702?auto=format&fit=crop&w=150&q=80', 'Talento independiente verificado.'),
@@ -369,13 +147,8 @@ INSERT INTO brands (brand_name, logo_url, description) VALUES
 ('Urban Barber Co.', 'https://images.unsplash.com/photo-1585747860715-2ba37e788b70?auto=format&fit=crop&w=150&q=80', 'Barbería clásica y moderna a domicilio.'),
 ('SkinCare Clinic', 'https://images.unsplash.com/photo-1556228578-0d85b1a4d571?auto=format&fit=crop&w=150&q=80', 'Expertos en dermatología estética y limpieza facial.'),
 ('Lash & Brow Experts', 'https://images.unsplash.com/photo-1588513706465-d421d0a51b5c?auto=format&fit=crop&w=150&q=80', 'Diseño de miradas, pestañas y perfilado de cejas.');
--- =========================================================
+
 -- 3. REGISTRO DE CLIENTES
--- =========================================================
-
--- Inserta clientes de prueba con información básica
--- para realizar reservas dentro del sistema.
-
 INSERT INTO clients (first_name, last_name, email, phone, password_hash, address) VALUES 
 ('Valentina', 'Ríos', 'vale.rios@email.com', '3101234567', 'hash_abc123', 'Cra 7 # 45-10, Chapinero'),
 ('Santiago', 'Morales', 'santi.m@email.com', '3209876543', 'hash_def456', 'Av 19 # 118-30, Usaquén'),
@@ -385,13 +158,7 @@ INSERT INTO clients (first_name, last_name, email, phone, password_hash, address
 ('Daniel', 'Ramírez', 'daniel.r@email.com', '3105556677', 'hash_temp123', 'Calle 100 # 15-20, Chicó'),
 ('Mariana', 'Gómez', 'mariana.g@email.com', '3204445566', 'hash_temp456', 'Carrera 11 # 82-40, Rosales');
 
--- =========================================================
 -- 4. REGISTRO DE PROFESIONALES
--- =========================================================
-
--- Inserta los profesionales disponibles junto
--- con su especialidad y calificación.
-
 INSERT INTO professionals (id_brand, user_name, bio_experience, speciality, photo_url, phone, rating, status) VALUES 
 (1, 'laura_estetica', '5 años en colorimetría y tratamientos capilares modernos.', 'Estilista Capilar', 'https://randomuser.me/api/portraits/women/44.jpg', '3111234567', 4.80, 'activo'),
 (2, 'jorge_nails', 'Especialista en uñas acrílicas, polygel y nail art avanzado.', 'Manicurista', 'https://randomuser.me/api/portraits/men/32.jpg', '3222345678', 4.70, 'activo'),
@@ -404,13 +171,7 @@ INSERT INTO professionals (id_brand, user_name, bio_experience, speciality, phot
 (2, 'isabella_wax', 'Especialista en depilación con cera española y técnica sin dolor.', 'Depiladora', 'https://randomuser.me/api/portraits/women/24.jpg', '3114445566', 4.60, 'activo'),
 (4, 'roberto_masajes', 'Masajista deportivo y descontracturante avanzado.', 'Terapeuta Corporal', 'https://randomuser.me/api/portraits/men/66.jpg', '3157778899', 4.80, 'activo');
 
--- =========================================================
 -- 5. REGISTRO DE SERVICIOS
--- =========================================================
-
--- Inserta los servicios ofrecidos por la plataforma,
--- incluyendo precio base y duración estimada.
-
 INSERT INTO services (id_categoria, name, description, base_price, estimated_duration) VALUES 
 (1, 'Corte de Cabello Mujer', 'Corte moderno incluye lavado y secado rápido.', 45000.0, 45),
 (1, 'Balayage Premium', 'Decoloración técnica balayage con matizante.', 180000.0, 180),
@@ -428,13 +189,7 @@ INSERT INTO services (id_categoria, name, description, base_price, estimated_dur
 (5, 'Lifting de Pestañas', 'Curvado natural de pestañas con keratina.', 60000.0, 60),
 (2, 'Pedicura Spa', 'Limpieza profunda, exfoliación e hidratación.', 45000.0, 60);
 
--- =========================================================
 -- 6. RELACIÓN PROFESIONAL - SERVICIO
--- =========================================================
-
--- Relaciona cada profesional con los servicios
--- que puede ofrecer dentro de la aplicación.
-
 INSERT INTO professional_service (id_profesional, id_service) VALUES 
 (1, 1), (1, 2), (1, 3),    -- laura: Cabello
 (2, 4), (2, 5), (2, 15),   -- jorge: Uñas y pedicure
@@ -446,13 +201,8 @@ INSERT INTO professional_service (id_profesional, id_service) VALUES
 (8, 2), (8, 3),            -- mateo: Balayage, Keratina
 (9, 12),                   -- isabella: Depilación
 (10, 9);                   -- roberto: Masaje descontracturante
--- =========================================================
+
 -- 7. REGISTRO DE ZONAS DE COBERTURA
--- =========================================================
-
--- Inserta los barrios y códigos postales
--- donde opera la plataforma.
-
 INSERT INTO coverage_areas (zip_code, neighborhood_name) VALUES 
 ('110111', 'Chapinero'),
 ('110221', 'Usaquén'),
@@ -463,13 +213,7 @@ INSERT INTO coverage_areas (zip_code, neighborhood_name) VALUES
 ('110611', 'Rosales'),
 ('110711', 'Cedritos');
 
--- =========================================================
 -- 8. RELACIÓN PROFESIONAL - COBERTURA
--- =========================================================
-
--- Asocia los profesionales con las zonas
--- donde prestan sus servicios.
-
 INSERT INTO professional_coverage (id_profesional, id_coverage) VALUES 
 (1, 1), (1, 2), (1, 6),                     
 (2, 1), (2, 3), (2, 5),                      
@@ -482,13 +226,7 @@ INSERT INTO professional_coverage (id_profesional, id_coverage) VALUES
 (9, 2), (9, 3), (9, 8),
 (10, 1), (10, 2), (10, 4), (10, 6);
 
--- =========================================================
 -- 9. REGISTRO DE RESERVAS
--- =========================================================
-
--- Inserta reservas de ejemplo realizadas
--- por clientes a diferentes profesionales.
-
 INSERT INTO bookings (id_cliente, id_profesional, datetime_start, datetime_end, total_price, status) VALUES 
 (1, 1, '2026-05-20 10:00:00', '2026-05-20 12:00:00', 120000.0, 'completado'), -- Valentina con Laura (Balayage)
 (2, 2, '2026-05-21 14:00:00', '2026-05-21 15:30:00', 80000.0, 'completado'),  -- Santiago con Jorge (Uñas Acrílicas)
@@ -503,13 +241,7 @@ INSERT INTO bookings (id_cliente, id_profesional, datetime_start, datetime_end, 
 (4, 1, '2026-06-01 16:00:00', '2026-06-01 16:45:00', 45000.0, 'confirmado'),  -- Corte cabello confirmado
 (5, 2, '2026-06-02 11:00:00', '2026-06-02 12:00:00', 35000.0, 'cancelado');   -- Manicura cancelada
 
--- =========================================================
 -- 10. RELACIÓN RESERVA - SERVICIO
--- =========================================================
-
--- Relaciona las reservas con el servicio
--- solicitado por el cliente.
-
 INSERT INTO booking_service (id_booking, id_service) VALUES 
 (1, 2),   -- Balayage Premium
 (2, 5),   -- Uñas Acrílicas
@@ -524,13 +256,7 @@ INSERT INTO booking_service (id_booking, id_service) VALUES
 (11, 1),  -- Corte mujer
 (12, 4);  -- Manicura Semipermanente
 
--- =========================================================
--- 12. REGISTRO DE FOTOS DE RESEÑAS
--- =========================================================
-
--- Guarda imágenes relacionadas con las
--- reseñas publicadas por los clientes.
-
+-- 11. REGISTRO DE FOTOS DE RESEÑAS
 INSERT INTO reviews (id_booking, rating, comment, created_date) VALUES 
 (1, 5.00, 'El balayage quedó espectacular, Laura cuida muchísimo el cabello.', '2026-05-20'),
 (2, 4.80, 'Mis uñas acrílicas quedaron hermosas, Jorge tiene mucho talento para el nail art.', '2026-05-21'),
@@ -540,26 +266,33 @@ INSERT INTO reviews (id_booking, rating, comment, created_date) VALUES
 (6, 5.00, 'Increíble masaje, se me quitó todo el estrés de la semana.', '2026-05-24'),
 (7, 4.80, 'Las pestañas quedaron muy naturales, no ardió nada.', '2026-05-25');
 
--- =========================================================
--- 12. Insertar Referencias de Fotos a las Reseñas
--- =========================================================
+-- 12. REFERENCIAS DE FOTOS A LAS RESEÑAS
 INSERT INTO photo_reference (id_review, photo, s3_bucket_url) VALUES 
 (1, 'resultado_balayage.jpg', 'https://images.unsplash.com/photo-1595476108010-b4d1f10d5e43?auto=format&fit=crop&w=300&q=80'),
 (2, 'unas_acrilicas.jpg', 'https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=300&q=80'),
 (3, 'maquillaje_social.jpg', 'https://images.unsplash.com/photo-1512496115841-3450283a20d7?auto=format&fit=crop&w=300&q=80'),
 (6, 'cuarto_masajes.jpg', 'https://images.unsplash.com/photo-1544161515-4ab6ce6db874?auto=format&fit=crop&w=300&q=80');
 
+
 -- =========================================================
--- PARTE 2: VISTAS Y ROLES
+-- PARTE 4: CREACIÓN DE VISTAS (DOCUMENTADAS)
 -- =========================================================
 
--- Vista 1.2: Simplificación
+-- ---------------------------------------------------------
+-- VISTA: ServiciosDisponibles
+-- Propósito: Simplifica la búsqueda de profesionales en la aplicación,
+-- uniendo el portafolio de servicios con la zona de cobertura.
+-- Lógica: Combina las tablas de cobertura (coverage_areas), profesionales (professionals),
+-- servicios (services) y sus tablas puente (professional_coverage, professional_service).
+-- Filtra únicamente a los profesionales con estado 'activo'.
+-- Usada en: Endpoints GET /api/professionals y búsqueda en el frontend.
+-- ---------------------------------------------------------
 DROP VIEW IF EXISTS ServiciosDisponibles;
 CREATE VIEW ServiciosDisponibles AS
 SELECT 
     ca.neighborhood_name AS vecindario,
     ca.zip_code AS codigo_postal,
-    pr.user_name AS nombre,
+    pr.user_name AS nombre_profesional,
     pr.phone AS telefono,
     pr.rating AS rating,
     se.name AS nombre_del_servicio,
@@ -571,12 +304,18 @@ JOIN professional_coverage pc ON ca.id_coverage = pc.id_coverage
 JOIN professionals pr ON pc.id_profesional = pr.id_profesional
 JOIN professional_service ps ON ps.id_profesional = pr.id_profesional
 JOIN services se ON se.id_service = ps.id_service
-JOIN categorias cat ON cat.id=se.id_categoria
+JOIN categorias cat ON cat.id = se.id_categoria
 WHERE pr.status = 'activo';
 
-SELECT * FROM ServiciosDisponibles;
 
--- Vista 1.3: Reporte
+-- ---------------------------------------------------------
+-- VISTA: CategoriasReservadas
+-- Propósito: Genera un reporte agregado sobre el rendimiento de las categorías.
+-- Lógica: Realiza un COUNT y SUM basados en los servicios asociados a las reservas,
+-- agrupando la información por el nombre de la categoría. Esta vista utiliza
+-- funciones de agregación para determinar métricas clave de negocio (Business Intelligence).
+-- Usada en: Endpoint GET /api/reports/categorias para construir el dashboard administrativo.
+-- ---------------------------------------------------------
 DROP VIEW IF EXISTS CategoriasReservadas;
 CREATE VIEW CategoriasReservadas AS
 SELECT 
@@ -591,9 +330,15 @@ JOIN bookings b ON bs.id_booking = b.id_booking
 GROUP BY cat.nombre
 ORDER BY total_reservas DESC;
 
-SELECT * FROM CategoriasReservadas;
 
--- Vista Seguridad / Simplificación
+-- ---------------------------------------------------------
+-- VISTA: ReservasActivas
+-- Propósito: Proporciona una vista consolidada y segura de las agendas activas,
+-- ocultando datos confidenciales como contraseñas de usuarios.
+-- Lógica: Cruza la tabla bookings con clients y professionals para obtener
+-- nombres legibles en lugar de IDs, filtrando solo reservas 'pendientes' o 'confirmadas'.
+-- Usada en: Panel de control de operadores para seguimiento en tiempo real.
+-- ---------------------------------------------------------
 DROP VIEW IF EXISTS ReservasActivas;
 CREATE VIEW ReservasActivas AS
 SELECT 
@@ -611,12 +356,12 @@ JOIN clients c ON b.id_cliente = c.id_cliente
 JOIN professionals pr ON b.id_profesional = pr.id_profesional
 WHERE b.status IN ('pendiente', 'confirmado');
 
-SELECT * FROM ReservasActivas;
 
 -- =========================================================
--- PARTE 3: USUARIOS Y PERMISOS DEL PROYECTO
+-- PARTE 5: USUARIOS, ROLES Y PERMISOS DE SEGURIDAD
 -- =========================================================
 
+-- Limpiar configuración previa de seguridad
 DROP USER IF EXISTS usuario_consulta;
 DROP USER IF EXISTS usuario_operador;
 DROP USER IF EXISTS usuario_admin;
@@ -625,77 +370,71 @@ DROP ROLE IF EXISTS rol_consulta_barberia;
 DROP ROLE IF EXISTS rol_operador_barberia;
 DROP ROLE IF EXISTS rol_admin_barberia;
 
+-- 1. CREACIÓN DE ROLES AGRUPADORES
 CREATE ROLE rol_consulta_barberia;
 CREATE ROLE rol_operador_barberia;
 CREATE ROLE rol_admin_barberia;
 
+-- 2. CREACIÓN DE USUARIOS DEL SISTEMA
 CREATE USER usuario_consulta WITH LOGIN PASSWORD 'Consulta123';
 CREATE USER usuario_operador WITH LOGIN PASSWORD 'Operador123';
 CREATE USER usuario_admin    WITH LOGIN PASSWORD 'Admin123';
 
+-- 3. ASIGNACIÓN DE ROLES A USUARIOS
 GRANT rol_consulta_barberia TO usuario_consulta;
 GRANT rol_operador_barberia TO usuario_operador;
 GRANT rol_admin_barberia    TO usuario_admin;
 
--- Permiso para que postgres pueda usar SET ROLE y probar
+-- (Opcional) Permiso para que el administrador actual pruebe los roles mediante SET ROLE
 GRANT rol_consulta_barberia TO CURRENT_USER;
 GRANT rol_operador_barberia TO CURRENT_USER;
 GRANT rol_admin_barberia    TO CURRENT_USER;
 
--- PERMITIR USO DEL ESQUEMA PUBLIC A LOS ROLES
+-- 4. CONFIGURACIÓN DEL ESQUEMA PUBLIC
+-- Revocar todos los accesos por defecto y otorgarlos explícitamente a los roles
+REVOKE ALL ON SCHEMA public FROM PUBLIC;
+REVOKE ALL ON ALL TABLES IN SCHEMA public FROM PUBLIC;
+REVOKE ALL ON ALL SEQUENCES IN SCHEMA public FROM PUBLIC;
+
 GRANT USAGE ON SCHEMA public TO rol_consulta_barberia;
 GRANT USAGE ON SCHEMA public TO rol_operador_barberia;
 GRANT USAGE ON SCHEMA public TO rol_admin_barberia;
 
--- PERMISOS PARA ROL CONSULTA
+-- 5. PERMISOS: ROL CONSULTA (Solo Lectura Limitada)
 GRANT SELECT ON ServiciosDisponibles TO rol_consulta_barberia;
 
--- PERMISOS PARA ROL OPERADOR
+-- 6. PERMISOS: ROL OPERADOR (Operación diaria del negocio)
 GRANT SELECT ON ServiciosDisponibles TO rol_operador_barberia;
 GRANT SELECT ON ReservasActivas TO rol_operador_barberia;
 GRANT SELECT ON CategoriasReservadas TO rol_operador_barberia;
 
+-- Permisos DML sobre tablas transaccionales (CRUD menos Delete)
 GRANT SELECT, INSERT, UPDATE ON clients TO rol_operador_barberia;
 GRANT SELECT, INSERT, UPDATE ON bookings TO rol_operador_barberia;
 GRANT SELECT, INSERT, UPDATE ON booking_service TO rol_operador_barberia;
 GRANT SELECT, INSERT, UPDATE ON reviews TO rol_operador_barberia;
+GRANT SELECT, INSERT, UPDATE ON brands TO rol_operador_barberia;
+GRANT SELECT, INSERT, UPDATE ON photo_reference TO rol_operador_barberia;
 
+-- Permisos solo lectura sobre catálogos
 GRANT SELECT ON services TO rol_operador_barberia;
 GRANT SELECT ON professionals TO rol_operador_barberia;
 GRANT SELECT ON professional_service TO rol_operador_barberia;
 GRANT SELECT ON professional_coverage TO rol_operador_barberia;
 GRANT SELECT ON coverage_areas TO rol_operador_barberia;
 GRANT SELECT ON categorias TO rol_operador_barberia;
-GRANT SELECT ON photo_reference TO rol_operador_barberia;
-GRANT SELECT ON brands TO rol_operador_barberia;
 
--- PERMISOS DE SECUENCIAS PARA EL ROL OPERADOR
+-- Permisos sobre secuencias (Vital para realizar INSERTs)
 GRANT USAGE, SELECT ON ALL SEQUENCES IN SCHEMA public TO rol_operador_barberia;
 
--- PERMISOS PARA ROL ADMINISTRADOR
+-- 7. PERMISOS: ROL ADMIN (Control Total)
 GRANT SELECT ON ServiciosDisponibles TO rol_admin_barberia;
 GRANT SELECT ON ReservasActivas TO rol_admin_barberia;
 GRANT SELECT ON CategoriasReservadas TO rol_admin_barberia;
 
 GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO rol_admin_barberia;
 GRANT ALL PRIVILEGES ON ALL SEQUENCES IN SCHEMA public TO rol_admin_barberia;
+
+-- Parche de permisos para usuario_operador (como estaba en tu script original)
 GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO usuario_operador;
 GRANT ALL PRIVILEGES ON ALL SEQUENCES IN SCHEMA public TO usuario_operador;
-
-GRANT SELECT, INSERT, UPDATE ON brands TO rol_operador_barberia;
-GRANT SELECT, INSERT, UPDATE ON photo_reference TO rol_operador_barberia;
-
--- Restricción UNIQUE (El email no se puede repetir)
-ALTER TABLE clients ADD CONSTRAINT uq_client_email UNIQUE (email);
-
--- Restricción DEFAULT (Las reservas inician en pendiente)
-ALTER TABLE bookings ALTER COLUMN status SET DEFAULT 'pendiente';
-
--- Restricción CHECK (El rating debe ser entre 0 y 5)
-ALTER TABLE professionals ADD CONSTRAINT chk_rating CHECK (rating >= 0 AND rating <= 5);
-
--- PRUEBAS DE BD PARA ACTUALIZACIONES EN PRODUCCIÓN
-SELECT * FROM clients;
-SELECT * FROM professionals;
-SELECT * FROM bookings;
-SELECT * FROM reviews;
