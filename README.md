@@ -1,13 +1,21 @@
 # BeautyAtHome - Sistema de Gestión de Belleza a Domicilio
 
-**Creador:** Santiago Andrés Benavides Coral - 20232020036
-**Asignatura:** Bases de Datos
 
 ## Descripción General del Proyecto
 
 **BeautyAtHome** es una plataforma integral diseñada para conectar a profesionales de la belleza (estilistas, maquilladores, masajistas, etc.) con clientes que buscan servicios a domicilio. La aplicación permite gestionar usuarios (clientes y profesionales), reservar servicios, registrar catálogos, asignar coberturas por zonas, y calificar las experiencias recibidas.
 
 El proyecto está diseñado con un fuerte enfoque en el **diseño y gestión de Bases de Datos Relacionales**, garantizando la integridad referencial, el manejo de relaciones (One-to-Many, Many-to-Many), y la persistencia de datos mediante un ORM (Object-Relational Mapping).
+
+## Integrantes:
+
+**Creador:** Santiago Andrés Benavides Coral - 20232020036
+**Creador:** Miguel Andres Contreras Rodriguez - 20232020020
+**Asignatura:** Bases de Datos
+
+## Requisitos previos
+
+Java 21, PostgresSql, VS Code
 
 ## Arquitectura de la Base de Datos
 
@@ -40,5 +48,9 @@ La aplicación utiliza **PostgreSQL** como motor de base de datos principal, int
    ```
 5. Accede a la aplicación desde tu navegador en `http://localhost:8080`.
 
+
+## Imagen ERD
+
+![Imagen Enditad Relacion](./Docs/ER.PNG)
 
 ---
