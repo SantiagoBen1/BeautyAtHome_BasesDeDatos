@@ -11,6 +11,9 @@ El proyecto está diseñado con un fuerte enfoque en el **diseño y gestión de 
 
 **Creador:** Santiago Andrés Benavides Coral - 20232020036
 **Creador:** Miguel Andres Contreras Rodriguez - 20232020020
+**Creador:** Sergio Nicolas Osorio Guevara - 20241020073
+**Creador:** Adiel Valentin Hernandez  - 20201020144
+
 **Asignatura:** Bases de Datos
 
 ## Requisitos previos
@@ -40,7 +43,7 @@ La aplicación utiliza **PostgreSQL** como motor de base de datos principal, int
 ## Instrucciones de Ejecución
 
 1. Asegúrate de tener **PostgreSQL** corriendo localmente (puerto `5432`).
-2. Crea una base de datos vacía llamada `beautyathome` y ejecuta el script de `createTables.sql`,seguido del script `data.sql` en tu gestor de base de datos para cargar los datos de demostración y visualizar el funcionamiento completo.
+2. Crea una base de datos vacía llamada `beautyathome` y ejecuta el script de `data.sql` en tu gestor de base de datos para cargar los datos de demostración y visualizar el funcionamiento completo.
 3. Navega al directorio `/backend/beautyathome` en tu terminal.
 4. Ejecuta el comando:
    ```bash
