@@ -1,6 +1,5 @@
 package com.beautyathome.services;
 
-
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -54,18 +53,18 @@ public class BeautyAtHomeFacade {
     private final ReviewGuardProxy reviewGuardProxy;
     private final ConsentProxy consentProxy;
 
-    public BeautyAtHomeFacade(ClientRepository clientRepositoryPort, 
-                              ProfessionalRepository professionalRepositoryPort,
-                              BookingRepository bookingRepositoryPort, 
-                              ServiceRepository serviceRepositoryPort,
-                              ReviewRepository reviewRepositoryPort,
-                              ProfessionalAbstractFactory professionalFactory,
-                              ServiceDirector serviceDirector,
-                              PricingStrategy pricingStrategy,
-                              BookingService bookingService,
-                              CommandInvoker commandInvoker,
-                              ReviewGuardProxy reviewGuardProxy,
-                              ConsentProxy consentProxy) {
+    public BeautyAtHomeFacade(ClientRepository clientRepositoryPort,
+            ProfessionalRepository professionalRepositoryPort,
+            BookingRepository bookingRepositoryPort,
+            ServiceRepository serviceRepositoryPort,
+            ReviewRepository reviewRepositoryPort,
+            ProfessionalAbstractFactory professionalFactory,
+            ServiceDirector serviceDirector,
+            PricingStrategy pricingStrategy,
+            BookingService bookingService,
+            CommandInvoker commandInvoker,
+            ReviewGuardProxy reviewGuardProxy,
+            ConsentProxy consentProxy) {
         this.clientRepositoryPort = clientRepositoryPort;
         this.professionalRepositoryPort = professionalRepositoryPort;
         this.bookingRepositoryPort = bookingRepositoryPort;
@@ -94,8 +93,7 @@ public class BeautyAtHomeFacade {
                 (String) data.getOrDefault("email", ""),
                 (String) data.getOrDefault("phone", "0000000000"),
                 (String) data.getOrDefault("address", "N/A"),
-                (String) data.get("password")
-        );
+                (String) data.get("password"));
         return registerClient(client);
     }
 
@@ -103,13 +101,19 @@ public class BeautyAtHomeFacade {
      * Persiste un cliente asegurando que tenga identificador.
      *
      * @param client entidad a guardar
-     * @return cliente persistido con id vÃ¡lido
+     * @return cliente persistido con id válido
      */
     public Client registerClient(Client client) {
         Objects.requireNonNull(client, "client");
         Client normalized = client.getId() == null || client.getId().isBlank()
-                ? new Client("", client.getName(), client.getEmail(), client.getPhone(), client.getAddress(), client.getPassword())
+                ? new Client("", client.getName(), client.getEmail(), client.getPhone(), client.getAddress(),
+                        client.getPassword())
                 : client;
+
+        if (!normalized.getId().isBlank() && clientRepositoryPort.findById(normalized.getId()).isPresent()) {
+            throw new IllegalArgumentException("Ya existe un cliente registrado con el ID " + normalized.getId());
+        }
+
         return clientRepositoryPort.save(normalized);
     }
 
@@ -138,9 +142,9 @@ public class BeautyAtHomeFacade {
     }
 
     /**
-     * Busca profesionales filtrando por zona y categorÃ­a solicitadas.
+     * Busca profesionales filtrando por zona y categorí­a solicitadas.
      *
-     * @param zone zona geogrÃ¡fica deseada
+     * @param zone     zona geogrÃ¡fica deseada
      * @param category categorÃ­a de servicio
      * @return lista filtrada de profesionales
      */
@@ -165,19 +169,19 @@ public class BeautyAtHomeFacade {
      * Crea un servicio simple asociado a una profesional validada.
      *
      * @param professionalId id de la profesional propietaria
-     * @param name nombre del servicio
-     * @param description descripciÃ³n comercial
-     * @param price precio base
-     * @param duration duraciÃ³n estimada en minutos
-     * @param imageUrls galerÃ­a de soporte
+     * @param name           nombre del servicio
+     * @param description    descripciÃ³n comercial
+     * @param price          precio base
+     * @param duration       duraciÃ³n estimada en minutos
+     * @param imageUrls      galerÃ­a de soporte
      * @return servicio persistido
      */
     public ServiceComponent createBasicService(String professionalId,
-                                               String name,
-                                               String description,
-                                               double price,
-                                               int duration,
-                                               List<String> imageUrls) {
+            String name,
+            String description,
+            double price,
+            int duration,
+            List<String> imageUrls) {
         if (professionalRepositoryPort.findById(professionalId).orElse(null) == null) {
             throw new IllegalArgumentException("Professional not found: " + professionalId);
         }
@@ -188,34 +192,35 @@ public class BeautyAtHomeFacade {
     /**
      * Variante abreviada para reservar un servicio sin zona especÃ­fica.
      *
-     * @param clientId cliente que agenda
+     * @param clientId       cliente que agenda
      * @param professionalId profesional asignada
-     * @param serviceId servicio a ejecutar
-     * @param dateTime fecha y hora deseada
+     * @param serviceId      servicio a ejecutar
+     * @param dateTime       fecha y hora deseada
      * @return reserva confirmada
      */
     public Booking bookService(String clientId,
-                               String professionalId,
-                               java.util.List<String> serviceIds,
-                               LocalDateTime dateTime) {
+            String professionalId,
+            java.util.List<String> serviceIds,
+            LocalDateTime dateTime) {
         return bookService(clientId, professionalId, serviceIds, dateTime, null);
     }
 
     /**
-     * Reserva un servicio tras validar existencia de entidades y cÃ¡lculo de precio.
+     * Reserva un servicio tras validar existencia de entidades y cÃ¡lculo de
+     * precio.
      *
-     * @param clientId cliente que agenda
+     * @param clientId       cliente que agenda
      * @param professionalId profesional asignada
-     * @param serviceId servicio solicitado
-     * @param dateTime fecha/hora solicitada
-     * @param zone zona opcional para cobertura
+     * @param serviceId      servicio solicitado
+     * @param dateTime       fecha/hora solicitada
+     * @param zone           zona opcional para cobertura
      * @return reserva persistida y notificada
      */
     public Booking bookService(String clientId,
-                               String professionalId,
-                               java.util.List<String> serviceIds,
-                               LocalDateTime dateTime,
-                               String zone) {
+            String professionalId,
+            java.util.List<String> serviceIds,
+            LocalDateTime dateTime,
+            String zone) {
         ServiceComponent service = serviceRepositoryPort.findById(serviceIds.get(0)).orElse(null);
         Client client = clientRepositoryPort.findById(clientId).orElse(null);
         Professional professional = professionalRepositoryPort.findById(professionalId).orElse(null);
@@ -244,7 +249,8 @@ public class BeautyAtHomeFacade {
         booking.attach(new ClientNotificationObserver(client));
         booking.attach(new ProfessionalNotificationObserver(professional));
         Booking persisted = bookingRepositoryPort.save(booking);
-        // El cÃ¡lculo de precios se mantiene para integraciones futuras (facturaciÃ³n, etc.)
+        // El cÃ¡lculo de precios se mantiene para integraciones futuras (facturaciÃ³n,
+        // etc.)
         return persisted;
     }
 
@@ -267,8 +273,8 @@ public class BeautyAtHomeFacade {
      * Crea una reseÃ±a aplicando la protecciÃ³n del proxy anti-duplicados.
      *
      * @param bookingId reserva evaluada
-     * @param rating calificaciÃ³n de 1-5
-     * @param text comentario opcional
+     * @param rating    calificaciÃ³n de 1-5
+     * @param text      comentario opcional
      * @return reseÃ±a persistida
      */
     public Review addReview(String bookingId, int rating, String text) {
@@ -276,11 +282,12 @@ public class BeautyAtHomeFacade {
     }
 
     /**
-     * Registra una fotografÃ­a y la marca como pÃºblica Ãºnicamente con consentimiento.
+     * Registra una fotografÃ­a y la marca como pÃºblica Ãºnicamente con
+     * consentimiento.
      *
      * @param bookingId reserva asociada
-     * @param url ubicaciÃ³n de origen de la foto
-     * @param isPublic indicador de publicaciÃ³n solicitada
+     * @param url       ubicaciÃ³n de origen de la foto
+     * @param isPublic  indicador de publicaciÃ³n solicitada
      */
     public void uploadPhoto(String bookingId, String url, boolean isPublic) {
         consentProxy.addPhoto(bookingId, url, isPublic);
@@ -360,8 +367,8 @@ public class BeautyAtHomeFacade {
         }
         return professional.getServicesOffered().stream().anyMatch(service -> {
             if (service instanceof ServiceLeaf leaf && leaf.getCategory() != null
-                && leaf.getCategory().getName() != null
-                && leaf.getCategory().getName().toLowerCase(Locale.ROOT).contains(normalized)) {
+                    && leaf.getCategory().getName() != null
+                    && leaf.getCategory().getName().toLowerCase(Locale.ROOT).contains(normalized)) {
                 return true;
             }
             String serviceName = service.getName();
