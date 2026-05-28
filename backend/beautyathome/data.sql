@@ -685,6 +685,15 @@ GRANT ALL PRIVILEGES ON ALL SEQUENCES IN SCHEMA public TO usuario_operador;
 GRANT SELECT, INSERT, UPDATE ON brands TO rol_operador_barberia;
 GRANT SELECT, INSERT, UPDATE ON photo_reference TO rol_operador_barberia;
 
+-- Restricción UNIQUE (El email no se puede repetir)
+ALTER TABLE clients ADD CONSTRAINT uq_client_email UNIQUE (email);
+
+-- Restricción DEFAULT (Las reservas inician en pendiente)
+ALTER TABLE bookings ALTER COLUMN status SET DEFAULT 'pendiente';
+
+-- Restricción CHECK (El rating debe ser entre 0 y 5)
+ALTER TABLE professionals ADD CONSTRAINT chk_rating CHECK (rating >= 0 AND rating <= 5);
+
 -- PRUEBAS DE BD PARA ACTUALIZACIONES EN PRODUCCIÓN
 SELECT * FROM clients;
 SELECT * FROM professionals;

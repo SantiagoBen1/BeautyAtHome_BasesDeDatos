@@ -73,7 +73,6 @@ com\beautyathome\domain\booking\observer\ProfessionalNotificationObserver.class
 com\beautyathome\dto\viewmodel\ProfessionalShowcase.class
 com\beautyathome\controllers\BookingController.class
 com\beautyathome\domain\professional\factory\ProfessionalAbstractFactory.class
-com\beautyathome\controllers\ProfessionalController.class
 com\beautyathome\domain\booking\state\PendingState.class
 com\beautyathome\entities\CoverageAreaEntity.class
 com\beautyathome\services\validation\AvailabilityValidationHandler.class
