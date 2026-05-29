@@ -15,6 +15,7 @@ El proyecto está diseñado con un fuerte enfoque en el **diseño y gestión de 
 **Creador:** Adiel Valentin Hernandez  - 20201020144
 
 **Asignatura:** Bases de Datos
+**Profesor:** Rene Alejandor Lobo Quintero
 
 ## Requisitos previos
 
